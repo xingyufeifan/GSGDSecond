@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context="com.nandi.gsgdsecond.activity.DisasterListActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:padding="5dp"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_photo"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/no_image"
+            />
+        <TextView
+            android:id="@+id/tv_name"
+            android:text="地面新裂缝"
+            android:layout_margin="10dp"
+            android:textColor="@color/text_color"
+            android:textSize="18sp"
+            android:layout_toRightOf="@+id/iv_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <CheckBox
+            android:id="@+id/cb_is_find"
+            android:layout_toRightOf="@+id/iv_photo"
+            android:layout_alignBottom="@+id/iv_photo"
+            android:layout_width="wrap_content"
+            android:text="是否发现"
+            android:textColor="@color/button_disabled_focused_border"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/iv_take_photo"
+            android:src="@drawable/take_photo"
+            android:layout_width="70dp"
+            android:padding="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_height="70dp" />
+    </RelativeLayout>
+    <TextView
+        android:background="@color/button_disabled_focused_border"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+</LinearLayout>

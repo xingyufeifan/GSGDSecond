@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#112945</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorgray">#D6D6D6</color>
+    <color name="colorblue">#1E90FF</color>
+    <color name="colorblue2">#ffC6E2FF</color>
+    <color name="colorblack">#000000</color>
+    <color name="colorwhite">#ffffff</color>
+    <color name="color_white">#ffffff</color>
+    <color name="dark_blue">#1100ff</color>
+
+    <color name="color_circular_1">#FF3030</color>
+    <color name="color_circular_2">#FF7F00</color>
+    <color name="color_circular_3">#FFFF00</color>
+    <color name="color_circular_4">#1E90FF</color>
+    <color name="color_circular_5">#9AFF9A</color>
+
+    <color name="color_touming">#77ffffff</color>
+
+    <color name="color_solid1">#616161</color>
+    <color name="color_solid">#99D6D6D6</color>
+    <color name="color_title">#000000</color>
+    <color name="color_neirong">#ffffff</color>
+
+    <color name="white">#ffffff</color>
+    <color name="relic_text_color">#2caeaa</color>
+    <color name="relic_text_edit_color">#2caeaa</color>
+    <color name="color_red">#FF3030</color>
+    <color name="color_green">#9AFF9A</color>
+    <color name="color_green_pie">#2bc208</color>
+    <color name="color_red_pie">#ec063d</color>
+
+    <color name="primary_text">#555555</color>
+    <color name="secondary_text">#757575</color>
+    <color name="icons">#FFFFFF</color>
+    <color name="divider">#BDBDBD</color>
+
+    <color name="button_color_light">#77BBBBBB</color>
+    <color name="button_color_dark">#999999</color>
+    <color name="button_color_disabled">#FF430000</color>
+    <color name="button_default_border">#FF444444</color>
+    <color name="button_focused_border">#FFAAAAAA</color>
+    <color name="button_disabled_focused_border">#FF888888</color>
+    <color name="trans_white">#20ffffff</color>
+    <color name="edit_text_bg">#22bbc2</color>
+    <color name="main_bg">#fafafa</color>
+    <color name="title_bg">#15d1c2</color>
+    <color name="text_color">#333333</color>
+</resources>
