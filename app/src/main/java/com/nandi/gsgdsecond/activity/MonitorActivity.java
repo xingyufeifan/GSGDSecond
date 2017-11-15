@@ -14,6 +14,7 @@ import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
@@ -214,7 +215,13 @@ public class MonitorActivity extends AppCompatActivity {
                 save();
                 break;
             case R.id.btn_upload:
-                upload();
+                String otherThings = etDilie.getText().toString().trim();
+                if (TextUtils.isEmpty(otherThings)){
+                    ToastUtils.showShort(context,"信息填写不完整");
+                }else {
+
+                upload(otherThings);
+                }
                 break;
             case R.id.iv_back:
                 back();
@@ -289,9 +296,8 @@ public class MonitorActivity extends AppCompatActivity {
         }
     }
 
-    private void upload() {
+    private void upload(String otherThings) {
         progressBar.show("正在上传...");
-        String otherThings = etDilie.getText().toString().trim();
         String serialNo = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date());
         Map<String, String> map = new HashMap<>();
         map.put("serialNo", serialNo);
