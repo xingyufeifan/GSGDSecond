@@ -42,10 +42,11 @@
     <color name="button_color_disabled">#FF430000</color>
     <color name="button_default_border">#FF444444</color>
     <color name="button_focused_border">#FFAAAAAA</color>
-    <color name="button_disabled_focused_border">#FF888888</color>
+    <color name="button_disabled_focused_border">#e0e0e0</color>
     <color name="trans_white">#20ffffff</color>
-    <color name="edit_text_bg">#22bbc2</color>
+    <!--<color name="edit_text_bg">#22bbc2</color>-->
+    <color name="edit_text_bg">#0b4783</color>
     <color name="main_bg">#fafafa</color>
-    <color name="title_bg">#15d1c2</color>
-    <color name="text_color">#333333</color>
+    <color name="title_bg">#113b64</color>
+    <color name="text_color">#4F4F4F</color>
 </resources>

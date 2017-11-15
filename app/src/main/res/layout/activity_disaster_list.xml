@@ -26,7 +26,7 @@
             android:text="宏观观测"
             android:layout_centerInParent="true"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="22sp" />
         <ImageView
             android:layout_alignParentRight="true"
             android:id="@+id/iv_call"
@@ -83,10 +83,10 @@
         android:layout_above="@+id/ll_save"
         android:layout_height="wrap_content">
         <TextView
-            android:text="坐标信息:"
+            android:text="坐标"
             android:textColor="@color/title_bg"
             android:textSize="18sp"
-            android:paddingRight="5dp"
+            android:paddingRight="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
