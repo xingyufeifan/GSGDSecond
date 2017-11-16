@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,9 +8,11 @@
     tools:context="com.nandi.gsgdsecond.activity.MonitorActivity">
 
     <RelativeLayout
+        android:id="@+id/monitor_title"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/title_bg">
+        android:background="@color/title_bg"
+        android:layout_alignParentTop="true">
 
         <ImageView
             android:id="@+id/iv_back"
@@ -35,13 +37,15 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="5dp"
-            android:src="@drawable/telephone" />
+            android:src="@drawable/telephone1" />
     </RelativeLayout>
 
 
     <LinearLayout
+        android:id="@+id/ll_disaster_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/monitor_title"
         android:padding="10dp" >
 
         <TextView
@@ -59,19 +63,23 @@
             android:layout_gravity="center_vertical"
             android:layout_weight="4"
             android:textColor="@color/button_color_dark"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
     </LinearLayout>
 
     <TextView
+        android:id="@+id/tv1"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:layout_below="@id/ll_disaster_name"
         android:background="@color/button_disabled_focused_border" />
 
     <LinearLayout
+        android:id="@+id/ll_monitor_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/tv1"
         android:padding="10dp">
 
         <TextView
@@ -89,14 +97,16 @@
             android:layout_gravity="center_vertical"
             android:layout_weight="4"
             android:textColor="@color/button_color_dark"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
     </LinearLayout>
 
     <TextView
+        android:id="@+id/tv2"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:layout_below="@id/ll_monitor_name"
         android:background="@color/button_disabled_focused_border" />
 
     <LinearLayout
@@ -104,12 +114,16 @@
         android:id="@+id/ll_yuliang"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_below="@id/tv2">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp">
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp">
 
             <TextView
                 android:layout_width="0dp"
@@ -128,7 +142,7 @@
                 android:layout_weight="4"
                 android:text="是否清空雨量筒"
                 android:textColor="@color/button_color_dark"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
         </LinearLayout>
 
         <TextView
@@ -140,10 +154,12 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:focusable="true"
         android:focusableInTouchMode="true"
+        android:layout_below="@id/ll_yuliang"
         android:padding="10dp">
 
         <TextView
@@ -165,20 +181,24 @@
             android:hint="请输入信息..."
             android:background="@null"
             android:inputType="number|numberDecimal"
-            android:textColor="@color/button_color_dark"
-            android:textSize="16sp" />
+            android:textColor="@color/relic_text_color"
+            android:textSize="18sp" />
     </LinearLayout>
 
     <TextView
+        android:id="@+id/tv3"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:layout_below="@id/ll_type"
         android:background="@color/button_disabled_focused_border" />
 
     <LinearLayout
+        android:id="@+id/ll_happen_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/tv3"
         android:padding="10dp">
 
         <TextView
@@ -196,20 +216,24 @@
             android:layout_gravity="center_vertical"
             android:layout_weight="4"
             android:textColor="@color/button_color_dark"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
     </LinearLayout>
 
     <TextView
+        android:id="@+id/tv4"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:layout_below="@id/ll_happen_time"
         android:background="@color/button_disabled_focused_border" />
 
     <LinearLayout
+        android:id="@+id/ll_photo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:layout_below="@id/tv4"
         android:orientation="vertical">
 
         <TextView
@@ -224,15 +248,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_margin="10dp"
+            android:layout_marginBottom="10dp"
             android:src="@drawable/add_photo" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_height="50dp"
         android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
         android:padding="5dp">
 
         <Button
@@ -256,4 +280,4 @@
             android:textColor="@color/white"
             android:textSize="18sp" />
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

@@ -11,5 +11,5 @@
         android:padding="10dp"
         android:text="宏观观测"
         android:layout_marginLeft="20dp"
-        android:textSize="16sp" />
+        android:textSize="18sp" />
 </LinearLayout>

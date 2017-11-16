@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:text="正在连接，请稍后..."
         android:layout_marginTop="10dp"
-        android:textColor="#0033ff"
+        android:textColor="@color/title_bg"
         android:layout_below="@+id/progressBar1"/>
 	</LinearLayout>
 

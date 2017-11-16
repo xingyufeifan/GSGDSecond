@@ -16,7 +16,7 @@
             android:id="@+id/iv_menu"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="8dp"
             android:layout_centerVertical="true"
             android:src="@mipmap/menu"/>
         <TextView
@@ -29,13 +29,12 @@
 
         <ImageView
             android:id="@+id/iv_call"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/telephone"
-            android:padding="5dp"
-             />
+            android:src="@drawable/telephone1"
+            android:paddingRight="5dp"/>
     </RelativeLayout>
 
     <ExpandableListView

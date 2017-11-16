@@ -47,8 +47,7 @@
                         android:paddingLeft="10dp"
                         android:text="长地坪滑坡"
                         android:textColor="@color/primary_text"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:textSize="20sp" />
                 </LinearLayout>
 
                 <LinearLayout
