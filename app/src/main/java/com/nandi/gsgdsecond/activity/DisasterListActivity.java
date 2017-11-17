@@ -340,7 +340,7 @@ public class DisasterListActivity extends AppCompatActivity {
     private void setAdapter() {
         adapter = new DisasterTypeAdapter(disasterInfos, this);
         rvDisasterType.setLayoutManager(new LinearLayoutManager(this));
-        rvDisasterType.setAdapter(adapter);
+        rvDisasterType.setAdapter(adapter); 
     }
 
     private void initView() {

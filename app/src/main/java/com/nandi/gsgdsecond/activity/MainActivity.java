@@ -95,7 +95,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         bindAccount();
         checkUpdate(0);
         initLocation();
-
     }
 
     private void initGPS() {
