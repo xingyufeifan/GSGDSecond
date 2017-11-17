@@ -43,7 +43,7 @@ public class DisasterTypeAdapter extends RecyclerView.Adapter<DisasterTypeAdapte
         holder.tvName.setText(disasterInfos.get(position).getName());
         String photoPath = disasterInfos.get(position).getPhotoPath();
         if (photoPath == null) {
-            holder.ivPhoto.setImageResource(R.drawable.no_image);
+            holder.ivPhoto.setImageResource(R.drawable.showimage);
         } else {
             holder.ivPhoto.setImageBitmap(PictureUtils.getSmallBitmap(disasterInfos.get(position).getPhotoPath(), 100, 100));
         }

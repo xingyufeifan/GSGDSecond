@@ -73,7 +73,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_below="@id/ll_disaster_name"
-        android:background="@color/button_disabled_focused_border" />
+        android:background="@color/dividerColor" />
 
     <LinearLayout
         android:id="@+id/ll_monitor_name"
@@ -107,7 +107,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_below="@id/ll_monitor_name"
-        android:background="@color/button_disabled_focused_border" />
+        android:background="@color/dividerColor" />
 
     <LinearLayout
         android:visibility="gone"
@@ -150,7 +150,7 @@
             android:layout_height="1dp"
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
-            android:background="@color/button_disabled_focused_border" />
+            android:background="@color/dividerColor" />
     </LinearLayout>
 
     <LinearLayout
@@ -192,7 +192,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_below="@id/ll_type"
-        android:background="@color/button_disabled_focused_border" />
+        android:background="@color/dividerColor" />
 
     <LinearLayout
         android:id="@+id/ll_happen_time"
@@ -226,7 +226,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_below="@id/ll_happen_time"
-        android:background="@color/button_disabled_focused_border" />
+        android:background="@color/dividerColor" />
 
     <LinearLayout
         android:id="@+id/ll_photo"

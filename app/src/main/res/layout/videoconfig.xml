@@ -21,7 +21,7 @@
             android:text="视频参数"
             android:layout_centerInParent="true"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="22sp" />
     </RelativeLayout>
     <ScrollView
         android:layout_width="fill_parent"
@@ -32,6 +32,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:paddingLeft="5dp"
             android:orientation="vertical" >
 
             <CheckBox
@@ -92,7 +93,10 @@
                 android:id="@+id/configModelLable"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="选择配置模式：" />
+                android:paddingLeft="6dp"
+                android:text="选择配置模式："
+                android:textSize="16sp"
+                android:textColor="#4F4F4F"/>
 
             <RadioGroup
                 android:layout_width="fill_parent"
@@ -115,7 +119,10 @@
                 android:id="@+id/resolutionTV"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="选择视频分辨率：" />
+                android:paddingLeft="7dp"
+                android:text="选择视频分辨率："
+                android:textSize="16sp"
+                android:textColor="#4F4F4F"/>
 
             <Spinner
                 android:id="@+id/videoSizeSpinner"
@@ -128,7 +135,10 @@
                 android:id="@+id/videoBitrateTitle"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="选择视频码率：" />
+                android:paddingLeft="7dp"
+                android:text="选择视频码率："
+                android:textSize="16sp"
+                android:textColor="#4F4F4F"/>
 
             <Spinner
                 android:id="@+id/videoBitrateSpinner"
@@ -141,7 +151,10 @@
                 android:id="@+id/videoFPSSpinnerTitle"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="选择视频帧率：" />
+                android:paddingLeft="7dp"
+                android:text="选择视频帧率："
+                android:textSize="16sp"
+                android:textColor="#4F4F4F"/>
 
             <Spinner
                 android:id="@+id/videoFPSSpinner"
@@ -154,7 +167,10 @@
                 android:id="@+id/videoQualitySpinnerTitle"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="选择视频质量：" />
+                android:paddingLeft="7dp"
+                android:text="选择视频质量："
+                android:textSize="16sp"
+                android:textColor="#4F4F4F"/>
 
             <Spinner
                 android:id="@+id/videoQualitySpinner"
@@ -167,7 +183,10 @@
                 android:id="@+id/videoPresetSpinnerTitle"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="选择视频预设参数：" />
+                android:paddingLeft="7dp"
+                android:text="选择视频预设参数："
+                android:textSize="16sp"
+                android:textColor="#4F4F4F"/>
 
             <Spinner
                 android:id="@+id/videoPresetSpinner"
