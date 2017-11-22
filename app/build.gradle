@@ -48,6 +48,8 @@ dependencies {
     compile 'com.android.support:design:25.4.0'
     compile 'com.github.chrisbanes:PhotoView:2.1.3'
     compile 'com.android.support:cardview-v7:25.4.0'
+    //radioButton
+    compile 'com.7heaven.widgets:segmentcontrol:1.17'
 
     compile 'com.aliyun.ams:alicloud-android-push:3.0.11@aar'
     compile 'com.aliyun.ams:alicloud-android-utdid:1.1.5.3'

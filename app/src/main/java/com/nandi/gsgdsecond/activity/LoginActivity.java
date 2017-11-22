@@ -21,6 +21,7 @@ import com.nandi.gsgdsecond.utils.MyProgressBar;
 import com.nandi.gsgdsecond.utils.PermissionUtils;
 import com.nandi.gsgdsecond.utils.SharedUtils;
 import com.nandi.gsgdsecond.utils.ToastUtils;
+import com.sevenheaven.segmentcontrol.SegmentControl;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -42,10 +43,14 @@ public class LoginActivity extends AppCompatActivity {
     EditText etMobile;
     @BindView(R.id.btn_login)
     Button btnLogin;
+    @BindView(R.id.segment_control)
+    SegmentControl mSegments;
     private Context context;
     private MyProgressBar progressBar;
     private String mobile;
+    private String imei = "0";
     private int count = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +63,23 @@ public class LoginActivity extends AppCompatActivity {
         }
         progressBar = new MyProgressBar(context);
         etMobile.setText((String) SharedUtils.getShare(context, Constant.MOBILE, ""));
+        imei = (String) SharedUtils.getShare(context, Constant.IMEI, "");
+        if (imei.trim().equals("0")||imei.trim().equals("")) {
+            imei="0";
+            mSegments.setSelectedIndex(0);
+        }else if (imei.trim().equals("1")){
+            mSegments.setSelectedIndex(1);
+        }else if (imei.trim().equals("2")){
+            mSegments.setSelectedIndex(2);
+        }
+
+        mSegments.setOnSegmentControlClickListener(new SegmentControl.OnSegmentControlClickListener() {
+            @Override
+            public void onSegmentControlClick(int index) {
+                imei = String.valueOf(index).trim();
+                SharedUtils.putShare(context, Constant.IMEI, imei);
+            }
+        });
     }
 
     /**
@@ -90,7 +112,6 @@ public class LoginActivity extends AppCompatActivity {
     @OnClick(R.id.btn_login)
     public void onViewClicked() {
         mobile = etMobile.getText().toString().trim();
-
         if (TextUtils.isEmpty(mobile)) {
             ToastUtils.showShort(context, "请先输入电话号码");
             return;
@@ -107,7 +128,7 @@ public class LoginActivity extends AppCompatActivity {
         progressBar.show("正在登录");
         OkHttpUtils.get().url(url)
                 .addParams("mobile", mobile)//参数：电话号码
-                .addParams("imei", "0")     //参数：请求类型
+                .addParams("imei", imei.trim())     //参数：请求类型
                 .build()
                 .execute(new StringCallback() {
                     @Override
@@ -133,7 +154,7 @@ public class LoginActivity extends AppCompatActivity {
             JSONObject object = new JSONObject(response);
             String result = object.getString("result");
             String info = object.getString("info");
-            if (count == 0 && "1".equals(result)) {//解析第一次登录请求的信息
+            if (imei.trim().equals("0") && count == 0 && "1".equals(result)) {//解析第一次登录请求的信息
                 if ("{}".equals(info)) {//如果info里面数据为空说明该号码没有监测点信息
                     ToastUtils.showShort(context, "该号码没有监测点信息");
                     progressBar.dismiss();
@@ -141,11 +162,11 @@ public class LoginActivity extends AppCompatActivity {
                     setRequest(new Api(context).getMacoUrl());//登录请求成功，请求灾害点信息
                     count++;
                 }
-            } else if (count == 1 && "1".equals(result)) {//解析第二次灾害点请求信息
+            } else if (imei.trim().equals("0") && count == 1 && "1".equals(result)) {//解析第二次灾害点请求信息
                 saveDisaster(info);                       //保存灾害点信息到数据库
                 setRequest(new Api(context).getMonitorUrl());//请求监测点信息
                 count++;
-            } else if (count == 2 && "1".equals(result)) {//解析监测点信息
+            } else if (imei.trim().equals("0") && count == 2 && "1".equals(result)) {//解析监测点信息
                 if (!"[]".equals(info)) {  //监测点信息不为空
                     Log.d(TAG, "monitor:"+info);
                     saveMonitor(info);
@@ -153,6 +174,7 @@ public class LoginActivity extends AppCompatActivity {
                     count = 0;
                     SharedUtils.putShare(context,Constant.IS_LOGIN,true);
                     SharedUtils.putShare(context, Constant.MOBILE, mobile);
+                    SharedUtils.putShare(context, Constant.IMEI, imei);
                     startActivity(new Intent(context, MainActivity.class));
                     finish();
                 } else {//监测点信息为空
@@ -161,7 +183,30 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(new Intent(context, MainActivity.class));
                     SharedUtils.putShare(context,Constant.IS_LOGIN,true);
                     SharedUtils.putShare(context, Constant.MOBILE, mobile);
+                    SharedUtils.putShare(context, Constant.IMEI, imei);
                     finish();
+                }
+            } else if (imei.trim().equals("1")){ //驻守人员
+                if ("1".equals(result)){
+                    startActivity(new Intent(context, DailyLogActivity.class));
+                    SharedUtils.putShare(context,Constant.IS_LOGIN,true);
+                    SharedUtils.putShare(context, Constant.MOBILE, mobile);
+                    SharedUtils.putShare(context, Constant.IMEI, imei);
+                    finish();
+                } else {
+                    ToastUtils.showShort(context, info);
+                    progressBar.dismiss();
+                }
+            } else if (imei.trim().equals("2")){ //片区专管员
+                if ("1".equals(result)){
+                    startActivity(new Intent(context, WeeklyActivity.class));
+                    SharedUtils.putShare(context,Constant.IS_LOGIN,true);
+                    SharedUtils.putShare(context, Constant.MOBILE, mobile);
+                    SharedUtils.putShare(context, Constant.IMEI, imei);
+                    finish();
+                } else {
+                    ToastUtils.showShort(context, info);
+                    progressBar.dismiss();
                 }
             }
         } catch (JSONException e) {

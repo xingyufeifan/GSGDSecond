@@ -129,6 +129,7 @@ public class DisasterListActivity extends AppCompatActivity {
     private void callPhone(final String message) {
         new AlertDialog.Builder(context)
                 .setTitle("提示")
+                .setIcon(R.drawable.warning)
                 .setMessage("是否发起电话帮助？")
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
@@ -258,6 +259,7 @@ public class DisasterListActivity extends AppCompatActivity {
         popupWindow.dismiss();
         new AlertDialog.Builder(context)
                 .setTitle("提示")
+                .setIcon(R.drawable.warning)
                 .setMessage("确定要删除图片吗？")
                 .setPositiveButton("删除", new DialogInterface.OnClickListener() {
                     @Override
@@ -457,6 +459,7 @@ public class DisasterListActivity extends AppCompatActivity {
 
     private void setPost(final List<Map<String, String>> params, final List<File> files) {
         Log.d("cp", "开始请求");
+        Log.d("params:", params.toString());
         PostFormBuilder builder;
         PostFormBuilder formBuilder = OkHttpUtils.post().url(new Api(context).getUploadUrl())
                 .addHeader("Content-Type", "multipart/form-data")
@@ -497,6 +500,7 @@ public class DisasterListActivity extends AppCompatActivity {
     private void uploadAgain(final List<Map<String, String>> params, final List<File> files) {
         new AlertDialog.Builder(context)
                 .setTitle("提示")
+                .setIcon(R.drawable.warning)
                 .setMessage("上传失败，是否重新上传？")
                 .setCancelable(false)
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -537,6 +541,7 @@ public class DisasterListActivity extends AppCompatActivity {
         } else {
             new AlertDialog.Builder(context)
                     .setTitle("提示")
+                    .setIcon(R.drawable.warning)
                     .setMessage("检测到修改了数据未保存，确定要退出吗？")
                     .setPositiveButton("退出", new DialogInterface.OnClickListener() {
                         @Override

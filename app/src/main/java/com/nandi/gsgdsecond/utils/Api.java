@@ -8,10 +8,12 @@ import android.content.Context;
 
 public class Api {
     private String ip,port;
+    private String ports;
 
     public Api(Context context) {
         ip= (String) SharedUtils.getShare(context,Constant.IP,"183.230.108.112");
         port= (String) SharedUtils.getShare(context,Constant.PORT,"8099");
+        ports = "8090";
     }
     public String getLoginUrl(){
         return "http://"+ip+":"+port+"/meteor/findFunCfg.do";
@@ -24,6 +26,11 @@ public class Api {
     }
     public String getUploadUrl() {
         return "http://" + ip + ":" + port + "/meteor/saveMonDate.do";
+    }
+
+    //   日志上报
+    public String getLogReportUrl() {
+        return "http://" + ip + ":" + ports + "/meteor/DailyApp/saveWorkLog.do";
     }
 
 }
