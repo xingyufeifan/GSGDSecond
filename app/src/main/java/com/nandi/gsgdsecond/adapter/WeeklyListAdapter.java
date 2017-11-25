@@ -39,7 +39,7 @@ public class WeeklyListAdapter extends RecyclerView.Adapter<WeeklyListAdapter.My
 
     @Override
     public WeeklyListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_daily_list, null);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_daily_list, parent,false);
         WeeklyListAdapter.MyViewHolder holderA = new WeeklyListAdapter.MyViewHolder(view);
         return holderA;
     }

@@ -62,7 +62,7 @@ public class NoReport extends Fragment {
     }
 
     private void request() {
-        OkHttpUtils.post().url("http://192.168.10.72:8080/system/listByMobile.do?")
+        OkHttpUtils.post().url(getString(R.string.base_url)+"listByMobile.do")
                 .addParams("mobile", mobile)
                 .addParams("type", "1")
                 .build()
@@ -145,6 +145,13 @@ public class NoReport extends Fragment {
         return null;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode==DANGER_REQUEST_CODE){
+           refresh();
+        }
+    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();

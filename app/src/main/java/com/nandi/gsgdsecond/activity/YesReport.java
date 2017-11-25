@@ -81,6 +81,13 @@ public class YesReport extends Fragment {
         });
         dataShow.setAdapter(listAdapter);
     }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode==DANGER_REQUEST_CODE){
+            initView();
+        }
+    }
 
     @Override
     public void onDestroyView() {

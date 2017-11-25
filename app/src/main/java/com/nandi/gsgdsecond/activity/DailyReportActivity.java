@@ -220,11 +220,9 @@ public class DailyReportActivity extends AppCompatActivity {
                     public void onResponse(String response, int id) {
                         Log.d("DailyReport---", response);
                         ToastUtils.showShort(context, "日志上传成功!");
-                        if (2 == type) {
-                            setResult(NoReport.DANGER_REQUEST_CODE);
-                            finish();
-                        } else if (1 == type) {
+                      if (1 == type) {
                             setResult(YesReport.DANGER_REQUEST_CODE);
+                            GreenDaoHelper.deleteOneDailyLog(listBean.getId());
                             finish();
                         } else {
                             finish();

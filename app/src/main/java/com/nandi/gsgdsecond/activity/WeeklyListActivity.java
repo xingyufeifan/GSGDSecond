@@ -86,7 +86,7 @@ public class WeeklyListActivity extends AppCompatActivity {
         });
     }
     private void request() {
-        OkHttpUtils.post().url("http://192.168.10.72:8080/system/listByMobile.do?")
+        OkHttpUtils.post().url(getString(R.string.base_url)+"/listByMobile.do")
                 .addParams("mobile", mobile)
                 .addParams("type", "2")
                 .build()
@@ -128,7 +128,13 @@ public class WeeklyListActivity extends AppCompatActivity {
         });
         dataShow.setAdapter(listAdapter);
     }
-
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode==DANGER_REQUEST_CODE){
+            refresh();
+        }
+    }
     public List<DailyBean> getListByArray(String jsonString) {
         listBean = new ArrayList<DailyBean>();
 
