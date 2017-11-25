@@ -38,6 +38,8 @@ import com.nandi.gsgdsecond.utils.DownloadUtils;
 import com.nandi.gsgdsecond.utils.MyProgressBar;
 import com.nandi.gsgdsecond.utils.SharedUtils;
 import com.nandi.gsgdsecond.utils.ToastUtils;
+import com.uuzuche.lib_zxing.activity.CaptureActivity;
+import com.uuzuche.lib_zxing.activity.CodeUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -287,6 +289,9 @@ public class BaseActivity extends AppCompatActivity
                             dialogInterface.dismiss();
                         }
                     }).show();
+        }else if ((id == R.id.nav_scanning)){
+            Intent intent = new Intent(context, CaptureActivity.class);
+            startActivityForResult(intent, 101);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

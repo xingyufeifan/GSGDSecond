@@ -11,9 +11,11 @@ import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nandi.gsgdsecond.R;
 import com.nandi.gsgdsecond.utils.ToastUtils;
+import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -65,6 +67,29 @@ public class DailyLogActivity extends BaseActivity{
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        /**
+         * 处理二维码扫描结果
+         */
+        if (requestCode == 101) {
+            //处理扫描结果（在界面上显示）
+            if (null != data) {
+                Bundle bundle = data.getExtras();
+                if (bundle == null) {
+                    return;
+                }
+                if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
+                    String result = bundle.getString(CodeUtils.RESULT_STRING);
+                    Toast.makeText(this, "解析结果:" + result, Toast.LENGTH_LONG).show();
+                } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
+                    Toast.makeText(context, "解析二维码失败", Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+    }
+
+    @Override
     public void setListener() {
         super.setListener();
 
@@ -89,8 +114,8 @@ public class DailyLogActivity extends BaseActivity{
             @Override
             public void onClick(View v) {
                 //TODO
-//                startActivity(new Intent(context, DailyReportActivity.class));
-                ToastUtils.showShort(context, "暂时无法查看!");
+            startActivity(new Intent(context, DailyListActivity.class));
+//                ToastUtils.showShort(context, "暂时无法查看!");
             }
         });
 

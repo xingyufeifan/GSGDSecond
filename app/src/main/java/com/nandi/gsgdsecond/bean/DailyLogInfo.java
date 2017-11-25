@@ -4,13 +4,15 @@ import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Generated;
 
+import java.io.Serializable;
+
 /**
  * Created by baohongyan on 2017/11/22.
  */
 
 @Entity
-public class DailyLogInfo {
-
+public class DailyLogInfo implements Serializable {
+    private static final long serialVersionUID = -7060210544600464481L;
     @Id
     private Long id;
     private String time;

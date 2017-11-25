@@ -72,7 +72,6 @@
         <activity
             android:name=".activity.MonitorActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|navigation" />
-
         <activity
             android:name=".activity.DailyLogActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|navigation" />
@@ -122,6 +121,8 @@
             </intent-filter>
         </receiver>
 
+        <activity android:name=".activity.DailyListActivity" />
+        <activity android:name=".activity.WeeklyListActivity"></activity>
     </application>
 
 </manifest>
