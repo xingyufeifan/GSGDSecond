@@ -13,6 +13,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nandi.gsgdsecond.R;
+import com.nandi.gsgdsecond.service.LocationService;
+import com.nandi.gsgdsecond.utils.Constant;
 import com.nandi.gsgdsecond.utils.ToastUtils;
 
 import butterknife.BindView;
@@ -52,6 +54,13 @@ public class WeeklyActivity extends BaseActivity {
         context = this;
         initData();
         setListener();
+        startLocationService();
+    }
+
+    private void startLocationService() {
+        Intent intent = new Intent(context, LocationService.class);
+        intent.putExtra(Constant.UPLOAD_URL, "receiveLonLat.do");
+        startService(intent);
     }
 
     @Override
@@ -82,7 +91,8 @@ public class WeeklyActivity extends BaseActivity {
         btn_videoRecord3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(context, RecordVideoActivity.class);
+                startActivity(intent);
             }
         });
     }

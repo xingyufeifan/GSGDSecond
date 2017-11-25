@@ -32,6 +32,7 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.nandi.gsgdsecond.R;
 import com.nandi.gsgdsecond.greendao.GreenDaoHelper;
+import com.nandi.gsgdsecond.service.LocationService;
 import com.nandi.gsgdsecond.utils.CommonUtils;
 import com.nandi.gsgdsecond.utils.Constant;
 import com.nandi.gsgdsecond.utils.DownloadUtils;
@@ -71,6 +72,7 @@ public class BaseActivity extends AppCompatActivity
     private String mobile;
     private MyProgressBar progressBar;
     private Context context;
+    public String uploadUrl;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,12 +81,10 @@ public class BaseActivity extends AppCompatActivity
         ButterKnife.bind(this);
         context = this;
         initGPS();
-        initData();
-        setListener();
         bindAccount();
         checkUpdate(0);
-        initLocation();
     }
+
 
     private void initGPS() {
         LocationManager locationManager = (LocationManager) this
@@ -100,7 +100,7 @@ public class BaseActivity extends AppCompatActivity
         }
     }
 
-    public void initData(){
+    public void initData() {
         View headerView = navView.getHeaderView(0);
         TextView textView = (TextView) headerView.findViewById(R.id.tv_head_number);
         progressBar = new MyProgressBar(context);
@@ -108,7 +108,7 @@ public class BaseActivity extends AppCompatActivity
         textView.setText("当前账号: " + mobile);
     }
 
-    public void setListener(){
+    public void setListener() {
         navView.setNavigationItemSelectedListener(this);
     }
 
@@ -145,6 +145,7 @@ public class BaseActivity extends AppCompatActivity
 
     /**
      * 检查更新
+     *
      * @param type
      */
     private void checkUpdate(final int type) {
@@ -206,60 +207,6 @@ public class BaseActivity extends AppCompatActivity
                 }).show();
     }
 
-    private void initLocation() {
-        LocationClient locationClient = new LocationClient(getApplicationContext());
-        LocationClientOption option = new LocationClientOption();
-        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
-        option.setCoorType("wgs84");
-        //可选，默认gcj02，设置返回的定位结果坐标系
-        option.setScanSpan(60 * 60 * 1000);
-        //可选，默认0，即仅定位一次，设置发起定位请求的间隔需要大于等于1000ms才是有效的
-        option.setOpenGps(true);
-        //可选，默认false,设置是否使用gps
-        locationClient.setLocOption(option);
-        locationClient.registerLocationListener(new MyLocationListener());
-        locationClient.start();
-    }
-
-    private class MyLocationListener extends BDAbstractLocationListener {
-        @Override
-        public void onReceiveLocation(BDLocation bdLocation) {
-            int locType = bdLocation.getLocType();
-            if (locType == BDLocation.TypeOffLineLocation || locType == BDLocation.TypeGpsLocation || locType == BDLocation.TypeNetWorkLocation) {
-                double lon = bdLocation.getLongitude();
-                double lat = bdLocation.getLatitude();
-                setPost(lon, lat);
-            }
-        }
-
-        @Override
-        public void onLocDiagnosticMessage(int i, int i1, String s) {
-            if (i1 == LocationClient.LOC_DIAGNOSTIC_TYPE_BETTER_OPEN_GPS) {
-                ToastUtils.showShort(context, "请打开GPS");
-            } else if (i1 == LocationClient.LOC_DIAGNOSTIC_TYPE_BETTER_OPEN_WIFI) {
-                ToastUtils.showShort(context, "建议打开WIFI提高定位经度");
-            }
-        }
-    }
-
-    private void setPost(double lon, double lat) {
-        OkHttpUtils.get().url(getResources().getString(R.string.base_url) + "uploadMeteorLongitudeAndLatitude.do")
-                .addParams("phone", mobile)
-                .addParams("lon", String.valueOf(lon))
-                .addParams("lat", String.valueOf(lat))
-                .build()
-                .execute(new StringCallback() {
-                    @Override
-                    public void onError(Call call, Exception e, int id) {
-                        Log.d("cp", "上传失败");
-                    }
-
-                    @Override
-                    public void onResponse(String response, int id) {
-                        Log.d("cp", response);
-                    }
-                });
-    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -279,6 +226,7 @@ public class BaseActivity extends AppCompatActivity
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             loginOut();
+                            stopService(new Intent(context, LocationService.class));
                         }
                     })
                     .setNegativeButton("取消", new DialogInterface.OnClickListener() {
