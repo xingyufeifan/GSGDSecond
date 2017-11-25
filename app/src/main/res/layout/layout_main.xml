@@ -39,18 +39,28 @@
     </RelativeLayout>
 
     <!--群测群防-->
-    <ExpandableListView
-        android:id="@+id/el_disaster_list"
+    <RelativeLayout
+        android:id="@+id/rl_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@null"
-        android:layout_below="@+id/titlebar"
-        android:visibility="gone">
+        android:layout_below="@id/titlebar"
+        android:visibility="visible">
 
-    </ExpandableListView>
+        <ExpandableListView
+            android:id="@+id/el_disaster_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@null">
+        </ExpandableListView>
+
+        <Button
+            android:id="@+id/btn_videoRecord1"
+            style="@style/myButtons"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
 
     <!--驻守人员-->
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/rl_dailylog"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -59,7 +69,7 @@
         android:paddingTop="10dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <android.support.v7.widget.CardView
             android:id="@+id/dailylog_report"
@@ -104,7 +114,8 @@
             card_view:cardElevation="2dp"
             card_view:cardPreventCornerOverlap="true"
             card_view:cardUseCompatPadding="true"
-            card_view:contentPadding="5dp">
+            card_view:contentPadding="5dp"
+            android:layout_below="@id/dailylog_report">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -138,7 +149,8 @@
             card_view:cardElevation="2dp"
             card_view:cardPreventCornerOverlap="true"
             card_view:cardUseCompatPadding="true"
-            card_view:contentPadding="5dp">
+            card_view:contentPadding="5dp"
+            android:layout_below="@id/disaster_report">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -163,10 +175,14 @@
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
-    </LinearLayout>
+        <Button
+            android:id="@+id/btn_videoRecord2"
+            style="@style/myButtons"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
 
     <!--片区负责人-->
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/rl_weekly"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -220,7 +236,8 @@
             card_view:cardElevation="2dp"
             card_view:cardPreventCornerOverlap="true"
             card_view:cardUseCompatPadding="true"
-            card_view:contentPadding="5dp">
+            card_view:contentPadding="5dp"
+            android:layout_below="@id/weekly_report">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -245,7 +262,10 @@
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
-    </LinearLayout>
-
+        <Button
+            android:id="@+id/btn_videoRecord3"
+            style="@style/myButtons"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
 
 </RelativeLayout>

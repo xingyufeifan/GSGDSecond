@@ -23,5 +23,6 @@
     <string name="edit">请输入...</string>
     <string name="save">保存</string>
     <string name="report">上传</string>
+    <string name="videoRecording">应急调查视频录制</string>
     <string name="weeklyhint">1.巡查情况;\n2.监测工作情况;\n3.宣传培训情况;\n4.演练情况等</string>
 </resources>

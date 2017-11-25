@@ -22,6 +22,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -67,12 +68,16 @@ public class MainActivity extends BaseActivity {
 
     @BindView(R.id.title_text)
     TextView titleText;
+    @BindView(R.id.rl_list)
+    RelativeLayout rlList;
     @BindView(R.id.el_disaster_list)
     ExpandableListView elDisasterList;
+    @BindView(R.id.btn_videoRecord1)
+    Button btn_videoRecord1;
     @BindView(R.id.rl_dailylog)
-    LinearLayout rl_dailylog;
+    RelativeLayout rl_dailylog;
     @BindView(R.id.rl_weekly)
-    LinearLayout rl_weekly;
+    RelativeLayout rl_weekly;
 
     private List<DisasterPoint> disasterPoints;
     private Map<String, List<MonitorPoint>> map;
@@ -111,6 +116,13 @@ public class MainActivity extends BaseActivity {
                 return true;
             }
         });
+        //应急调查视频录制
+        btn_videoRecord1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     @Override
@@ -119,7 +131,7 @@ public class MainActivity extends BaseActivity {
         titleText.setText("灾害点列表");
         rl_dailylog.setVisibility(View.GONE);
         rl_weekly.setVisibility(View.GONE);
-        elDisasterList.setVisibility(View.VISIBLE);
+        rlList.setVisibility(View.VISIBLE);
 
         elDisasterList.setGroupIndicator(null);//消除expandlistview的图标
         map = new HashMap<>();

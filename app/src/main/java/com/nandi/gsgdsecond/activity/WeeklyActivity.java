@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nandi.gsgdsecond.R;
@@ -25,12 +27,16 @@ public class WeeklyActivity extends BaseActivity {
 
     @BindView(R.id.title_text)
     TextView titleText;
+    @BindView(R.id.rl_list)
+    RelativeLayout rlList;
     @BindView(R.id.el_disaster_list)
     ExpandableListView elDisasterList;
+    @BindView(R.id.btn_videoRecord3)
+    Button btn_videoRecord3;
     @BindView(R.id.rl_dailylog)
-    LinearLayout rl_dailylog;
+    RelativeLayout rl_dailylog;
     @BindView(R.id.rl_weekly)
-    LinearLayout rl_weekly;
+    RelativeLayout rl_weekly;
     @BindView(R.id.weekly_report)
     CardView weekly_report;
     @BindView(R.id.weekly_situation)
@@ -52,7 +58,7 @@ public class WeeklyActivity extends BaseActivity {
     public void initData() {
         super.initData();
         titleText.setText("片区专管员");
-        elDisasterList.setVisibility(View.GONE);
+        rlList.setVisibility(View.GONE);
         rl_dailylog.setVisibility(View.GONE);
         rl_weekly.setVisibility(View.VISIBLE);
     }
@@ -70,6 +76,13 @@ public class WeeklyActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 ToastUtils.showShort(context, "暂时无法查看!");
+            }
+        });
+        //应急调查视频录制
+        btn_videoRecord3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }
