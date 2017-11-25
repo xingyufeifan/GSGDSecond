@@ -8,11 +8,13 @@ import org.greenrobot.greendao.database.Database;
 import org.greenrobot.greendao.identityscope.IdentityScopeType;
 import org.greenrobot.greendao.internal.DaoConfig;
 
+import com.nandi.gsgdsecond.bean.DailyLogInfo;
 import com.nandi.gsgdsecond.bean.DisasterInfo;
 import com.nandi.gsgdsecond.bean.DisasterPoint;
 import com.nandi.gsgdsecond.bean.MonitorInfo;
 import com.nandi.gsgdsecond.bean.MonitorPoint;
 
+import com.nandi.gsgdsecond.greendao.DailyLogInfoDao;
 import com.nandi.gsgdsecond.greendao.DisasterInfoDao;
 import com.nandi.gsgdsecond.greendao.DisasterPointDao;
 import com.nandi.gsgdsecond.greendao.MonitorInfoDao;
@@ -27,11 +29,13 @@ import com.nandi.gsgdsecond.greendao.MonitorPointDao;
  */
 public class DaoSession extends AbstractDaoSession {
 
+    private final DaoConfig dailyLogInfoDaoConfig;
     private final DaoConfig disasterInfoDaoConfig;
     private final DaoConfig disasterPointDaoConfig;
     private final DaoConfig monitorInfoDaoConfig;
     private final DaoConfig monitorPointDaoConfig;
 
+    private final DailyLogInfoDao dailyLogInfoDao;
     private final DisasterInfoDao disasterInfoDao;
     private final DisasterPointDao disasterPointDao;
     private final MonitorInfoDao monitorInfoDao;
@@ -40,6 +44,9 @@ public class DaoSession extends AbstractDaoSession {
     public DaoSession(Database db, IdentityScopeType type, Map<Class<? extends AbstractDao<?, ?>>, DaoConfig>
             daoConfigMap) {
         super(db);
+
+        dailyLogInfoDaoConfig = daoConfigMap.get(DailyLogInfoDao.class).clone();
+        dailyLogInfoDaoConfig.initIdentityScope(type);
 
         disasterInfoDaoConfig = daoConfigMap.get(DisasterInfoDao.class).clone();
         disasterInfoDaoConfig.initIdentityScope(type);
@@ -53,11 +60,13 @@ public class DaoSession extends AbstractDaoSession {
         monitorPointDaoConfig = daoConfigMap.get(MonitorPointDao.class).clone();
         monitorPointDaoConfig.initIdentityScope(type);
 
+        dailyLogInfoDao = new DailyLogInfoDao(dailyLogInfoDaoConfig, this);
         disasterInfoDao = new DisasterInfoDao(disasterInfoDaoConfig, this);
         disasterPointDao = new DisasterPointDao(disasterPointDaoConfig, this);
         monitorInfoDao = new MonitorInfoDao(monitorInfoDaoConfig, this);
         monitorPointDao = new MonitorPointDao(monitorPointDaoConfig, this);
 
+        registerDao(DailyLogInfo.class, dailyLogInfoDao);
         registerDao(DisasterInfo.class, disasterInfoDao);
         registerDao(DisasterPoint.class, disasterPointDao);
         registerDao(MonitorInfo.class, monitorInfoDao);
@@ -65,10 +74,15 @@ public class DaoSession extends AbstractDaoSession {
     }
     
     public void clear() {
+        dailyLogInfoDaoConfig.clearIdentityScope();
         disasterInfoDaoConfig.clearIdentityScope();
         disasterPointDaoConfig.clearIdentityScope();
         monitorInfoDaoConfig.clearIdentityScope();
         monitorPointDaoConfig.clearIdentityScope();
+    }
+
+    public DailyLogInfoDao getDailyLogInfoDao() {
+        return dailyLogInfoDao;
     }
 
     public DisasterInfoDao getDisasterInfoDao() {

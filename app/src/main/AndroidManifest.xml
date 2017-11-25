@@ -80,7 +80,13 @@
             android:name=".activity.DailyReportActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|navigation" />
         <activity
+            android:name=".activity.DisReportActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|navigation" />
+        <activity
             android:name=".activity.WeeklyActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|navigation" />
+        <activity
+            android:name=".activity.WeeklyReportActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|navigation" />
 
         <service

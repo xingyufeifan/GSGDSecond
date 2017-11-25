@@ -48,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
     private Context context;
     private MyProgressBar progressBar;
     private String mobile;
-    private String imei = "0";
+    private String imei; //人员类型
     private int count = 0;
 
 
@@ -71,6 +71,8 @@ public class LoginActivity extends AppCompatActivity {
             mSegments.setSelectedIndex(1);
         }else if (imei.trim().equals("2")){
             mSegments.setSelectedIndex(2);
+        }else if (imei.trim().equals("3")){
+            mSegments.setSelectedIndex(3);
         }
 
         mSegments.setOnSegmentControlClickListener(new SegmentControl.OnSegmentControlClickListener() {
@@ -127,8 +129,8 @@ public class LoginActivity extends AppCompatActivity {
     private void setRequest(String url) {
         progressBar.show("正在登录");
         OkHttpUtils.get().url(url)
-                .addParams("mobile", mobile)//参数：电话号码
-                .addParams("imei", imei.trim())     //参数：请求类型
+                .addParams("mobile", mobile)     //参数：电话号码
+                .addParams("imei", imei.trim())  //参数：请求类型
                 .build()
                 .execute(new StringCallback() {
                     @Override
@@ -192,12 +194,28 @@ public class LoginActivity extends AppCompatActivity {
                     SharedUtils.putShare(context,Constant.IS_LOGIN,true);
                     SharedUtils.putShare(context, Constant.MOBILE, mobile);
                     SharedUtils.putShare(context, Constant.IMEI, imei);
+                    SharedUtils.putShare(context, Constant.LOGNAME, "");
+                    SharedUtils.putShare(context, Constant.WORKTYPE, "");
+                    SharedUtils.putShare(context, Constant.SITUATION, "");
                     finish();
                 } else {
                     ToastUtils.showShort(context, info);
                     progressBar.dismiss();
                 }
             } else if (imei.trim().equals("2")){ //片区专管员
+                if ("1".equals(result)){
+                    startActivity(new Intent(context, WeeklyActivity.class));
+                    SharedUtils.putShare(context,Constant.IS_LOGIN,true);
+                    SharedUtils.putShare(context, Constant.MOBILE, mobile);
+                    SharedUtils.putShare(context, Constant.IMEI, imei);
+                    SharedUtils.putShare(context, Constant.TOWNS, "");
+                    SharedUtils.putShare(context, Constant.WEEKLYNAME, "");
+                    finish();
+                } else {
+                    ToastUtils.showShort(context, info);
+                    progressBar.dismiss();
+                }
+            } else if (imei.trim().equals("3")){ //地环站
                 if ("1".equals(result)){
                     startActivity(new Intent(context, WeeklyActivity.class));
                     SharedUtils.putShare(context,Constant.IS_LOGIN,true);

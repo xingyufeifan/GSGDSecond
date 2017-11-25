@@ -169,59 +169,52 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:gravity="left|center"
                     android:padding="10dp"
-                    android:text="日志内容："
+                    android:text="日志内容"
                     android:textSize="18sp" />
 
                 <EditText
                     android:id="@+id/et_dailywork"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginRight="3dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_weight="7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
                     android:background="@drawable/shape_report"
                     android:gravity="left"
                     android:hint="@string/edit"
-                    android:lines="8"
+                    android:lines="6"
                     android:padding="8dp"
                     android:textSize="16sp" />
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.01dp"
-                android:background="@color/dividerColor" />
-
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:gravity="left|center"
                     android:padding="10dp"
-                    android:text="备         注："
+                    android:text="备注"
                     android:textSize="18sp" />
 
                 <EditText
                     android:id="@+id/et_remarks"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
-                    android:layout_marginRight="3dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_weight="7"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
                     android:background="@drawable/shape_report"
                     android:gravity="left"
                     android:hint="@string/edit"

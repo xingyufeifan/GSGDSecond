@@ -33,4 +33,8 @@ public class Api {
         return "http://" + ip + ":" + ports + "/meteor/DailyApp/saveWorkLog.do";
     }
 
+    //   周报上报
+    public String getWeeklyUrl() {
+        return "http://" +  ip + ":" + ports+"/meteor/DailyApp/saveWeekLog.do";
+    }
 }

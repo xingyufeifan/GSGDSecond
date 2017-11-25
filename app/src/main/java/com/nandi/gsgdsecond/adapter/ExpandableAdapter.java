@@ -88,9 +88,9 @@ public class ExpandableAdapter extends BaseExpandableListAdapter {
         viewHolder.tvLon.setText(disasterPoints.get(i).getLongitude());
         viewHolder.tvLat.setText(disasterPoints.get(i).getLatitude());
         if (b) {
-            viewHolder.ivArrow.setImageResource(R.mipmap.ic_down);
+            viewHolder.ivArrow.setImageResource(R.mipmap.ic_down1);
         } else {
-            viewHolder.ivArrow.setImageResource(R.mipmap.ic_more);
+            viewHolder.ivArrow.setImageResource(R.mipmap.ic_more1);
         }
         return view;
     }

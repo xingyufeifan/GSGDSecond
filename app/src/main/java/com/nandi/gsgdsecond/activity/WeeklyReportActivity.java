@@ -1,10 +1,7 @@
 package com.nandi.gsgdsecond.activity;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -15,8 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nandi.gsgdsecond.R;
-import com.nandi.gsgdsecond.bean.DailyLogInfo;
-import com.nandi.gsgdsecond.greendao.GreenDaoHelper;
 import com.nandi.gsgdsecond.utils.Api;
 import com.nandi.gsgdsecond.utils.CommonUtils;
 import com.nandi.gsgdsecond.utils.Constant;
@@ -29,46 +24,39 @@ import com.zhy.http.okhttp.callback.StringCallback;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
 
 /**
- * 驻守人员：日志填报界面
- * Created by baohongyan on 2017/11/21.
+ * 片区专管员：工作周报填报页面
+ * Created by baohongyan on 2017/11/22.
  */
 
-public class DailyReportActivity extends AppCompatActivity {
+public class WeeklyReportActivity extends AppCompatActivity {
 
     @BindView(R.id.iv_back)
     ImageView ivBack;
     @BindView(R.id.iv_call)
     ImageView ivCall;
-    @BindView(R.id.tv_recordtime)
-    TextView recordtime;  //记录时间
-    @BindView(R.id.et_recorder)
-    EditText etName; //记录人员
-    @BindView(R.id.et_worktype)
-    EditText etWorkType; //工作类型
-    @BindView(R.id.et_situation)
-    EditText etSituation; //在岗情况
-    @BindView(R.id.et_dailywork)
-    EditText etLogContent; //日志内容
-    @BindView(R.id.et_remarks)
-    EditText etRemarks;  //备注
+    @BindView(R.id.et_townsName)
+    EditText etTownsName;
+    @BindView(R.id.tv_weeklyTime)
+    TextView tvWeeklyTime;
+    @BindView(R.id.et_userName)
+    EditText etUserName;
+    @BindView(R.id.et_weeklyWork)
+    EditText etWeeklyWork;
 
-    private DailyReportActivity context;
+    private WeeklyReportActivity context;
     private ProgressDialog progressDialog;
     private MyProgressBar progressBar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dailylog);
+        setContentView(R.layout.activity_weekly);
         ButterKnife.bind(this);
         context = this;
         initView();
@@ -76,7 +64,7 @@ public class DailyReportActivity extends AppCompatActivity {
     }
 
     private void initView(){
-        recordtime.setText(CommonUtils.getSystemTime());
+        tvWeeklyTime.setText(CommonUtils.getSystemTime());
         progressDialog = new ProgressDialog(context);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         progressDialog.setTitle("正在上传...");
@@ -86,12 +74,11 @@ public class DailyReportActivity extends AppCompatActivity {
     }
 
     /**
-     * 初始化默认数据：记录人、工作类型、在岗情况
+     * 初始化默认数据：乡镇名称、片区负责人名称
      */
     private void initDatas(){
-        etName.setText((String) SharedUtils.getShare(context, Constant.LOGNAME, ""));
-        etWorkType.setText((String) SharedUtils.getShare(context, Constant.WORKTYPE, ""));
-        etSituation.setText((String) SharedUtils.getShare(context, Constant.SITUATION, ""));
+        etTownsName.setText((String) SharedUtils.getShare(context, Constant.TOWNS, ""));
+        etUserName.setText((String) SharedUtils.getShare(context, Constant.WEEKLYNAME, ""));
     }
 
     @Override
@@ -99,7 +86,7 @@ public class DailyReportActivity extends AppCompatActivity {
         back();
     }
 
-    @OnClick({R.id.iv_back, R.id.iv_call, R.id.btn_report, R.id.btn_save})
+    @OnClick({R.id.iv_back, R.id.iv_call, R.id.btn_report})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -108,18 +95,17 @@ public class DailyReportActivity extends AppCompatActivity {
             case R.id.iv_call:
                 getNumber();
                 break;
-            case R.id.btn_save:
-//                save();
-                ToastUtils.showShort(context, "暂时无法保存");
-                break;
             case R.id.btn_report:
                 if (checkEditText()){
                     ToastUtils.showShort(context, "请输入完整信息");
                 } else {
-                    SharedUtils.putShare(context, Constant.LOGNAME, etName.getText().toString().trim());
-                    SharedUtils.putShare(context, Constant.WORKTYPE, etWorkType.getText().toString().trim());
-                    SharedUtils.putShare(context, Constant.SITUATION, etSituation.getText().toString().trim());
-                    reportRequest(new Api(context).getLogReportUrl());
+                    SharedUtils.putShare(context, Constant.TOWNS, etTownsName.getText().toString().trim());
+                    SharedUtils.putShare(context, Constant.WEEKLYNAME, etUserName.getText().toString().trim());
+                    try {
+                        reportRequest(new Api(context).getWeeklyUrl());
+                    } catch (JSONException e){
+                        e.printStackTrace();
+                    }
                 }
 
                 break;
@@ -130,7 +116,7 @@ public class DailyReportActivity extends AppCompatActivity {
      * 返回上一级
      */
     private void back() {
-        CommonUtils.back(context, "确定要退出日志填写吗？");
+        CommonUtils.back(context, "确定要退出周报填写吗？");
     }
 
     private void getNumber() {
@@ -163,12 +149,9 @@ public class DailyReportActivity extends AppCompatActivity {
      * @return
      */
     private boolean checkEditText(){
-        if (recordtime.getText().toString().trim().length()==0 ||
-                etName.getText().toString().trim().length()==0 ||
-                etWorkType.getText().toString().trim().length()==0 ||
-                etSituation.getText().toString().trim().length()==0 ||
-                etLogContent.getText().toString().trim().length()==0 ||
-                etRemarks.getText().toString().trim().length()==0){
+        if (etTownsName.getText().toString().trim().length()==0 ||
+                etUserName.getText().toString().trim().length()==0 ||
+                etWeeklyWork.getText().toString().trim().length()==0){
             return true;
         } else {
             return false;
@@ -179,17 +162,19 @@ public class DailyReportActivity extends AppCompatActivity {
      * 发起上报请求的方法
      * @param url 请求地址
      */
-    private void reportRequest(String url){
+    private void reportRequest(String url) throws JSONException{
         progressDialog.show();
         String phoneNum = (String) SharedUtils.getShare(context, Constant.MOBILE, "");
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("member", "");
+        jsonObject.put("phoneNum", phoneNum);
+        jsonObject.put("units", etTownsName.getText().toString().trim());
+        jsonObject.put("recordTime", tvWeeklyTime);
+        jsonObject.put("userName", etUserName.getText().toString().trim());
+        jsonObject.put("jobContent", etWeeklyWork.getText().toString().trim());
+        String data = String.valueOf(jsonObject);
         OkHttpUtils.post().url(url)
-                .addParams("phoneNum", phoneNum)
-                .addParams("userName", etName.getText().toString().trim())
-                .addParams("recordTime", recordtime.getText().toString().trim())
-                .addParams("workType", etWorkType.getText().toString().trim())
-                .addParams("situation", etSituation.getText().toString().trim())
-                .addParams("logContent", etLogContent.getText().toString().trim())
-                .addParams("remarks", etRemarks.getText().toString().trim())
+                .addParams("data", data)
                 .build()
                 .execute(new StringCallback() {
                     @Override
@@ -200,36 +185,12 @@ public class DailyReportActivity extends AppCompatActivity {
 
                     @Override
                     public void onResponse(String response, int id) {
-                        Log.d("DailyReport---", response);
-                        ToastUtils.showShort(context, "日志上传成功!");
+                        Log.d("WeelkyReport---", response);
+                        ToastUtils.showShort(context, "周报上传成功!");
                         progressDialog.dismiss();
                         context.finish();
                     }
                 });
-    }
-
-    /**
-     * 保存数据
-     */
-    private void save() {
-        String time = recordtime.getText().toString().trim();
-        String name = etName.getText().toString().trim();
-        String workType = etWorkType.getText().toString().trim();
-        String situation = etSituation.getText().toString().trim();
-        String logContent = etLogContent.getText().toString().trim();
-        String remarks = etRemarks.getText().toString().trim();
-
-        DailyLogInfo dailyLogInfo = new DailyLogInfo();
-        dailyLogInfo.setTime(time);
-        dailyLogInfo.setUserName(name);
-        dailyLogInfo.setWorkType(workType);
-        dailyLogInfo.setSituation(situation);
-        dailyLogInfo.setLogContent(logContent);
-        dailyLogInfo.setRemarks(remarks);
-
-        GreenDaoHelper.insertDailyLogInfo(dailyLogInfo);
-
-        ToastUtils.showShort(context, "保存成功");
     }
 
 }

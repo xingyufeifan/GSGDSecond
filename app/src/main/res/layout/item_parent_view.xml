@@ -114,7 +114,7 @@
                 android:layout_width="30dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center_vertical"
-                android:src="@mipmap/ic_more" />
+                android:src="@mipmap/ic_more1" />
         </LinearLayout>
 
     </android.support.v7.widget.CardView>

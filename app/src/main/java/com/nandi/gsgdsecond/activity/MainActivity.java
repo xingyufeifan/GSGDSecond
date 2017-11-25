@@ -71,6 +71,8 @@ public class MainActivity extends BaseActivity {
     ExpandableListView elDisasterList;
     @BindView(R.id.rl_dailylog)
     LinearLayout rl_dailylog;
+    @BindView(R.id.rl_weekly)
+    LinearLayout rl_weekly;
 
     private List<DisasterPoint> disasterPoints;
     private Map<String, List<MonitorPoint>> map;
@@ -116,6 +118,7 @@ public class MainActivity extends BaseActivity {
         super.initData();
         titleText.setText("灾害点列表");
         rl_dailylog.setVisibility(View.GONE);
+        rl_weekly.setVisibility(View.GONE);
         elDisasterList.setVisibility(View.VISIBLE);
 
         elDisasterList.setGroupIndicator(null);//消除expandlistview的图标

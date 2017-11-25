@@ -40,6 +40,7 @@ import com.nandi.gsgdsecond.bean.DisasterInfo;
 import com.nandi.gsgdsecond.bean.DisasterPoint;
 import com.nandi.gsgdsecond.greendao.GreenDaoHelper;
 import com.nandi.gsgdsecond.utils.Api;
+import com.nandi.gsgdsecond.utils.CommonUtils;
 import com.nandi.gsgdsecond.utils.Constant;
 import com.nandi.gsgdsecond.utils.MyProgressBar;
 import com.nandi.gsgdsecond.utils.PictureUtils;
@@ -123,28 +124,6 @@ public class DisasterListActivity extends AppCompatActivity {
         locationClient.setLocOption(option);
         locationClient.registerLocationListener(new LocationListener());
         locationClient.start();
-    }
-
-
-    private void callPhone(final String message) {
-        new AlertDialog.Builder(context)
-                .setTitle("提示")
-                .setIcon(R.drawable.warning)
-                .setMessage("是否发起电话帮助？")
-                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + message));
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-                    }
-                })
-                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                }).show();
     }
 
     private class LocationListener extends BDAbstractLocationListener {
@@ -397,7 +376,7 @@ public class DisasterListActivity extends AppCompatActivity {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             String message = jsonObject.getString("message");
-                            callPhone(message);
+                            CommonUtils.callPhone(message, context);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -539,22 +518,7 @@ public class DisasterListActivity extends AppCompatActivity {
         if (isSave) {
             finish();
         } else {
-            new AlertDialog.Builder(context)
-                    .setTitle("提示")
-                    .setIcon(R.drawable.warning)
-                    .setMessage("检测到修改了数据未保存，确定要退出吗？")
-                    .setPositiveButton("退出", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            finish();
-                        }
-                    })
-                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.dismiss();
-                        }
-                    }).show();
+            CommonUtils.back(context, "检测到修改了数据未保存，确定要退出吗？");
         }
     }
 }

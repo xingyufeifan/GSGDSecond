@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/loginbg3"
+    android:background="@drawable/loginbg1"
     android:orientation="vertical"
     tools:context="com.nandi.gsgdsecond.activity.LoginActivity">
 
@@ -56,8 +56,8 @@
             app:cornerRadius="8dip"
             android:orientation="horizontal"
             app:horizonGap="8dip"
-            android:textSize="18sp"
-            app:texts="群测群防|驻守人员|片区专管"
+            android:textSize="16sp"
+            app:texts="群测群防|驻守人员|片区专管|地环站"
             app:textColors="@color/white"
             app:verticalGap="8dip"
             app:selectedColor="@color/title_bg"/>

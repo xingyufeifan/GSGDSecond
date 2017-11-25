@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nandi.gsgdsecond.R;
+import com.nandi.gsgdsecond.utils.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,11 +30,14 @@ public class DailyLogActivity extends BaseActivity{
     ExpandableListView elDisasterList;
     @BindView(R.id.rl_dailylog)
     LinearLayout rl_dailylog;
+    @BindView(R.id.rl_weekly)
+    LinearLayout rl_weekly;
     @BindView(R.id.dailylog_report)
     CardView dailyLog_report;
     @BindView(R.id.dailylog_situation)
     CardView dailyLog_situation;
-
+    @BindView(R.id.disaster_report)
+    CardView disaster_report;
     private Context context;
 
     @Override
@@ -51,6 +55,7 @@ public class DailyLogActivity extends BaseActivity{
         super.initData();
         titleText.setText("驻守人员");
         elDisasterList.setVisibility(View.GONE);
+        rl_weekly.setVisibility(View.GONE);
         rl_dailylog.setVisibility(View.VISIBLE);
     }
 
@@ -65,12 +70,22 @@ public class DailyLogActivity extends BaseActivity{
                 startActivity(new Intent(context, DailyReportActivity.class));
             }
         });
+
+        //灾情速报
+        disaster_report.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(context, DisReportActivity.class));
+            }
+        });
+
         //日志上报情况
         dailyLog_situation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //TODO
-                startActivity(new Intent(context, WeeklyActivity.class));
+//                startActivity(new Intent(context, DailyReportActivity.class));
+                ToastUtils.showShort(context, "暂时无法查看!");
             }
         });
     }

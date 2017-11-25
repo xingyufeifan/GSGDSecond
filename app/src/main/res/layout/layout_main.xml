@@ -38,16 +38,18 @@
             android:paddingRight="5dp"/>
     </RelativeLayout>
 
+    <!--群测群防-->
     <ExpandableListView
         android:id="@+id/el_disaster_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@null"
         android:layout_below="@+id/titlebar"
-        android:visibility="visible">
+        android:visibility="gone">
 
     </ExpandableListView>
 
+    <!--驻守人员-->
     <LinearLayout
         android:id="@+id/rl_dailylog"
         android:layout_width="match_parent"
@@ -57,7 +59,7 @@
         android:paddingTop="10dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <android.support.v7.widget.CardView
             android:id="@+id/dailylog_report"
@@ -81,12 +83,45 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="工作日志填报"
+                    android:text="日志填报"
                     android:textColor="@color/title_bg"
                     android:textSize="22sp" />
 
                 <ImageView
-                    android:id="@+id/iv_arrow"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/daily" />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/disaster_report"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            card_view:cardBackgroundColor="@color/white"
+            card_view:cardCornerRadius="5dp"
+            card_view:cardElevation="2dp"
+            card_view:cardPreventCornerOverlap="true"
+            card_view:cardUseCompatPadding="true"
+            card_view:contentPadding="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="灾情速报"
+                    android:textColor="@color/title_bg"
+                    android:textSize="22sp" />
+
+                <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_gravity="center_vertical"
@@ -121,14 +156,96 @@
                     android:textSize="22sp" />
 
                 <ImageView
-                    android:id="@+id/iv_arrow2"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_gravity="center_vertical"
-                    android:src="@drawable/seewrite" />
+                    android:src="@drawable/search" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
     </LinearLayout>
+
+    <!--片区负责人-->
+    <LinearLayout
+        android:id="@+id/rl_weekly"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/titlebar"
+        android:orientation="vertical"
+        android:paddingTop="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:visibility="gone">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/weekly_report"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            card_view:cardBackgroundColor="@color/white"
+            card_view:cardCornerRadius="5dp"
+            card_view:cardElevation="2dp"
+            card_view:cardPreventCornerOverlap="true"
+            card_view:cardUseCompatPadding="true"
+            card_view:contentPadding="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="工作周报填报"
+                    android:textColor="@color/title_bg"
+                    android:textSize="22sp" />
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/write" />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/weekly_situation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            card_view:cardBackgroundColor="@color/white"
+            card_view:cardCornerRadius="5dp"
+            card_view:cardElevation="2dp"
+            card_view:cardPreventCornerOverlap="true"
+            card_view:cardUseCompatPadding="true"
+            card_view:contentPadding="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="周报上报情况"
+                    android:textColor="@color/title_bg"
+                    android:textSize="22sp" />
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/search" />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+
 
 </RelativeLayout>

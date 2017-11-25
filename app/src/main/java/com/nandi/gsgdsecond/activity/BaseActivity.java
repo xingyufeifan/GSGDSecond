@@ -32,6 +32,7 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.nandi.gsgdsecond.R;
 import com.nandi.gsgdsecond.greendao.GreenDaoHelper;
+import com.nandi.gsgdsecond.utils.CommonUtils;
 import com.nandi.gsgdsecond.utils.Constant;
 import com.nandi.gsgdsecond.utils.DownloadUtils;
 import com.nandi.gsgdsecond.utils.MyProgressBar;
@@ -298,7 +299,7 @@ public class BaseActivity extends AppCompatActivity
         new AlertDialog.Builder(context)
                 .setTitle("提示")
                 .setIcon(R.drawable.warning)
-                .setMessage("确定要清除以前和当前保存的照片吗？")
+                .setMessage("确定要清除保存的照片及数据吗？")
                 .setPositiveButton("删除", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int j) {

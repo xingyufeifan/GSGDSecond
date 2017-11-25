@@ -1,30 +1,77 @@
 package com.nandi.gsgdsecond.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
+import android.view.View;
+import android.widget.ExpandableListView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.nandi.gsgdsecond.R;
+import com.nandi.gsgdsecond.utils.ToastUtils;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
- * 片区负责人：工作周报
+ * 片区专管员主页
  * Created by baohongyan on 2017/11/20.
  */
 
-public class WeeklyActivity extends AppCompatActivity {
+public class WeeklyActivity extends BaseActivity {
 
+    @BindView(R.id.title_text)
+    TextView titleText;
+    @BindView(R.id.el_disaster_list)
+    ExpandableListView elDisasterList;
+    @BindView(R.id.rl_dailylog)
+    LinearLayout rl_dailylog;
+    @BindView(R.id.rl_weekly)
+    LinearLayout rl_weekly;
+    @BindView(R.id.weekly_report)
+    CardView weekly_report;
+    @BindView(R.id.weekly_situation)
+    CardView weekly_situation;
+
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_weekly);
+        setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+        context = this;
+        initData();
+        setListener();
     }
-
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
+    public void initData() {
+        super.initData();
+        titleText.setText("片区专管员");
+        elDisasterList.setVisibility(View.GONE);
+        rl_dailylog.setVisibility(View.GONE);
+        rl_weekly.setVisibility(View.VISIBLE);
     }
 
-
+    @Override
+    public void setListener() {
+        super.setListener();
+        weekly_report.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(context, WeeklyReportActivity.class));
+            }
+        });
+        weekly_situation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastUtils.showShort(context, "暂时无法查看!");
+            }
+        });
+    }
 
 }

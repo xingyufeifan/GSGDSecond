@@ -3,6 +3,7 @@ package com.nandi.gsgdsecond.greendao;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.nandi.gsgdsecond.bean.DailyLogInfo;
 import com.nandi.gsgdsecond.bean.DisasterInfo;
 import com.nandi.gsgdsecond.bean.DisasterPoint;
 import com.nandi.gsgdsecond.bean.MonitorInfo;
@@ -81,8 +82,28 @@ public class GreenDaoHelper {
         return daoSession.getMonitorInfoDao().queryBuilder().where(MonitorInfoDao.Properties.DisasterNumber.eq(disNo)
         ,MonitorInfoDao.Properties.MonitorNumber.eq(MonNo)).unique();
     }
+
+    public static void insertDailyLogInfo(DailyLogInfo dailyLogInfo){
+        daoSession.getDailyLogInfoDao().insertOrReplace(dailyLogInfo);
+    }
+    public static void deleteDailyLogInfo(DailyLogInfo dailyLogInfo){
+        daoSession.getDailyLogInfoDao().delete(dailyLogInfo);
+    }
+    public static void updateDailyLogInfo(DailyLogInfo dailyLogInfo){
+        daoSession.getDailyLogInfoDao().update(dailyLogInfo);
+    }
+    public static List<DailyLogInfo> queryDailyLogInfoList(){
+        return daoSession.getDailyLogInfoDao().queryBuilder().list();
+    }
+    //根据记录时间查询单条日志
+    public static DailyLogInfo queryDailyLogInfo(String time){
+        return daoSession.getDailyLogInfoDao().queryBuilder()
+                .where(DailyLogInfoDao.Properties.Remarks.eq(time)).unique();
+    }
+
     public static void deleteAllInfo(){
         daoSession.getDisasterInfoDao().deleteAll();
         daoSession.getMonitorInfoDao().deleteAll();
+        daoSession.getDailyLogInfoDao().deleteAll();
     }
 }

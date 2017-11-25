@@ -19,4 +19,9 @@ public class Constant {
     public static final String LOGNAME = "logname";
     public static final String WORKTYPE = "worktype";
     public static final String SITUATION = "situation";
+
+    //片区专管
+    public static final String TOWNS = "townsname";
+    public static final String WEEKLYNAME = "weeklyname";
+
 }
