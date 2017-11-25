@@ -91,12 +91,12 @@ public class DailyReportActivity extends AppCompatActivity {
         progressBar = new MyProgressBar(context);
         listBean = (DailyLogInfo) getIntent().getSerializableExtra(Constant.DISASTER);
         type = getIntent().getIntExtra("type", 0);
-        if (1 == type ) {
+        if (1 == type) {
             initData();
-        }else if(2 == type ) {
+        } else if (2 == type) {
             initData();
             llBtn.setVisibility(View.GONE);
-        }else {
+        } else {
             initDatas();
         }
     }
@@ -220,12 +220,16 @@ public class DailyReportActivity extends AppCompatActivity {
                     public void onResponse(String response, int id) {
                         Log.d("DailyReport---", response);
                         ToastUtils.showShort(context, "日志上传成功!");
-                      if (1 == type) {
+                        if (1 == type) {
                             setResult(YesReport.DANGER_REQUEST_CODE);
                             GreenDaoHelper.deleteOneDailyLog(listBean.getId());
-                            finish();
                         } else {
-                            finish();
+                            DailyLogInfo dailyLogInfo = GreenDaoHelper.queryDailyLogInfo(recordtime.getText().toString());
+                            if (null == dailyLogInfo){
+                           }else{
+                               GreenDaoHelper.deleteOneDailyLog(dailyLogInfo.getId());
+                           }
+
                         }
 
                         progressDialog.dismiss();

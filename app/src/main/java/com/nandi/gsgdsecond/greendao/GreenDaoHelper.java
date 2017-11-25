@@ -101,7 +101,7 @@ public class GreenDaoHelper {
     //根据记录时间查询单条日志
     public static DailyLogInfo queryDailyLogInfo(String time){
         return daoSession.getDailyLogInfoDao().queryBuilder()
-                .where(DailyLogInfoDao.Properties.Remarks.eq(time)).unique();
+                .where(DailyLogInfoDao.Properties.Time.eq(time)).unique();
     }
 
     public static void deleteAllInfo(){
