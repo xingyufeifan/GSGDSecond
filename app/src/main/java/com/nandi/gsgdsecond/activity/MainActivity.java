@@ -37,11 +37,13 @@ import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.blankj.utilcode.util.ServiceUtils;
 import com.nandi.gsgdsecond.R;
 import com.nandi.gsgdsecond.adapter.ExpandableAdapter;
 import com.nandi.gsgdsecond.bean.DisasterPoint;
 import com.nandi.gsgdsecond.bean.MonitorPoint;
 import com.nandi.gsgdsecond.greendao.GreenDaoHelper;
+import com.nandi.gsgdsecond.service.LocationService;
 import com.nandi.gsgdsecond.utils.Constant;
 import com.nandi.gsgdsecond.utils.DownloadUtils;
 import com.nandi.gsgdsecond.utils.MyProgressBar;
@@ -93,7 +95,15 @@ public class MainActivity extends BaseActivity {
         context = this;
         initData();
         setListener();
+        startLocationService();
     }
+
+    private void startLocationService() {
+        Intent intent=new Intent(context, LocationService.class);
+        intent.putExtra(Constant.UPLOAD_URL,"uploadMeteorLongitudeAndLatitude.do");
+        startService(intent);
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -121,7 +131,6 @@ public class MainActivity extends BaseActivity {
     @Override
     public void setListener() {
         super.setListener();
-
         elDisasterList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
@@ -144,7 +153,8 @@ public class MainActivity extends BaseActivity {
         btn_videoRecord1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(context, RecordVideoActivity.class);
+                startActivity(intent);
             }
         });
     }

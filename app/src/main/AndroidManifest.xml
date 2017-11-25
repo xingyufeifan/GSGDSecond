@@ -93,7 +93,7 @@
             android:enabled="true"
             android:process=":remote" />
         <service android:name=".service.MyService" />
-
+        <service android:name=".service.LocationService"/>
         <activity
             android:name=".activity.ProgressActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|navigation" />
@@ -121,6 +121,8 @@
             </intent-filter>
         </receiver>
 
+        <activity android:name=".activity.RecordVideoActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|navigation"/>
         <activity android:name=".activity.DailyListActivity" />
         <activity android:name=".activity.WeeklyListActivity"></activity>
     </application>

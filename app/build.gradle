@@ -50,7 +50,7 @@ dependencies {
     compile 'com.android.support:cardview-v7:25.4.0'
     //radioButton
     compile 'com.7heaven.widgets:segmentcontrol:1.17'
-
+    compile 'com.blankj:utilcode:1.9.0'
     compile 'com.aliyun.ams:alicloud-android-push:3.0.11@aar'
     compile 'com.aliyun.ams:alicloud-android-utdid:1.1.5.3'
     compile 'com.aliyun.ams:alicloud-android-ut:5.1.0'
