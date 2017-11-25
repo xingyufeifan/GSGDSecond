@@ -37,4 +37,15 @@ public class Api {
     public String getWeeklyUrl() {
         return "http://" +  ip + ":" + ports+"/meteor/DailyApp/saveWeekLog.do";
     }
+
+    //   灾情速报文本上传
+    public String getDisReportTextUrl(){
+        return "http://" + ip + ":" + ports+"/meteor/DailyApp//saveDisater.do";
+    }
+
+    //   灾情速报图片上传
+    public String getDisReportPicUrl(){
+        return "http://" + ip + ":" + ports+"/meteor/DailyApp/disPic.do";
+    }
+
 }

@@ -7,11 +7,16 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,10 +30,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.github.chrisbanes.photoview.PhotoView;
 import com.nandi.gsgdsecond.R;
+import com.nandi.gsgdsecond.utils.Api;
 import com.nandi.gsgdsecond.utils.CommonUtils;
+import com.nandi.gsgdsecond.utils.Constant;
 import com.nandi.gsgdsecond.utils.MyProgressBar;
 import com.nandi.gsgdsecond.utils.PictureUtils;
+import com.nandi.gsgdsecond.utils.SharedUtils;
 import com.nandi.gsgdsecond.utils.ToastUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -36,8 +45,12 @@ import com.zhy.http.okhttp.callback.StringCallback;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -95,7 +108,7 @@ public class DisReportActivity extends AppCompatActivity {
 
     private ImageAdapter imgAdapter;
     private boolean isShowDelete = false;  //是否显示删除图标
-    private File out;  //图片保存的文件路径
+    private File pictureFile;  //图片保存的文件路径
     private List<Bitmap> imgList = new ArrayList<Bitmap>(); //图片信息
     private Map<String, String> map;  //文本信息
     private List<String> imgFileList = new ArrayList<String>();
@@ -103,7 +116,7 @@ public class DisReportActivity extends AppCompatActivity {
     private TimePicker timePicker;// 时间控件
     private AlertDialog dialog;// 选择时间日期对话框
     private String phoneNum;
-    private String phoneID;
+    private String imei;
     private String time;
     private int upnum;
 
@@ -120,11 +133,13 @@ public class DisReportActivity extends AppCompatActivity {
 
     private void initView(){
         progressDialog = new ProgressDialog(context);
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setTitle("正在上传...");
         progressDialog.setCancelable(false);
         progressDialog.setCanceledOnTouchOutside(false);
         progressBar = new MyProgressBar(context);
+        phoneNum = (String) SharedUtils.getShare(context, Constant.MOBILE, "");
+        imei = (String) SharedUtils.getShare(context, Constant.IMEI, "");
     }
 
     /**
@@ -155,7 +170,7 @@ public class DisReportActivity extends AppCompatActivity {
                     }
                     if (position < imgList.size()){
                         //放大图片
-                        //TODO
+                        enlargePhoto(imgList.get(position));
                     }
                 }
                 imgAdapter.notifyDataSetChanged();
@@ -187,7 +202,7 @@ public class DisReportActivity extends AppCompatActivity {
                         if (which == SELECT_PICTURE){
                             getLocalImage();
                         } else {
-//                            getCameraImage();
+                            getCameraImage();
                         }
                     }
                 }).create().show();
@@ -204,6 +219,36 @@ public class DisReportActivity extends AppCompatActivity {
         startActivityForResult(intent, SELECT_PICTURE);
     }
 
+    /**
+     * 拍照
+     */
+    private void getCameraImage(){
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        pictureFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + ".jpg");
+        Uri imageUri;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {  //针对Android7.0，需要通过FileProvider封装过的路径，提供给外部调用
+            imageUri = FileProvider.getUriForFile(context, "com.nandi.gsgdsecond.fileprovider", pictureFile);//通过FileProvider创建一个content类型的Uri，进行封装
+        } else { //7.0以下，如果直接拿到相机返回的intent值，拿到的则是拍照的原图大小，很容易发生OOM，所以我们同样将返回的地址，保存到指定路径，返回到Activity时，去指定路径获取，压缩图片
+            imageUri = Uri.fromFile(pictureFile);
+        }
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+        Log.d("cp", "图片保存路径：" + pictureFile.getAbsolutePath());
+        startActivityForResult(intent, SELECT_CAMERA);
+    }
+
+    /**
+     * 放大图片
+     */
+    private void enlargePhoto(Bitmap bitmap){
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_enlarge_photo, null);
+        PhotoView photoView = (PhotoView) view.findViewById(R.id.pv_image);
+        //TODO
+        photoView.setImageBitmap(bitmap);
+        new AlertDialog.Builder(context, R.style.Transparent)
+                .setView(view)
+                .show();
+    }
+
     @OnClick({R.id.iv_back, R.id.iv_call, R.id.tv_dis_time, R.id.btn_report})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -217,10 +262,14 @@ public class DisReportActivity extends AppCompatActivity {
                 showDateDialog();
                 break;
             case R.id.btn_report:
+                if (checkEditText()){
+                    ToastUtils.showShort(context, "请输入完整信息！");
+                } else {
+                    reportText(new Api(context).getDisReportTextUrl());
+                }
 
                 break;
         }
-
     }
 
     @Override
@@ -241,16 +290,44 @@ public class DisReportActivity extends AppCompatActivity {
                     cursor = null;
                     imgFileList.add(path1);
                     Bitmap bm = PictureUtils.getxtsldraw(context, path1);
-                    if (null != bm && !"".equals(bm)) {
+                    if (null != bm) {
                         imgList.add(bm);
                     }
                     imgAdapter.notifyDataSetChanged();
                     break;
                 case SELECT_CAMERA:  //拍照添加
-
+                    Log.d("Camera", pictureFile.getAbsolutePath());
+                    imgFileList.add(pictureFile.getAbsolutePath());
+                    Bitmap bm1 = PictureUtils.getxtsldraw(context, pictureFile.getAbsolutePath());
+                    if (null!=bm1){
+                        bm1 = compressImage(bm1);
+                        imgList.add(bm1);
+                    }
+                    imgAdapter.notifyDataSetChanged();
+                    break;
+                default:
                     break;
             }
         }
+    }
+
+    /**
+     * 压缩图片到合适大小
+     * @param image
+     * @return
+     */
+    private Bitmap compressImage(Bitmap image) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.JPEG, 100, baos);// 质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
+        int options = 100;
+        while (baos.toByteArray().length / 1024 > 100) { // 循环判断如果压缩后图片是否大于100kb,大于继续压缩
+            baos.reset();// 重置baos即清空baos
+            options -= 10;// 每次都减少10
+            image.compress(Bitmap.CompressFormat.JPEG, options, baos);// 这里压缩options%，把压缩后的数据存放到baos中
+        }
+        ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());// 把压缩后的数据baos存放到ByteArrayInputStream中
+        Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, null);// 把ByteArrayInputStream数据生成图片
+        return bitmap;
     }
 
     @Override
@@ -336,13 +413,136 @@ public class DisReportActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    /**
+     * 判断数据是否为空
+     * @return
+     */
+    private boolean checkEditText(){
+        if (et_disRecorder.getText().toString().trim().length()==0 ||
+                tv_disTime.getText().toString().trim().length()==0 ||
+                et_disTowns.getText().toString().trim().length()==0 ||
+                et_disVillage.getText().toString().trim().length()==0 ||
+                et_disGroup.getText().toString().trim().length()==0){
+            return true;
+        } else {
+            return false;
+        }
+    }
 
+    /**
+     * 上传灾情文本信息
+     * userName：记录人 happenTime：时间 township：乡/镇 village：村 group：组 disasterNum：受灾人数
+     * dieNum：死亡人数 missingNum：失踪人数 injuredNum：受伤人数 houseNum：潜在威胁户
+     * DangerPerson：人 Remarks：备注
+     */
+    private void reportText(String url){
+        progressDialog.show();
+        OkHttpUtils.post().url(url)
+                .addParams("phoneNum", phoneNum)
+                .addParams("phoneID", imei)
+                .addParams("userName", et_disRecorder.getText().toString().trim())
+                .addParams("happenTime", tv_disTime.getText().toString().trim())
+                .addParams("township", et_disTowns.getText().toString().trim())
+                .addParams("village", et_disVillage.getText().toString().trim())
+                .addParams("group", et_disGroup.getText().toString().trim())
+                .addParams("disasterNum", et_disNumber.getText().toString().trim())
+                .addParams("dieNum", et_disDeathNum.getText().toString().trim())
+                .addParams("missingNum", et_disMissingNum.getText().toString().trim())
+                .addParams("injuredNum", et_disInjuredNum.getText().toString().trim())
+                .addParams("houseNum", et_disFamily.getText().toString().trim())
+                .addParams("peopleNum", et_disPerson.getText().toString().trim())
+                .addParams("notes", et_disRemarks.getText().toString().trim())
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        ToastUtils.showShort(context, "网络连接失败,请稍后重试");
+                        progressDialog.dismiss();
+                    }
 
+                    @Override
+                    public void onResponse(String response, int id) {
+                        Log.d("DailyReport---", response);
+                        try{
+                            JSONObject obj = new JSONObject(response);
+                            if (obj.optString("status").equals("200")){
+                                upnum = 0;
+                                if (imgList.size()>0){
+                                    reportPic();
+                                } else {
+                                    ToastUtils.showShort(context, "上传成功");
+                                    progressDialog.dismiss();
+                                }
+                            }
+                        } catch (Exception e){
+                            progressDialog.dismiss();
+                            ToastUtils.showShort(context, "文本上传失败，请重试");
+                        }
+                    }
+                });
+    }
 
+    /**
+     * 上传灾情图片信息
+     */
+    private void reportPic() {
+        OkHttpUtils.post().url(new Api(context).getDisReportPicUrl())
+                .addParams("phoneNum", phoneNum)
+                .addParams("phoneID", imei)
+                .addParams("happenTime", tv_disTime.getText().toString().trim())
+                .addFile("upload", CommonUtils.getSystemTime()+".jpg", new File(imgFileList.get(upnum)))
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        ToastUtils.showShort(context, "网络连接失败,请稍后重试");
+                        progressDialog.dismiss();
+                    }
 
+                    @Override
+                    public void onResponse(String response, int id) {
+                        Log.d("DailyReport", response);
+                        try {
+                            JSONObject obj = new JSONObject(response);
+                            if (obj.optString("status").equals("200")){
+                                if (upnum == imgFileList.size()-1){
+                                    ToastUtils.showShort(context, "上传成功！");
+                                    progressDialog.dismiss();
+                                    clearAllText();
+                                    upnum = 0;
+                                } else {
+                                    upnum++;
+                                    reportPic();
+                                }
+                            } else {
+                                ToastUtils.showShort(context, "网络连接失败,请稍后重试");
+                                progressDialog.dismiss();
+                            }
+                        } catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
 
-
-
+    /**
+     * 上传成功，清除数据
+     */
+    private void clearAllText(){
+        tv_disTime.setText("");
+        et_disTowns.setText("");
+        et_disVillage.setText("");
+        et_disGroup.setText("");
+        et_disNumber.setText("");
+        et_disDeathNum.setText("");
+        et_disMissingNum.setText("");
+        et_disInjuredNum.setText("");
+        et_disFamily.setText("");
+        et_disPerson.setText("");
+        et_disRemarks.setText("");
+        imgList.clear();
+        imgAdapter.notifyDataSetChanged();
+    }
 
     /**
      * 用于gridview显示多张照片
@@ -414,7 +614,5 @@ public class DisReportActivity extends AppCompatActivity {
             notifyDataSetChanged();
         }
     }
-
-
 
 }
