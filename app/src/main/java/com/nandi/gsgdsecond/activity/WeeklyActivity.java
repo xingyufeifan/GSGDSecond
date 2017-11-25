@@ -84,7 +84,7 @@ public class WeeklyActivity extends BaseActivity {
         weekly_situation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtils.showShort(context, "暂时无法查看!");
+                startActivity(new Intent(context, WeeklyListActivity.class));
             }
         });
         //应急调查视频录制

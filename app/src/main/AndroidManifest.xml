@@ -123,6 +123,8 @@
 
         <activity android:name=".activity.RecordVideoActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|navigation"/>
+        <activity android:name=".activity.DailyListActivity" />
+        <activity android:name=".activity.WeeklyListActivity"></activity>
     </application>
 
 </manifest>

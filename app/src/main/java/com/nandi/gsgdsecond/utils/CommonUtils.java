@@ -44,7 +44,7 @@ public class CommonUtils {
                 }).show();
     }
 
-    public static void callPhone(final String message, final Activity context) {
+    public static void callPhone(final String message,final Activity context) {
         new AlertDialog.Builder(context)
                 .setTitle("提示")
                 .setIcon(R.drawable.warning)

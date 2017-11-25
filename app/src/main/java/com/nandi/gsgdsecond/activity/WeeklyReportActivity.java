@@ -1,17 +1,18 @@
 package com.nandi.gsgdsecond.activity;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nandi.gsgdsecond.R;
+import com.nandi.gsgdsecond.bean.DailyBean;
 import com.nandi.gsgdsecond.utils.Api;
 import com.nandi.gsgdsecond.utils.CommonUtils;
 import com.nandi.gsgdsecond.utils.Constant;
@@ -48,10 +49,14 @@ public class WeeklyReportActivity extends AppCompatActivity {
     EditText etUserName;
     @BindView(R.id.et_weeklyWork)
     EditText etWeeklyWork;
+    @BindView(R.id.btn_report)
+    Button btnReport;
 
     private WeeklyReportActivity context;
     private ProgressDialog progressDialog;
     private MyProgressBar progressBar;
+    private DailyBean listBean;
+    private int type;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,9 +66,22 @@ public class WeeklyReportActivity extends AppCompatActivity {
         context = this;
         initView();
         initDatas();
+        listBean = (DailyBean) getIntent().getSerializableExtra(Constant.DISASTER);
+        type = getIntent().getIntExtra("type", 0);
+        if (3 == type) {
+            initData();
+        }
     }
 
-    private void initView(){
+    private void initData() {
+        etTownsName.setText(listBean.getUnits());
+        tvWeeklyTime.setText(listBean.getRecord_time());
+        etUserName.setText(listBean.getUser_name());
+        etWeeklyWork.setText(listBean.getJobContent());
+        btnReport.setVisibility(View.GONE);
+    }
+
+    private void initView() {
         tvWeeklyTime.setText(CommonUtils.getSystemTime());
         progressDialog = new ProgressDialog(context);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
@@ -76,7 +94,7 @@ public class WeeklyReportActivity extends AppCompatActivity {
     /**
      * 初始化默认数据：乡镇名称、片区负责人名称
      */
-    private void initDatas(){
+    private void initDatas() {
         etTownsName.setText((String) SharedUtils.getShare(context, Constant.TOWNS, ""));
         etUserName.setText((String) SharedUtils.getShare(context, Constant.WEEKLYNAME, ""));
     }
@@ -96,14 +114,14 @@ public class WeeklyReportActivity extends AppCompatActivity {
                 getNumber();
                 break;
             case R.id.btn_report:
-                if (checkEditText()){
+                if (checkEditText()) {
                     ToastUtils.showShort(context, "请输入完整信息");
                 } else {
                     SharedUtils.putShare(context, Constant.TOWNS, etTownsName.getText().toString().trim());
                     SharedUtils.putShare(context, Constant.WEEKLYNAME, etUserName.getText().toString().trim());
                     try {
                         reportRequest(new Api(context).getWeeklyUrl());
-                    } catch (JSONException e){
+                    } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
@@ -146,12 +164,13 @@ public class WeeklyReportActivity extends AppCompatActivity {
 
     /**
      * 判断数据是否为空
+     *
      * @return
      */
-    private boolean checkEditText(){
-        if (etTownsName.getText().toString().trim().length()==0 ||
-                etUserName.getText().toString().trim().length()==0 ||
-                etWeeklyWork.getText().toString().trim().length()==0){
+    private boolean checkEditText() {
+        if (etTownsName.getText().toString().trim().length() == 0 ||
+                etUserName.getText().toString().trim().length() == 0 ||
+                etWeeklyWork.getText().toString().trim().length() == 0) {
             return true;
         } else {
             return false;
@@ -160,9 +179,10 @@ public class WeeklyReportActivity extends AppCompatActivity {
 
     /**
      * 发起上报请求的方法
+     *
      * @param url 请求地址
      */
-    private void reportRequest(String url) throws JSONException{
+    private void reportRequest(String url) throws JSONException {
         progressDialog.show();
         String phoneNum = (String) SharedUtils.getShare(context, Constant.MOBILE, "");
         JSONObject jsonObject = new JSONObject();
@@ -188,7 +208,12 @@ public class WeeklyReportActivity extends AppCompatActivity {
                         Log.d("WeelkyReport---", response);
                         ToastUtils.showShort(context, "周报上传成功!");
                         progressDialog.dismiss();
-                        context.finish();
+                        if (3==type){
+                            setResult(WeeklyListActivity.DANGER_REQUEST_CODE);
+                            finish();
+                        }else{
+                            context.finish();
+                        }
                     }
                 });
     }

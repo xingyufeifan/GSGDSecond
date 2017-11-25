@@ -9,6 +9,7 @@ import com.alibaba.sdk.android.push.CommonCallback;
 import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory;
 import com.blankj.utilcode.util.Utils;
 import com.nandi.gsgdsecond.greendao.GreenDaoHelper;
+import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.cookie.CookieJarImpl;
 import com.zhy.http.okhttp.cookie.store.PersistentCookieStore;
@@ -30,6 +31,7 @@ public class MyApplication extends Application{
         super.onCreate();
         Utils.init(this);
         initCloudChannel(getApplicationContext());
+        ZXingLibrary.initDisplayOpinion(this);
         GreenDaoHelper.initDatabase(getApplicationContext());
         CookieJarImpl cookieJar = new CookieJarImpl(new PersistentCookieStore(getApplicationContext()));
         OkHttpClient okHttpClient = new OkHttpClient.Builder()

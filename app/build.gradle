@@ -56,4 +56,5 @@ dependencies {
     compile 'com.aliyun.ams:alicloud-android-ut:5.1.0'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    compile 'cn.yipianfengye.android:zxing-library:2.2'
 }

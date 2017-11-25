@@ -89,6 +89,9 @@ public class GreenDaoHelper {
     public static void deleteDailyLogInfo(DailyLogInfo dailyLogInfo){
         daoSession.getDailyLogInfoDao().delete(dailyLogInfo);
     }
+    public  static  void  deleteOneDailyLog(Long id){
+        daoSession.getDailyLogInfoDao().deleteByKey(id);
+    }
     public static void updateDailyLogInfo(DailyLogInfo dailyLogInfo){
         daoSession.getDailyLogInfoDao().update(dailyLogInfo);
     }
