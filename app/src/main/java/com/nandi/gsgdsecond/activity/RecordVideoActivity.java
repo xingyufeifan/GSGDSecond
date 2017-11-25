@@ -135,7 +135,7 @@ public class RecordVideoActivity extends AppCompatActivity {
 
     private void setRequest(final List<VideoBean> uploadList) {
         Log.d("cp", "上传文件个数：" + uploadList.size());
-        OkHttpUtils.post().url("http://192.168.10.72:8080/system/saveSurveyVideo.do")
+        OkHttpUtils.post().url(getString(R.string.base_url)+"saveSurveyVideo.do")
                 .addHeader("Content-Type", "multipart/form-data")
                 .addParams("mobile", mobile)
                 .addParams("type", type)
