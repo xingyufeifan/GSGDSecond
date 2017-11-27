@@ -216,16 +216,18 @@ public class LoginActivity extends AppCompatActivity {
                     progressBar.dismiss();
                 }
             } else if (imei.trim().equals("3")){ //地环站
-                if ("1".equals(result)){
-                    startActivity(new Intent(context, WeeklyActivity.class));
-                    SharedUtils.putShare(context,Constant.IS_LOGIN,true);
-                    SharedUtils.putShare(context, Constant.MOBILE, mobile);
-                    SharedUtils.putShare(context, Constant.IMEI, imei);
-                    finish();
-                } else {
-                    ToastUtils.showShort(context, info);
-                    progressBar.dismiss();
-                }
+                ToastUtils.showShort(context, "暂未查询到该地环站人员");
+                progressBar.dismiss();
+//                if ("1".equals(result)){
+//                    startActivity(new Intent(context, WeeklyActivity.class));
+//                    SharedUtils.putShare(context,Constant.IS_LOGIN,true);
+//                    SharedUtils.putShare(context, Constant.MOBILE, mobile);
+//                    SharedUtils.putShare(context, Constant.IMEI, imei);
+//                    finish();
+//                } else {
+//                    ToastUtils.showShort(context, info);
+//                    progressBar.dismiss();
+//                }
             }
         } catch (JSONException e) {
             e.printStackTrace();

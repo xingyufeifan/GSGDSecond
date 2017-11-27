@@ -2,7 +2,7 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- 实心 -->
-    <solid android:color="@color/btn_normal" />
+    <solid android:color="@color/title_bg" />
     <!-- 边框 -->
     <stroke
         android:width="0dp"

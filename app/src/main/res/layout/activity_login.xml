@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/loginbg1"
+    android:background="@drawable/loginbg"
     android:orientation="vertical"
     tools:context="com.nandi.gsgdsecond.activity.LoginActivity">
 
@@ -21,6 +21,10 @@
             android:layout_gravity="center"
             android:gravity="center_horizontal"
             android:text="@string/logo_name"
+            android:shadowColor="#FF000000"
+            android:shadowDx="5"
+            android:shadowDy="5"
+            android:shadowRadius="3"
             android:textColor="@color/white"
             android:textSize="32sp"
             android:textStyle="bold" />
