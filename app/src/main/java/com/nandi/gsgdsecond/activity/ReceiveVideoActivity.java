@@ -41,7 +41,6 @@ public class ReceiveVideoActivity extends Activity implements OnClickListener {
         wakeUpAndUnlock();
         play();
         initView();
-        System.out.println("进入提醒页面。。。。。。。。。");
     }
 
     private void play() {

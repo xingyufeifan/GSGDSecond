@@ -1,5 +1,6 @@
 package com.nandi.gsgdsecond.activity;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -195,7 +196,11 @@ public class RecordVideoActivity extends AppCompatActivity {
                     @Override
                     public void onError(Call call, Exception e, int id) {
                         progressDialog.dismiss();
-                        ToastUtils.showShort(context, "上传失败");
+                        if (count <= uploadList.size()-1){
+                            uploadAgain(uploadList);
+                        } else {
+                        }
+//                        ToastUtils.showShort(context, "上传失败");
                     }
 
                     @Override
@@ -222,6 +227,28 @@ public class RecordVideoActivity extends AppCompatActivity {
         for (VideoBean videoBean : uploadList) {
             FileUtils.deleteFile(new File(videoBean.getPath()));
         }
+    }
+
+    private void uploadAgain(final List<VideoBean> uploadList){
+        new AlertDialog.Builder(context)
+                .setTitle("提示")
+                .setIcon(R.drawable.warning)
+                .setMessage("上传失败，是否重新上传？")
+                .setCancelable(false)
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        progressDialog.setProgress(count);
+                        progressDialog.show();
+                        setRequest(uploadList);
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        count = 0;
+                    }
+                }).show();
     }
 
     private void recordVideo() {

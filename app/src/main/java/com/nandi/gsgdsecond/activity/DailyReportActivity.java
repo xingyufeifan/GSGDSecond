@@ -247,7 +247,6 @@ public class DailyReportActivity extends AppCompatActivity {
                             } else {
                                 GreenDaoHelper.deleteOneDailyLog(dailyLogInfo.getId());
                             }
-
                         }
 
                         progressDialog.dismiss();

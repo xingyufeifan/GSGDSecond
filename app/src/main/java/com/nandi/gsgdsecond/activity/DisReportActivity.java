@@ -120,7 +120,7 @@ public class DisReportActivity extends AppCompatActivity {
     private String phoneNum;
     private String imei;
     private String time;
-    private int upnum;
+    private int upnum=0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -475,6 +475,7 @@ public class DisReportActivity extends AppCompatActivity {
                                 } else {
                                     ToastUtils.showShort(context, "上传成功");
                                     progressDialog.dismiss();
+                                    context.finish();
                                 }
                             }
                         } catch (Exception e){
@@ -498,7 +499,7 @@ public class DisReportActivity extends AppCompatActivity {
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {
-                        ToastUtils.showShort(context, "网络连接失败,请稍后重试");
+                        ToastUtils.showShort(context, "网络连接失败,请稍后重试!");
                         progressDialog.dismiss();
                     }
 
@@ -513,12 +514,13 @@ public class DisReportActivity extends AppCompatActivity {
                                     progressDialog.dismiss();
                                     clearAllText();
                                     upnum = 0;
+                                    context.finish();
                                 } else {
                                     upnum++;
                                     reportPic();
                                 }
                             } else {
-                                ToastUtils.showShort(context, "网络连接失败,请稍后重试");
+                                ToastUtils.showShort(context, "图片上传失败,请稍后重试!");
                                 progressDialog.dismiss();
                             }
                         } catch (Exception e){

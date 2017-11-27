@@ -457,7 +457,10 @@ public class DisasterListActivity extends AppCompatActivity {
                     public void onError(Call call, Exception e, int id) {
                         Log.d("error", e.toString());
                         progressDialog.dismiss();
-                        uploadAgain(params, files);
+                        if (count < params.size()-1){
+                            uploadAgain(params, files);
+                        } else {
+                        }
                     }
 
                     @Override
