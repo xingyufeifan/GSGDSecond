@@ -6,9 +6,11 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nandi.gsgdsecond.R;
@@ -56,6 +58,10 @@ public class DailyReportActivity extends AppCompatActivity {
     EditText etRemarks;  //备注
     @BindView(R.id.ll_btn)
     LinearLayout llBtn;
+    @BindView(R.id.titlebar)
+    RelativeLayout titlebar;
+    @BindView(R.id.btn_save)
+    Button btnSave;
 
     private DailyReportActivity context;
     private ProgressDialog progressDialog;
@@ -82,7 +88,6 @@ public class DailyReportActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        recordtime.setText(CommonUtils.getSystemTime());
         progressDialog = new ProgressDialog(context);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         progressDialog.setTitle("正在上传...");
@@ -93,6 +98,7 @@ public class DailyReportActivity extends AppCompatActivity {
         type = getIntent().getIntExtra("type", 0);
         if (1 == type) {
             initData();
+            btnSave.setText("删除");
         } else if (2 == type) {
             initData();
             llBtn.setVisibility(View.GONE);
@@ -105,6 +111,7 @@ public class DailyReportActivity extends AppCompatActivity {
      * 初始化默认数据：记录人、工作类型、在岗情况
      */
     private void initDatas() {
+        recordtime.setText(CommonUtils.getSystemTime());
         etName.setText((String) SharedUtils.getShare(context, Constant.LOGNAME, ""));
         etWorkType.setText((String) SharedUtils.getShare(context, Constant.WORKTYPE, ""));
         etSituation.setText((String) SharedUtils.getShare(context, Constant.SITUATION, ""));
@@ -125,7 +132,14 @@ public class DailyReportActivity extends AppCompatActivity {
                 getNumber();
                 break;
             case R.id.btn_save:
-                save();
+                if (1==type){
+                    setResult(YesReport.DANGER_REQUEST_CODE);
+                    GreenDaoHelper.deleteOneDailyLog(listBean.getId());
+                    finish();
+                }else{
+                    save();
+                }
+
 //                ToastUtils.showShort(context, "暂时无法保存");
                 break;
             case R.id.btn_report:
@@ -225,10 +239,10 @@ public class DailyReportActivity extends AppCompatActivity {
                             GreenDaoHelper.deleteOneDailyLog(listBean.getId());
                         } else {
                             DailyLogInfo dailyLogInfo = GreenDaoHelper.queryDailyLogInfo(recordtime.getText().toString());
-                            if (null == dailyLogInfo){
-                           }else{
-                               GreenDaoHelper.deleteOneDailyLog(dailyLogInfo.getId());
-                           }
+                            if (null == dailyLogInfo) {
+                            } else {
+                                GreenDaoHelper.deleteOneDailyLog(dailyLogInfo.getId());
+                            }
 
                         }
 
