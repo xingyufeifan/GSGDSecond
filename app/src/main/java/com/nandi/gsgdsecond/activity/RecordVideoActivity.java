@@ -16,17 +16,24 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.blankj.utilcode.util.FileUtils;
 import com.nandi.gsgdsecond.R;
 import com.nandi.gsgdsecond.adapter.VideoAdapter;
 import com.nandi.gsgdsecond.bean.VideoBean;
+import com.nandi.gsgdsecond.utils.CommonUtils;
 import com.nandi.gsgdsecond.utils.Constant;
+import com.nandi.gsgdsecond.utils.MyProgressBar;
 import com.nandi.gsgdsecond.utils.SharedUtils;
 import com.nandi.gsgdsecond.utils.ToastUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.builder.PostFormBuilder;
 import com.zhy.http.okhttp.callback.StringCallback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.security.cert.Certificate;
@@ -40,9 +47,18 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
 
+/**
+ * 应急调查视频录制
+ */
 public class RecordVideoActivity extends AppCompatActivity {
 
     private static final int TAKE_VIDEO = 101;
+    @BindView(R.id.iv_back)
+    ImageView iv_back;
+    @BindView(R.id.tv_title)
+    TextView tv_title;
+    @BindView(R.id.iv_call)
+    ImageView iv_call;
     @BindView(R.id.btn_record)
     Button btnRecord;
     @BindView(R.id.rv_video)
@@ -50,10 +66,11 @@ public class RecordVideoActivity extends AppCompatActivity {
     @BindView(R.id.btn_upload)
     Button btnUpload;
     private File videoFile;
-    private Context context;
+    private RecordVideoActivity context;
     private List<VideoBean> videoBeans = new ArrayList<>();
     private VideoAdapter adapter;
     private ProgressDialog progressDialog;
+    private MyProgressBar progressBar;
     private int count = 0;
     private String mobile;
     private String type;
@@ -66,6 +83,7 @@ public class RecordVideoActivity extends AppCompatActivity {
         context = this;
         mobile = (String) SharedUtils.getShare(context, Constant.MOBILE, "");
         type = (String) SharedUtils.getShare(context, Constant.IMEI, "");
+        tv_title.setText("视频列表");
         setAdapter();
         setListener();
     }
@@ -103,11 +121,18 @@ public class RecordVideoActivity extends AppCompatActivity {
         progressDialog.setTitle("正在上传...");
         progressDialog.setCancelable(false);
         progressDialog.setCanceledOnTouchOutside(false);
+        progressBar = new MyProgressBar(context);
     }
 
-    @OnClick({R.id.btn_record, R.id.btn_upload})
+    @OnClick({R.id.iv_back, R.id.iv_call, R.id.btn_record, R.id.btn_upload})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.iv_back:
+                back();
+                break;
+            case R.id.iv_call:
+                getNumber();
+                break;
             case R.id.btn_record:
                 recordVideo();
                 break;
@@ -115,6 +140,31 @@ public class RecordVideoActivity extends AppCompatActivity {
                 upload();
                 break;
         }
+    }
+
+    private void getNumber() {
+        progressBar.show("正在获取号码");
+        OkHttpUtils.get().url(getResources().getString(R.string.base_url) + "getHelpMobile.do")
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        progressBar.dismiss();
+                        ToastUtils.showLong(context, "获取失败");
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        progressBar.dismiss();
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String message = jsonObject.getString("message");
+                            CommonUtils.callPhone(message, context);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
     }
 
     private void upload() {
@@ -214,5 +264,14 @@ public class RecordVideoActivity extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
             }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        back();
+    }
+
+    private void back(){
+        CommonUtils.back(context, "是否退出应急调查视频录制?");
     }
 }

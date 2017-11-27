@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.nandi.gsgdsecond.R;
 import com.nandi.gsgdsecond.adapter.WeeklyListAdapter;
@@ -45,6 +46,8 @@ public class WeeklyListActivity extends AppCompatActivity {
     ImageView ivBack;
     @BindView(R.id.iv_call)
     ImageView ivCall;
+    @BindView(R.id.tv_title)
+    TextView tv_title;
     private WeeklyListAdapter listAdapter;
     private List<DailyBean> listBean;
     private Context mContext;
@@ -63,6 +66,7 @@ public class WeeklyListActivity extends AppCompatActivity {
     }
 
     private void initData() {
+        tv_title.setText("已上报周报");
         mobile = (String) SharedUtils.getShare(mContext, Constant.MOBILE, "");
         progressDialog = new ProgressDialog(mContext);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);

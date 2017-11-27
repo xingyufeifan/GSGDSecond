@@ -44,6 +44,8 @@ public class DailyReportActivity extends AppCompatActivity {
     ImageView ivBack;
     @BindView(R.id.iv_call)
     ImageView ivCall;
+    @BindView(R.id.tv_title)
+    TextView tv_title;
     @BindView(R.id.tv_recordtime)
     TextView recordtime;  //记录时间
     @BindView(R.id.et_recorder)
@@ -58,8 +60,6 @@ public class DailyReportActivity extends AppCompatActivity {
     EditText etRemarks;  //备注
     @BindView(R.id.ll_btn)
     LinearLayout llBtn;
-    @BindView(R.id.titlebar)
-    RelativeLayout titlebar;
     @BindView(R.id.btn_save)
     Button btnSave;
 
@@ -88,6 +88,8 @@ public class DailyReportActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        tv_title.setText("工作日志");
+        recordtime.setText(CommonUtils.getSystemTime());
         progressDialog = new ProgressDialog(context);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         progressDialog.setTitle("正在上传...");
@@ -139,8 +141,6 @@ public class DailyReportActivity extends AppCompatActivity {
                 }else{
                     save();
                 }
-
-//                ToastUtils.showShort(context, "暂时无法保存");
                 break;
             case R.id.btn_report:
                 if (checkEditText()) {

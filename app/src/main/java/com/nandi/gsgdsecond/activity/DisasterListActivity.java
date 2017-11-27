@@ -85,6 +85,8 @@ public class DisasterListActivity extends AppCompatActivity {
     ImageView ivBack;
     @BindView(R.id.iv_call)
     ImageView ivCall;
+    @BindView(R.id.tv_title)
+    TextView tv_title;
     private DisasterTypeAdapter adapter;
     private List<DisasterInfo> disasterInfos = new ArrayList<>();
     private DisasterListActivity context;
@@ -151,6 +153,7 @@ public class DisasterListActivity extends AppCompatActivity {
     }
 
     private void initData() {
+        tv_title.setText("宏观观测");
         progressDialog = new ProgressDialog(context);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         progressDialog.setTitle("正在上传...");

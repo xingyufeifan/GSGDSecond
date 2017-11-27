@@ -123,7 +123,6 @@ public class DailyLogActivity extends BaseActivity{
             public void onClick(View v) {
                 //TODO
             startActivity(new Intent(context, DailyListActivity.class));
-//                ToastUtils.showShort(context, "暂时无法查看!");
             }
         });
 

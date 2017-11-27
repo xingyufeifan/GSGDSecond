@@ -7,45 +7,16 @@
     android:orientation="vertical"
     tools:context="com.nandi.gsgdsecond.activity.DisasterListActivity">
 
-    <RelativeLayout
-        android:id="@+id/titlebar"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/title_bg">
-
-        <ImageView
-            android:id="@+id/iv_back"
-            android:layout_width="30dp"
-            android:layout_height="40dp"
-            android:layout_centerVertical="true"
-            android:padding="5dp"
-            android:src="@drawable/back" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="宏观观测"
-            android:textColor="@color/white"
-            android:textSize="22sp" />
-
-        <ImageView
-            android:id="@+id/iv_call"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="5dp"
-            android:src="@drawable/telephone1" />
-    </RelativeLayout>
-
+    <include
+        android:id="@+id/titleBar"
+        layout="@layout/layout_titlebar" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_disaster_type"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/ll_other"
-        android:layout_below="@+id/titlebar">
+        android:layout_below="@+id/titleBar">
 
     </android.support.v7.widget.RecyclerView>
 

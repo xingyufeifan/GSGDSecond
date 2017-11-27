@@ -7,45 +7,15 @@
     android:orientation="vertical"
     tools:context="com.nandi.gsgdsecond.activity.MonitorActivity">
 
-    <RelativeLayout
-        android:id="@+id/monitor_title"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/title_bg"
-        android:layout_alignParentTop="true">
-
-        <ImageView
-            android:id="@+id/iv_back"
-            android:layout_width="30dp"
-            android:layout_height="40dp"
-            android:layout_centerVertical="true"
-            android:padding="5dp"
-            android:src="@drawable/back" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="定量监测"
-            android:textColor="@color/white"
-            android:textSize="22sp" />
-
-        <ImageView
-            android:id="@+id/iv_call"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="5dp"
-            android:src="@drawable/telephone1" />
-    </RelativeLayout>
-
+    <include
+        android:id="@+id/titleBar"
+        layout="@layout/layout_titlebar" />
 
     <LinearLayout
         android:id="@+id/ll_disaster_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/monitor_title"
+        android:layout_below="@id/titleBar"
         android:padding="10dp" >
 
         <TextView

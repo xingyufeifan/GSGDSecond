@@ -75,6 +75,8 @@ public class DisReportActivity extends AppCompatActivity {
     ImageView ivBack;
     @BindView(R.id.iv_call)
     ImageView ivCall;
+    @BindView(R.id.tv_title)
+    TextView tv_title;
     @BindView(R.id.et_dis_recorder)
     EditText et_disRecorder;
     @BindView(R.id.tv_dis_time)
@@ -132,6 +134,7 @@ public class DisReportActivity extends AppCompatActivity {
     }
 
     private void initView(){
+        tv_title.setText("灾情速报");
         progressDialog = new ProgressDialog(context);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setTitle("正在上传...");

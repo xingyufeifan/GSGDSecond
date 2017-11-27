@@ -6,48 +6,21 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.nandi.gsgdsecond.activity.DailyListActivity">
-    <RelativeLayout
-        android:id="@+id/titlebar"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/title_bg">
 
-        <ImageView
-            android:id="@+id/iv_back"
-            android:layout_width="30dp"
-            android:layout_height="40dp"
-            android:layout_centerVertical="true"
-            android:padding="5dp"
-            android:src="@drawable/back" />
+    <include
+        layout="@layout/layout_titlebar" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="日志情况"
-            android:textColor="@color/white"
-            android:textSize="22sp" />
-
-        <ImageView
-            android:id="@+id/iv_call"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="5dp"
-            android:src="@drawable/telephone1" />
-    </RelativeLayout>
     <android.support.design.widget.TabLayout
         android:id="@+id/tab_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#EF8D11"
+        android:background="@color/dividerColor"
         app:tabIndicatorColor="#f00"
         app:tabIndicatorHeight="4dp"
         app:tabMode="fixed"
-        app:tabSelectedTextColor="#FFFFFF"
+        app:tabSelectedTextColor="@color/title_bg"
         app:tabTextColor="#FFFFFF"
-        >
+        app:tabTextAppearance="@style/myTablayoutTextAppearance">
     </android.support.design.widget.TabLayout>
 
     <android.support.v4.view.ViewPager

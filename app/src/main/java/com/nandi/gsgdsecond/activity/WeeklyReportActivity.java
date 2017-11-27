@@ -41,6 +41,8 @@ public class WeeklyReportActivity extends AppCompatActivity {
     ImageView ivBack;
     @BindView(R.id.iv_call)
     ImageView ivCall;
+    @BindView(R.id.tv_title)
+    TextView tv_title;
     @BindView(R.id.et_townsName)
     EditText etTownsName;
     @BindView(R.id.tv_weeklyTime)
@@ -82,6 +84,7 @@ public class WeeklyReportActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        tv_title.setText("工作周报");
         tvWeeklyTime.setText(CommonUtils.getSystemTime());
         progressDialog = new ProgressDialog(context);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);

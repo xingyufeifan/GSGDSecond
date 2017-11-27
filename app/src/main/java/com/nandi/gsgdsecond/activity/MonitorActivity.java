@@ -89,6 +89,8 @@ public class MonitorActivity extends AppCompatActivity {
     TextView tvType;
     @BindView(R.id.iv_call)
     ImageView ivCall;
+    @BindView(R.id.tv_title)
+    TextView tv_title;
     private MonitorPoint monitorPoint;
     private String name;
     private MonitorActivity context;
@@ -170,6 +172,7 @@ public class MonitorActivity extends AppCompatActivity {
     }
 
     private void initData() {
+        tv_title.setText("定量监测");
         progressBar = new MyProgressBar(context);
         monitorPoint = (MonitorPoint) getIntent().getSerializableExtra(Constant.MONITOR);
         Log.d("cp", "monitor:" + monitorPoint);

@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.nandi.gsgdsecond.R;
 import com.nandi.gsgdsecond.adapter.DailyFragmentAdapter;
@@ -37,6 +38,8 @@ public class DailyListActivity extends AppCompatActivity {
     ImageView ivBack;
     @BindView(R.id.iv_call)
     ImageView ivCall;
+    @BindView(R.id.tv_title)
+    TextView tv_title;
     private DailyFragmentAdapter myFragmentPagerAdapter;
     private List<Fragment> list;
     private ProgressDialog progressDialog;
@@ -54,6 +57,7 @@ public class DailyListActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        tv_title.setText("日志情况");
         progressDialog = new ProgressDialog(context);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         progressDialog.setTitle("正在上传...");
