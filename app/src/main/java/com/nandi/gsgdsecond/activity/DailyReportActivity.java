@@ -160,7 +160,11 @@ public class DailyReportActivity extends AppCompatActivity {
      * 返回上一级
      */
     private void back() {
-        CommonUtils.back(context, "确定要退出日志填写吗？");
+        if (2 == type){
+            finish();
+        } else {
+            CommonUtils.back(context, "确定要退出日志填写吗？");
+        }
     }
 
     private void getNumber() {
@@ -274,6 +278,7 @@ public class DailyReportActivity extends AppCompatActivity {
         GreenDaoHelper.insertDailyLogInfo(dailyLogInfo);
 
         ToastUtils.showShort(context, "保存成功");
+        context.finish();
     }
 
 }

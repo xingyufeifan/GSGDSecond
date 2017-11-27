@@ -137,7 +137,11 @@ public class WeeklyReportActivity extends AppCompatActivity {
      * 返回上一级
      */
     private void back() {
-        CommonUtils.back(context, "确定要退出周报填写吗？");
+        if (3 == type){
+            finish();
+        } else {
+            CommonUtils.back(context, "确定要退出周报填写吗？");
+        }
     }
 
     private void getNumber() {
