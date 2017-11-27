@@ -116,12 +116,7 @@ public class RecordVideoActivity extends AppCompatActivity {
         adapter = new VideoAdapter(context, videoBeans);
         rvVideo.setLayoutManager(new LinearLayoutManager(context));
         rvVideo.setAdapter(adapter);
-        progressDialog = new ProgressDialog(context);
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        progressDialog.setTitle("正在上传...");
-        progressDialog.setCancelable(false);
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressBar = new MyProgressBar(context);
+
     }
 
     @OnClick({R.id.iv_back, R.id.iv_call, R.id.btn_record, R.id.btn_upload})
@@ -176,6 +171,11 @@ public class RecordVideoActivity extends AppCompatActivity {
         }
         if (uploadList.size() > 0) {
             setRequest(uploadList);
+            progressDialog = new ProgressDialog(context);
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            progressDialog.setTitle("正在上传...");
+            progressDialog.setCancelable(false);
+            progressDialog.setCanceledOnTouchOutside(false);
             progressDialog.setMax(uploadList.size());
             progressDialog.show();
         } else {
