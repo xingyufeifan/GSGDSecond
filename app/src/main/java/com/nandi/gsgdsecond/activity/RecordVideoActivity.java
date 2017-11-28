@@ -117,7 +117,7 @@ public class RecordVideoActivity extends AppCompatActivity {
         adapter = new VideoAdapter(context, videoBeans);
         rvVideo.setLayoutManager(new LinearLayoutManager(context));
         rvVideo.setAdapter(adapter);
-
+        progressBar = new MyProgressBar(context);
     }
 
     @OnClick({R.id.iv_back, R.id.iv_call, R.id.btn_record, R.id.btn_upload})
@@ -170,55 +170,45 @@ public class RecordVideoActivity extends AppCompatActivity {
                 uploadList.add(videoBean);
             }
         }
-        if (uploadList.size() > 0) {
+        if (uploadList.size() > 0 && uploadList.size() <= 5) {
             setRequest(uploadList);
             progressDialog = new ProgressDialog(context);
-            progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.setTitle("正在上传...");
             progressDialog.setCancelable(false);
             progressDialog.setCanceledOnTouchOutside(false);
-            progressDialog.setMax(uploadList.size());
             progressDialog.show();
+        } else if (uploadList.size() > 5) {
+            ToastUtils.showShort(context, "最多只能上传5条数据");
         } else {
-            ToastUtils.showShort(context, "没有需要上传的视频");
+            ToastUtils.showShort(context, "没有需要上传的数据");
         }
     }
 
     private void setRequest(final List<VideoBean> uploadList) {
-        Log.d("cp", "上传文件个数：" + uploadList.size());
-        OkHttpUtils.post().url(getString(R.string.base_url)+"saveSurveyVideo.do")
+        PostFormBuilder formBuilder = OkHttpUtils.post().url(getString(R.string.local_base_url) + "saveSurveyVideo.do")
                 .addHeader("Content-Type", "multipart/form-data")
                 .addParams("mobile", mobile)
-                .addParams("type", type)
-                .addFile("file", uploadList.get(count).getName(), new File(uploadList.get(count).getPath()))
-                .build()
+                .addParams("type", type);
+        for (VideoBean videoBean : uploadList) {
+            formBuilder.addFile("file", videoBean.getName(), new File(videoBean.getPath()));
+        }
+        formBuilder.build()
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {
                         progressDialog.dismiss();
-                        if (count <= uploadList.size()-1){
-                            uploadAgain(uploadList);
-                        } else {
-                        }
-//                        ToastUtils.showShort(context, "上传失败");
+                        ToastUtils.showShort(context, "上传失败");
                     }
 
                     @Override
                     public void onResponse(String response, int id) {
-                        if (count == uploadList.size() - 1) {
-                            progressDialog.setProgress(uploadList.size());
-                            ToastUtils.showShort(context, "上传成功！");
-                            videoBeans.removeAll(uploadList);
-                            adapter.notifyDataSetChanged();
-                            clean(uploadList);
-                            Log.d("cp",response);
-                            progressDialog.dismiss();
-                            count = 0;
-                        } else {
-                            count++;
-                            progressDialog.setProgress(count);
-                            setRequest(uploadList);
-                        }
+                        ToastUtils.showShort(context, "上传成功！");
+                        videoBeans.removeAll(uploadList);
+                        adapter.notifyDataSetChanged();
+                        clean(uploadList);
+                        Log.d("cp", "视频上传:" + response);
+                        progressDialog.dismiss();
                     }
                 });
     }
@@ -229,27 +219,6 @@ public class RecordVideoActivity extends AppCompatActivity {
         }
     }
 
-    private void uploadAgain(final List<VideoBean> uploadList){
-        new AlertDialog.Builder(context)
-                .setTitle("提示")
-                .setIcon(R.drawable.warning)
-                .setMessage("上传失败，是否重新上传？")
-                .setCancelable(false)
-                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        progressDialog.setProgress(count);
-                        progressDialog.show();
-                        setRequest(uploadList);
-                    }
-                })
-                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        count = 0;
-                    }
-                }).show();
-    }
 
     private void recordVideo() {
         Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
@@ -298,7 +267,7 @@ public class RecordVideoActivity extends AppCompatActivity {
         back();
     }
 
-    private void back(){
+    private void back() {
         CommonUtils.back(context, "是否退出应急调查视频录制?");
     }
 }

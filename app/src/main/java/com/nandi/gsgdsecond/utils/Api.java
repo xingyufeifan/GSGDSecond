@@ -40,7 +40,7 @@ public class Api {
 
     //   灾情速报文本上传
     public String getDisReportTextUrl(){
-        return "http://" + ip + ":" + ports+"/meteor/DailyApp//saveDisater.do";
+        return "http://" + ip + ":" + ports+"/meteor/DailyApp/saveDisater.do";
     }
 
     //   灾情速报图片上传

@@ -40,6 +40,7 @@ import com.nandi.gsgdsecond.utils.PictureUtils;
 import com.nandi.gsgdsecond.utils.SharedUtils;
 import com.nandi.gsgdsecond.utils.ToastUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.builder.PostFormBuilder;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.json.JSONException;
@@ -119,7 +120,7 @@ public class DisReportActivity extends AppCompatActivity {
     private AlertDialog dialog;// 选择时间日期对话框
     private String phoneNum;
     private String imei;
-    private int upnum=0;
+    private int upnum = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -132,11 +133,11 @@ public class DisReportActivity extends AppCompatActivity {
         setListener();
     }
 
-    private void initView(){
+    private void initView() {
         tv_title.setText("灾情速报");
         progressDialog = new ProgressDialog(context);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setTitle("正在上传...");
+        progressDialog.setMessage("正在上传...");
         progressDialog.setCancelable(false);
         progressDialog.setCanceledOnTouchOutside(false);
         progressBar = new MyProgressBar(context);
@@ -147,7 +148,7 @@ public class DisReportActivity extends AppCompatActivity {
     /**
      * 拍照相关方法
      */
-    private void setPhoto(){
+    private void setPhoto() {
         imgAdapter = new ImageAdapter();
         imgAdapter.setIsShowDelete(isShowDelete);
         gvPhoto.setAdapter(imgAdapter);
@@ -156,21 +157,21 @@ public class DisReportActivity extends AppCompatActivity {
     /**
      * 拍照响应事件
      */
-    private void setListener(){
+    private void setListener() {
         gvPhoto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (isShowDelete == true){
+                if (isShowDelete == true) {
                     // 如果处于准备删除的状态，单击则删除图标消失
                     isShowDelete = false;
                     imgAdapter.setIsShowDelete(isShowDelete);
                 } else {
                     //处于正常状态
-                    if (position==imgList.size() && imgList.size()<5){
+                    if (position == imgList.size() && imgList.size() < 5) {
                         // 添加图片
                         selectImage();
                     }
-                    if (position < imgList.size()){
+                    if (position < imgList.size()) {
                         //放大图片
                         enlargePhoto(imgList.get(position));
                     }
@@ -195,13 +196,13 @@ public class DisReportActivity extends AppCompatActivity {
     /**
      * 选择图片来源
      */
-    private void selectImage(){
-        final CharSequence[] items = {"拍照上传","从相册选择"};
+    private void selectImage() {
+        final CharSequence[] items = {"拍照上传", "从相册选择"};
         new AlertDialog.Builder(context).setTitle("请选择图片来源")
                 .setItems(items, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (which == SELECT_PICTURE){
+                        if (which == SELECT_PICTURE) {
                             getLocalImage();
                         } else {
                             getCameraImage();
@@ -214,7 +215,7 @@ public class DisReportActivity extends AppCompatActivity {
     /**
      * 选择本地图片
      */
-    private void getLocalImage(){
+    private void getLocalImage() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_PICK);
@@ -224,7 +225,7 @@ public class DisReportActivity extends AppCompatActivity {
     /**
      * 拍照
      */
-    private void getCameraImage(){
+    private void getCameraImage() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         pictureFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + ".jpg");
         Uri imageUri;
@@ -241,7 +242,7 @@ public class DisReportActivity extends AppCompatActivity {
     /**
      * 放大图片
      */
-    private void enlargePhoto(Bitmap bitmap){
+    private void enlargePhoto(Bitmap bitmap) {
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_enlarge_photo, null);
         PhotoView photoView = (PhotoView) view.findViewById(R.id.pv_image);
         //TODO
@@ -264,10 +265,11 @@ public class DisReportActivity extends AppCompatActivity {
                 showDateDialog();
                 break;
             case R.id.btn_report:
-                if (checkEditText()){
+                if (checkEditText()) {
                     ToastUtils.showShort(context, "请输入完整信息！");
                 } else {
-                    reportText(new Api(context).getDisReportTextUrl());
+//                    reportText(new Api(context).getDisReportTextUrl());
+                    reportText(getString(R.string.local_base_url) + "DailyApp/saveDisater.do");
                 }
 
                 break;
@@ -277,9 +279,9 @@ public class DisReportActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK){
+        if (resultCode == Activity.RESULT_OK) {
             Cursor cursor;
-            switch (requestCode){
+            switch (requestCode) {
                 case SELECT_PICTURE: //从相册选择
                     Uri vUri = data.getData();
                     // 将图片内容解析成字节数组
@@ -301,7 +303,7 @@ public class DisReportActivity extends AppCompatActivity {
                     Log.d("Camera", pictureFile.getAbsolutePath());
                     imgFileList.add(pictureFile.getAbsolutePath());
                     Bitmap bm1 = PictureUtils.getxtsldraw(context, pictureFile.getAbsolutePath());
-                    if (null!=bm1){
+                    if (null != bm1) {
                         bm1 = compressImage(bm1);
                         imgList.add(bm1);
                     }
@@ -315,6 +317,7 @@ public class DisReportActivity extends AppCompatActivity {
 
     /**
      * 压缩图片到合适大小
+     *
      * @param image
      * @return
      */
@@ -369,7 +372,7 @@ public class DisReportActivity extends AppCompatActivity {
                 });
     }
 
-    private void showDateDialog(){
+    private void showDateDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         View view = this.getLayoutInflater().inflate(R.layout.dialog_datetime, null);
         datePicker = (DatePicker) view.findViewById(R.id.datePicker1);
@@ -417,14 +420,15 @@ public class DisReportActivity extends AppCompatActivity {
 
     /**
      * 判断数据是否为空
+     *
      * @return
      */
-    private boolean checkEditText(){
-        if (et_disRecorder.getText().toString().trim().length()==0 ||
-                tv_disTime.getText().toString().trim().length()==0 ||
-                et_disTowns.getText().toString().trim().length()==0 ||
-                et_disVillage.getText().toString().trim().length()==0 ||
-                et_disGroup.getText().toString().trim().length()==0){
+    private boolean checkEditText() {
+        if (et_disRecorder.getText().toString().trim().length() == 0 ||
+                tv_disTime.getText().toString().trim().length() == 0 ||
+                et_disTowns.getText().toString().trim().length() == 0 ||
+                et_disVillage.getText().toString().trim().length() == 0 ||
+                et_disGroup.getText().toString().trim().length() == 0) {
             return true;
         } else {
             return false;
@@ -437,9 +441,10 @@ public class DisReportActivity extends AppCompatActivity {
      * dieNum：死亡人数 missingNum：失踪人数 injuredNum：受伤人数 houseNum：潜在威胁户
      * DangerPerson：人 Remarks：备注
      */
-    private void reportText(String url){
+    private void reportText(String url) {
         progressDialog.show();
-        OkHttpUtils.post().url(url)
+        PostFormBuilder formBuilder = OkHttpUtils.post().url(url)
+                .addHeader("Content-Type", "multipart/form-data")
                 .addParams("phoneNum", phoneNum)
                 .addParams("phoneID", imei)
                 .addParams("userName", et_disRecorder.getText().toString().trim())
@@ -453,33 +458,34 @@ public class DisReportActivity extends AppCompatActivity {
                 .addParams("injuredNum", et_disInjuredNum.getText().toString().trim())
                 .addParams("houseNum", et_disFamily.getText().toString().trim())
                 .addParams("peopleNum", et_disPerson.getText().toString().trim())
-                .addParams("notes", et_disRemarks.getText().toString().trim())
-                .build()
+                .addParams("notes", et_disRemarks.getText().toString().trim());
+
+        for (String s : imgFileList) {
+            formBuilder.addFile("upload", CommonUtils.getSystemTime() + ".jpg", new File(s));
+        }
+        formBuilder.build()
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {
                         ToastUtils.showShort(context, "网络连接失败,请稍后重试");
+                        Log.d("cp",e.getMessage());
                         progressDialog.dismiss();
                     }
 
                     @Override
                     public void onResponse(String response, int id) {
                         Log.d("DailyReport---", response);
-                        try{
+                        try {
                             JSONObject obj = new JSONObject(response);
-                            if (obj.optString("status").equals("200")){
-                                upnum = 0;
-                                if (imgList.size()>0){
-                                    reportPic();
-                                } else {
-                                    ToastUtils.showShort(context, "上传成功");
-                                    progressDialog.dismiss();
-                                    context.finish();
-                                }
+                            if (obj.optString("status").equals("200")) {
+                                ToastUtils.showShort(context, "上传成功");
+                                clearAllText();
+                                progressDialog.dismiss();
+                                context.finish();
                             }
-                        } catch (Exception e){
+                        } catch (Exception e) {
                             progressDialog.dismiss();
-                            ToastUtils.showShort(context, "文本上传失败，请重试");
+                            ToastUtils.showShort(context, "上传失败，请重试");
                         }
                     }
                 });
@@ -493,7 +499,7 @@ public class DisReportActivity extends AppCompatActivity {
                 .addParams("phoneNum", phoneNum)
                 .addParams("phoneID", imei)
                 .addParams("happenTime", tv_disTime.getText().toString().trim())
-                .addFile("upload", CommonUtils.getSystemTime()+".jpg", new File(imgFileList.get(upnum)))
+                .addFile("upload", CommonUtils.getSystemTime() + ".jpg", new File(imgFileList.get(upnum)))
                 .build()
                 .execute(new StringCallback() {
                     @Override
@@ -507,8 +513,8 @@ public class DisReportActivity extends AppCompatActivity {
                         Log.d("DailyReport", response);
                         try {
                             JSONObject obj = new JSONObject(response);
-                            if (obj.optString("status").equals("200")){
-                                if (upnum == imgFileList.size()-1){
+                            if (obj.optString("status").equals("200")) {
+                                if (upnum == imgFileList.size() - 1) {
                                     ToastUtils.showShort(context, "上传成功！");
                                     progressDialog.dismiss();
                                     clearAllText();
@@ -522,7 +528,7 @@ public class DisReportActivity extends AppCompatActivity {
                                 ToastUtils.showShort(context, "图片上传失败,请稍后重试!");
                                 progressDialog.dismiss();
                             }
-                        } catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
@@ -532,7 +538,7 @@ public class DisReportActivity extends AppCompatActivity {
     /**
      * 上传成功，清除数据
      */
-    private void clearAllText(){
+    private void clearAllText() {
         tv_disTime.setText("");
         et_disTowns.setText("");
         et_disVillage.setText("");
@@ -551,7 +557,7 @@ public class DisReportActivity extends AppCompatActivity {
     /**
      * 用于gridview显示多张照片
      */
-    public class ImageAdapter extends BaseAdapter{
+    public class ImageAdapter extends BaseAdapter {
 
         private boolean isDelete; // 用于删除图标的显隐
         private LayoutInflater inflater = LayoutInflater.from(context);
@@ -559,7 +565,7 @@ public class DisReportActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             //需要多出一个长度用于显示相机
-            return imgList.size()+1;
+            return imgList.size() + 1;
         }
 
         @Override
@@ -580,8 +586,8 @@ public class DisReportActivity extends AppCompatActivity {
             LinearLayout ll_picparent = (LinearLayout) convertView.findViewById(R.id.ll_picparent);
             ImageView delete = (ImageView) convertView.findViewById(R.id.img_delete);
             //默认的添加图片的那个item是不需要显示删除图片的
-            if (imgList.size() >= 1){
-                if (position <= imgList.size() -1){
+            if (imgList.size() >= 1) {
+                if (position <= imgList.size() - 1) {
                     ll_picparent.setVisibility(View.GONE);
                     img_pic.setVisibility(View.VISIBLE);
                     img_pic.setImageBitmap(imgList.get(position));
@@ -589,13 +595,13 @@ public class DisReportActivity extends AppCompatActivity {
                     delete.setVisibility(isDelete ? View.VISIBLE : View.GONE);
                 }
             }
-            if (imgList.size() >= 4){
+            if (imgList.size() >= 4) {
                 ll_picparent.setVisibility(View.GONE);
             }
 
             // 当处于删除状态时，删除事件可用
             // 注意：必须放到getView这个方法中，放到onitemClick中是不起作用的。
-            if (isDelete){
+            if (isDelete) {
                 delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -611,6 +617,7 @@ public class DisReportActivity extends AppCompatActivity {
 
         /**
          * 设置是否显示删除图片
+         *
          * @param isShowDelete
          */
         public void setIsShowDelete(boolean isShowDelete) {
