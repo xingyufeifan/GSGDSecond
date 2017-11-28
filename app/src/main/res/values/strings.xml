@@ -21,6 +21,7 @@
     <string name="action_settings">Settings</string>
 
     <string name="edit">请输入...</string>
+    <string name="mustInput">请输入(必填)...</string>
     <string name="save">保存</string>
     <string name="report">上传</string>
     <string name="videoRecording">应急调查视频录制</string>

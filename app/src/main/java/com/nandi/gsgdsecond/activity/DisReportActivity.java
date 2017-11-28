@@ -119,7 +119,6 @@ public class DisReportActivity extends AppCompatActivity {
     private AlertDialog dialog;// 选择时间日期对话框
     private String phoneNum;
     private String imei;
-    private String time;
     private int upnum=0;
 
     @Override

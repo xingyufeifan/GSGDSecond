@@ -44,7 +44,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
                     android:background="@null"
-                    android:hint="@string/edit"
+                    android:hint="@string/mustInput"
                     android:padding="5dp"
                     android:textSize="18sp" />
             </LinearLayout>
@@ -73,7 +73,7 @@
                     android:layout_weight="7"
                     android:padding="5dp"
                     android:text=""
-                    android:hint="请选择"
+                    android:hint="请选择(必选)..."
                     android:textSize="18sp" />
             </LinearLayout>
             <View
@@ -116,7 +116,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
                     android:background="@null"
-                    android:hint="@string/edit"
+                    android:hint="@string/mustInput"
                     android:padding="5dp"
                     android:textSize="18sp" />
             </LinearLayout>
@@ -144,7 +144,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
                     android:background="@null"
-                    android:hint="@string/edit"
+                    android:hint="@string/mustInput"
                     android:padding="5dp"
                     android:textSize="18sp" />
             </LinearLayout>
@@ -172,7 +172,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
                     android:background="@null"
-                    android:hint="@string/edit"
+                    android:hint="@string/mustInput"
                     android:padding="5dp"
                     android:textSize="18sp" />
             </LinearLayout>
