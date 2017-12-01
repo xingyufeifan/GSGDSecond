@@ -5,12 +5,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.nandi.gsgdsecond.R;
 import com.nandi.gsgdsecond.bean.DailyLogInfo;
+import com.nandi.gsgdsecond.bean.DisasterUpInfo;
 
+import java.lang.reflect.Array;
 import java.util.List;
 
 /**
@@ -18,38 +22,37 @@ import java.util.List;
  */
 
 public class MacoPhotoAdapter extends RecyclerView.Adapter<MacoPhotoAdapter.MyViewHolder> {
-private Context mContext;
-public DailyListAdapter.OnItemClickListener mOnItemClickListener;
-private List<DailyLogInfo> listBeans;
+    private Context mContext;
+    public MacoPhotoAdapter.OnItemClickListener mOnItemClickListener;
+    private String[] listBeans;
 
-public MacoPhotoAdapter(Context context, List<DailyLogInfo> listBeans) {
+    public MacoPhotoAdapter(Context context, String[] listBeans) {
         mContext = context;
         this.listBeans = listBeans;
-        }
+    }
 
-public interface OnItemClickListener {
-    void onClick(int position);
-}
+    public interface OnItemClickListener {
+        void onClick(int position);
+    }
 
-    public void setOnItemClickListener(DailyListAdapter.OnItemClickListener onItemClickListener) {
+    public void setOnItemClickListener(MacoPhotoAdapter.OnItemClickListener onItemClickListener) {
         this.mOnItemClickListener = onItemClickListener;
     }
 
     @Override
     public MacoPhotoAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_daily_list, parent,false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.maco_photo, null);
         MacoPhotoAdapter.MyViewHolder holderA = new MacoPhotoAdapter.MyViewHolder(view);
         return holderA;
     }
 
     @Override
     public void onBindViewHolder(MacoPhotoAdapter.MyViewHolder holder, final int position) {
-        holder.person.setText(listBeans.get(position).getId() + "");
-        holder.time.setText(listBeans.get(position).getTime());
-        holder.name.setText(listBeans.get(position).getUserName());
+        Glide.with(mContext).load("http://183.230.108.112/meteor/downImage.do?imageName="+listBeans[position])
+                .placeholder(R.drawable.downloading).error(R.drawable.download_pass).into(holder.macroPhoto);
         if (mOnItemClickListener != null) {
 
-            holder.layout.setOnClickListener(new View.OnClickListener() {
+            holder.macroPhoto.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     mOnItemClickListener.onClick(position);
@@ -60,22 +63,17 @@ public interface OnItemClickListener {
 
     @Override
     public int getItemCount() {
-        return listBeans.size();
+        return listBeans.length;
     }
 
 
-class MyViewHolder extends RecyclerView.ViewHolder {
-    public TextView time;
-    public TextView person;
-    public TextView name;
-    public LinearLayout layout;
+    class MyViewHolder extends RecyclerView.ViewHolder {
+        public ImageView macroPhoto;
 
-    public MyViewHolder(View itemView) {
-        super(itemView);
-        time = (TextView) itemView.findViewById(R.id.time);
-        person = (TextView) itemView.findViewById(R.id.person);
-        name = (TextView) itemView.findViewById(R.id.name);
-        layout = (LinearLayout) itemView.findViewById(R.id.linear);
+
+        public MyViewHolder(View itemView) {
+            super(itemView);
+            macroPhoto = (ImageView) itemView.findViewById(R.id.macoPhoto);
+        }
     }
-}
 }

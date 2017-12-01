@@ -140,7 +140,7 @@ public class MonitorListActivity extends AppCompatActivity {
     }
     private void setRequest(String startTime, String endTime) {
         progress.show();
-        OkHttpUtils.get().url(getString(R.string.local_base_url) + "findHistoryData.do")
+        OkHttpUtils.get().url(getResources().getString(R.string.base_url)  + "findHistoryData.do")
                 .addParams("monitorOrMacro", "2")
                 .addParams("mobile", mobile)
                 .addParams("startTime", startTime)

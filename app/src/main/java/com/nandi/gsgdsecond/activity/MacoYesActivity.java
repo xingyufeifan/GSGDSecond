@@ -1,14 +1,20 @@
 package com.nandi.gsgdsecond.activity;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.github.chrisbanes.photoview.PhotoView;
 import com.nandi.gsgdsecond.R;
+import com.nandi.gsgdsecond.adapter.MacoPhotoAdapter;
 import com.nandi.gsgdsecond.bean.DisasterUpInfo;
 import com.nandi.gsgdsecond.utils.CommonUtils;
 import com.nandi.gsgdsecond.utils.Constant;
@@ -47,9 +53,22 @@ public class MacoYesActivity extends AppCompatActivity {
     TextView disValide;
     @BindView(R.id.disState)
     TextView disState;
+    @BindView(R.id.warn_level)
+    TextView warnLevel;
+    @BindView(R.id.other)
+    TextView other;
+    @BindView(R.id.remarks)
+    TextView remarks;
+    @BindView(R.id.monitorLon)
+    TextView monitorLon;
+    @BindView(R.id.monitorLat)
+    TextView monitorLat;
     private MyProgressBar progressBar;
     private MacoYesActivity context;
     private DisasterUpInfo disasterUpInfo;
+    private MacoPhotoAdapter myAdapter;
+    private String[] urlArray;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +84,7 @@ public class MacoYesActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        disNum.setText(disasterUpInfo.getMacro_id());
+        disNum.setText(disasterUpInfo.getSerial_no());
         disName.setText(disasterUpInfo.getDis_name());
         disTime.setText(disasterUpInfo.getU_time());
         macroPhenomenon.setText(disasterUpInfo.getMacro_data());
@@ -75,12 +94,51 @@ public class MacoYesActivity extends AppCompatActivity {
         } else {
             disValide.setText("不合法");
         }
+        int state = disasterUpInfo.getState();
+        if (1 == state) {
+            disState.setText("合法");
+        } else {
+            disState.setText("不合法");
+        }
+        int warn_level = disasterUpInfo.getWarn_level();
+        if (1 == warn_level) {
+            warnLevel.setText("蓝色告警");
+        } else if (2 == warn_level) {
+            warnLevel.setText("黄色告警");
+        } else if (3 == warn_level) {
+            warnLevel.setText("程色告警");
+        } else if (4 == warn_level) {
+            warnLevel.setText("红色告警");
+        } else if (-1 == warn_level) {
+            warnLevel.setText("异常");
+        } else {
+            warnLevel.setText("正常");
+        }
+        monitorLat.setText(disasterUpInfo.getLat()+"");
+        monitorLon.setText(disasterUpInfo.getLon()+"");
+        other.setText(disasterUpInfo.getOtherPhenomena());
+        remarks.setText((CharSequence) disasterUpInfo.getRemarks());
     }
 
     private void initView() {
+        urlArray = disasterUpInfo.getMacro_url().split(",");
+        photoShow.setLayoutManager(new GridLayoutManager(context, 3));
+        myAdapter = new MacoPhotoAdapter(context, urlArray);
+        myAdapter.setOnItemClickListener(new MacoPhotoAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(int position) {
+                View view = LayoutInflater.from(context).inflate(R.layout.dialog_enlarge_photo, null);
+                PhotoView photoView = (PhotoView) view.findViewById(R.id.pv_image);
+                Glide.with(context).load("http://183.230.108.112/meteor/downImage.do?imageName=" + urlArray[position])
+                        .placeholder(R.drawable.downloading).error(R.drawable.download_pass).into(photoView);
+                new AlertDialog.Builder(context, R.style.Transparent)
+                        .setView(view)
+                        .show();
+            }
+        });
+        photoShow.setAdapter(myAdapter);
         tvTitle.setText("已上报巡查数据");
         progressBar = new MyProgressBar(context);
-        ToastUtils.showLong(disasterUpInfo.getDis_name());
     }
 
     @OnClick({R.id.iv_back, R.id.iv_call})

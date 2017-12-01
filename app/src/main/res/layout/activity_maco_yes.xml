@@ -131,6 +131,7 @@
             </LinearLayout>
 
             <View style="@style/myView" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -158,6 +159,129 @@
 
             <View style="@style/myView" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="18dp"
+                    android:paddingTop="10dp"
+                    android:text="相&#160;&#160;邻&#160;告&#160;&#160;警："
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/warn_level"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:background="@null"
+                    android:padding="5dp"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <View style="@style/myView" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="18dp"
+                    android:paddingTop="10dp"
+                    android:text="其&#160;&#160;他&#160;现&#160;&#160;象："
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/other"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:background="@null"
+                    android:padding="5dp"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <View style="@style/myView" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="18dp"
+                    android:paddingTop="10dp"
+                    android:text="经度："
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/monitorLon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+            <View style="@style/myView" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="18dp"
+                    android:paddingTop="10dp"
+                    android:text="纬度："
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/monitorLat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <View style="@style/myView" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:paddingLeft="18dp"
+                android:paddingTop="10dp"
+                android:text="备&#160;&#160;注&#160;信&#160;&#160;息："
+                android:textSize="18sp"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/remarks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/shape_report"
+                android:gravity="left"
+                android:lines="3"
+                android:paddingLeft="10dp"
+                android:textSize="16sp" />
+
+            <View style="@style/myView" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -173,14 +297,11 @@
                 android:id="@+id/macroPhenomenon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="15dp"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/shape_report"
                 android:gravity="left"
-                android:lines="8"
-                android:paddingLeft="18dp"
-                android:paddingRight="18dp"
-                android:paddingTop="8dp"
+                android:lines="3"
                 android:textSize="16sp" />
 
             <TextView

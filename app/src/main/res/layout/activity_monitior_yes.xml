@@ -1,9 +1,242 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.nandi.gsgdsecond.activity.MonitiorYesActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <include
+        android:id="@+id/titleBar"
+        layout="@layout/layout_titlebar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/titleBar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="18dp"
+                    android:paddingTop="10dp"
+                    android:text="灾害点名称："
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/disName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:background="@null"
+                    android:padding="5dp"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <View style="@style/myView" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="18dp"
+                    android:paddingTop="10dp"
+                    android:text="监&#160;&#160;测&#160;时&#160;&#160;间："
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/disTime"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:background="@null"
+                    android:padding="5dp"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <View style="@style/myView" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="18dp"
+                    android:paddingTop="10dp"
+                    android:text="实&#160;&#160;测&#160;数&#160;&#160;据："
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/monitor_data"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:background="@null"
+                    android:padding="5dp"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <View style="@style/myView" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="18dp"
+                    android:paddingTop="10dp"
+                    android:text="是&#160;&#160;否&#160;合&#160;&#160;法："
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/disValide"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:background="@null"
+                    android:padding="5dp"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <View style="@style/myView" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="18dp"
+                    android:paddingTop="10dp"
+                    android:text="数据有效性："
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/disState"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:background="@null"
+                    android:padding="5dp"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <View style="@style/myView" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="18dp"
+                    android:paddingTop="10dp"
+                    android:text="相&#160;&#160;邻&#160;告&#160;&#160;警："
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/warn_level"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:background="@null"
+                    android:padding="5dp"
+                    android:textSize="18sp" />
+            </LinearLayout>
+            <View style="@style/myView" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="18dp"
+                    android:paddingTop="10dp"
+                    android:text="经度："
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/monitorLon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+            <View style="@style/myView" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="18dp"
+                    android:paddingTop="10dp"
+                    android:text="纬度："
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/monitorLat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <View style="@style/myView" />
+
+
+
+            <TextView
+                style="@style/myTextView"
+                android:text="图片" />
+
+            <ImageView
+                android:id="@+id/monitorPhoto"
+                android:layout_width="300dp"
+                android:layout_height="200dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginBottom="10dp"
+                android:src="@drawable/downloading" />
+        </LinearLayout>
+
+    </ScrollView>
+</RelativeLayout>
