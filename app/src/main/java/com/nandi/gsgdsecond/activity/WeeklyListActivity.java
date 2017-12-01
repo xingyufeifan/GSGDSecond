@@ -90,7 +90,7 @@ public class WeeklyListActivity extends AppCompatActivity {
         });
     }
     private void request() {
-        OkHttpUtils.post().url(getString(R.string.base_url)+"/listByMobile.do")
+        OkHttpUtils.post().url(getString(R.string.base_url)+"listByMobile.do")
                 .addParams("mobile", mobile)
                 .addParams("type", "2")
                 .build()

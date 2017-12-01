@@ -49,14 +49,13 @@ public class LocationService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         uploadUrl = intent.getStringExtra(Constant.UPLOAD_URL);
         return START_STICKY;
-
     }
 
     public void initLocation() {
         locationClient = new LocationClient(getApplicationContext());
         LocationClientOption option = new LocationClientOption();
         option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
-        option.setCoorType("wgs84");
+        option.setCoorType("bd09ll");
         //可选，默认gcj02，设置返回的定位结果坐标系
         option.setScanSpan(10 * 60 * 1000);
         //可选，默认0，即仅定位一次，设置发起定位请求的间隔需要大于等于1000ms才是有效的

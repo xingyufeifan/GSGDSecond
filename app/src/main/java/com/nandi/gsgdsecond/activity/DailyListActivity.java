@@ -31,6 +31,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
 
+/**
+ * 驻守人员：日志上报情况页面
+ */
 public class DailyListActivity extends AppCompatActivity {
     @BindView(R.id.tab_main)
     TabLayout tabMain;

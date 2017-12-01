@@ -62,8 +62,6 @@ import okhttp3.Call;
 
 /**
  * 驻守人员：灾情速报界面
- * 文本与图片分开上传，2个接口 先传文本，再传图片。
- * 传图片时，同时传phoneNum,phoneID,时间,服务器那边去关联文本数据库
  * Created by baohongyan on 2017/11/23.
  */
 
@@ -268,10 +266,9 @@ public class DisReportActivity extends AppCompatActivity {
                 if (checkEditText()) {
                     ToastUtils.showShort(context, "请输入完整信息！");
                 } else {
-//                    reportText(new Api(context).getDisReportTextUrl());
-                    reportText(getString(R.string.local_base_url) + "DailyApp/saveDisater.do");
+                    reportText(new Api(context).getDisReportTextUrl());
+//                    reportText(getResources().getString(R.string.local_base_url)+"DailyApp/saveDisater.do");
                 }
-
                 break;
         }
     }
@@ -439,7 +436,7 @@ public class DisReportActivity extends AppCompatActivity {
      * 上传灾情文本信息
      * userName：记录人 happenTime：时间 township：乡/镇 village：村 group：组 disasterNum：受灾人数
      * dieNum：死亡人数 missingNum：失踪人数 injuredNum：受伤人数 houseNum：潜在威胁户
-     * DangerPerson：人 Remarks：备注
+     * peopleNum：人 notes：备注
      */
     private void reportText(String url) {
         progressDialog.show();
@@ -474,62 +471,21 @@ public class DisReportActivity extends AppCompatActivity {
 
                     @Override
                     public void onResponse(String response, int id) {
-                        Log.d("DailyReport---", response);
+                        System.out.println("response = " + response);
                         try {
                             JSONObject obj = new JSONObject(response);
-                            if (obj.optString("status").equals("200")) {
-                                ToastUtils.showShort(context, "上传成功");
-                                clearAllText();
+                            if ("200".equals(obj.optString("status"))) {
+                                    progressDialog.dismiss();
+                                    ToastUtils.showShort(context, "上传成功");
+                                    clearAllText();
+                                    context.finish();
+                            } else {
                                 progressDialog.dismiss();
-                                context.finish();
+                                ToastUtils.showShort(context, "上传失败，请稍后重试!");
                             }
                         } catch (Exception e) {
                             progressDialog.dismiss();
-                            ToastUtils.showShort(context, "上传失败，请重试");
-                        }
-                    }
-                });
-    }
-
-    /**
-     * 上传灾情图片信息
-     */
-    private void reportPic() {
-        OkHttpUtils.post().url(new Api(context).getDisReportPicUrl())
-                .addParams("phoneNum", phoneNum)
-                .addParams("phoneID", imei)
-                .addParams("happenTime", tv_disTime.getText().toString().trim())
-                .addFile("upload", CommonUtils.getSystemTime() + ".jpg", new File(imgFileList.get(upnum)))
-                .build()
-                .execute(new StringCallback() {
-                    @Override
-                    public void onError(Call call, Exception e, int id) {
-                        ToastUtils.showShort(context, "网络连接失败,请稍后重试!");
-                        progressDialog.dismiss();
-                    }
-
-                    @Override
-                    public void onResponse(String response, int id) {
-                        Log.d("DailyReport", response);
-                        try {
-                            JSONObject obj = new JSONObject(response);
-                            if (obj.optString("status").equals("200")) {
-                                if (upnum == imgFileList.size() - 1) {
-                                    ToastUtils.showShort(context, "上传成功！");
-                                    progressDialog.dismiss();
-                                    clearAllText();
-                                    upnum = 0;
-                                    context.finish();
-                                } else {
-                                    upnum++;
-                                    reportPic();
-                                }
-                            } else {
-                                ToastUtils.showShort(context, "图片上传失败,请稍后重试!");
-                                progressDialog.dismiss();
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                            ToastUtils.showShort(context, "上传失败，请稍后重试");
                         }
                     }
                 });

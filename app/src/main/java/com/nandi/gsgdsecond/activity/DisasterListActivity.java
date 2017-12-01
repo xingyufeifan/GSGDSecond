@@ -66,6 +66,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
 
+/**
+ * 群测群防：宏观观测页面
+ */
 public class DisasterListActivity extends AppCompatActivity {
     @BindView(R.id.rv_disaster_type)
     RecyclerView rvDisasterType;
@@ -117,7 +120,7 @@ public class DisasterListActivity extends AppCompatActivity {
         locationClient = new LocationClient(getApplicationContext());
         LocationClientOption option = new LocationClientOption();
         option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
-        option.setCoorType("gcj02");
+        option.setCoorType("bd09ll");
         //可选，默认gcj02，设置返回的定位结果坐标系
         option.setScanSpan(1000 * 2);
         //可选，默认0，即仅定位一次，设置发起定位请求的间隔需要大于等于1000ms才是有效的
