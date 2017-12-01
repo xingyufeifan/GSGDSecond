@@ -17,6 +17,8 @@ public class Constant {
     public static final String UPLOAD_URL="uploadUrl";
     public static final String DISASTER_NUMBER="disasterNumber";
     public static final String MONITOR_NUMBER="monitorNumber";
+    public static final String DISASTER_UP="disasterUp";
+    public static final String MONITOR_UP="monitorUp";
 
     //驻守人员
     public static final String LOGNAME = "logname";

@@ -2,15 +2,19 @@ package com.nandi.gsgdsecond.activity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nandi.gsgdsecond.R;
+import com.nandi.gsgdsecond.bean.DisasterUpInfo;
 import com.nandi.gsgdsecond.utils.CommonUtils;
+import com.nandi.gsgdsecond.utils.Constant;
 import com.nandi.gsgdsecond.utils.MyProgressBar;
 import com.nandi.gsgdsecond.utils.ToastUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -32,8 +36,6 @@ public class MacoYesActivity extends AppCompatActivity {
     TextView tvTitle;
     @BindView(R.id.iv_call)
     ImageView ivCall;
-    @BindView(R.id.titlebar)
-    RelativeLayout titlebar;
     @BindView(R.id.disNum)
     TextView disNum;
     @BindView(R.id.disName)
@@ -53,6 +55,8 @@ public class MacoYesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_maco_yes);
         ButterKnife.bind(this);
         context = this;
+        DisasterUpInfo disasterUpInfo = (DisasterUpInfo) getIntent().getSerializableExtra(Constant.DISASTER_UP);
+        Log.d("cp",disasterUpInfo.toString());
         initView();
 
     }
