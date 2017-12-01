@@ -21,8 +21,6 @@ public class MonitorListActivity extends AppCompatActivity {
     TextView tvTitle;
     @BindView(R.id.iv_call)
     ImageView ivCall;
-    @BindView(R.id.titlebar)
-    RelativeLayout titlebar;
     @BindView(R.id.data_show)
     RecyclerView dataShow;
     @BindView(R.id.refresh_show)

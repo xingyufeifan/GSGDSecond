@@ -19,9 +19,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <TextView
                 style="@style/myTextView"
-                android:text="基础"/>
+                android:text="基础" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -32,11 +33,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
-                    android:paddingTop="10dp"
                     android:paddingBottom="10dp"
                     android:paddingLeft="18dp"
+                    android:paddingTop="10dp"
                     android:text="灾害点编号："
-                    android:textSize="18sp"/>
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/disNum"
@@ -47,8 +48,9 @@
                     android:padding="5dp"
                     android:textSize="18sp" />
             </LinearLayout>
-            <View
-                style="@style/myView" />
+
+            <View style="@style/myView" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -58,11 +60,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
-                    android:paddingTop="10dp"
                     android:paddingBottom="10dp"
                     android:paddingLeft="18dp"
+                    android:paddingTop="10dp"
                     android:text="灾害点名称："
-                    android:textSize="18sp"/>
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/disName"
@@ -73,8 +75,9 @@
                     android:padding="5dp"
                     android:textSize="18sp" />
             </LinearLayout>
-            <View
-                style="@style/myView" />
+
+            <View style="@style/myView" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -84,11 +87,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
-                    android:paddingTop="10dp"
                     android:paddingBottom="10dp"
                     android:paddingLeft="18dp"
+                    android:paddingTop="10dp"
                     android:text="监&#160;&#160;测&#160;时&#160;&#160;间："
-                    android:textSize="18sp"/>
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/disTime"
@@ -99,8 +102,10 @@
                     android:padding="5dp"
                     android:textSize="18sp" />
             </LinearLayout>
-            <View
-                style="@style/myView" />        <LinearLayout
+
+            <View style="@style/myView" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -109,15 +114,14 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
-                    android:paddingTop="10dp"
                     android:paddingBottom="10dp"
                     android:paddingLeft="18dp"
-                    android:text="宏&#160;&#160;观&#160;现&#160;&#160;象："
-                    android:textSize="18sp"
-                    tools:ignore="HardcodedText" />
+                    android:paddingTop="10dp"
+                    android:text="是&#160;&#160;否&#160;合&#160;&#160;法："
+                    android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/macroPhenomenon"
+                    android:id="@+id/disValide"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
@@ -125,13 +129,68 @@
                     android:padding="5dp"
                     android:textSize="18sp" />
             </LinearLayout>
+
+            <View style="@style/myView" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="18dp"
+                    android:paddingTop="10dp"
+                    android:text="数据有效性："
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/disState"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:background="@null"
+                    android:padding="5dp"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <View style="@style/myView" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:paddingLeft="18dp"
+                android:paddingTop="10dp"
+                android:text="宏&#160;&#160;观&#160;现&#160;&#160;象："
+                android:textSize="18sp"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/macroPhenomenon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/shape_report"
+                android:gravity="left"
+                android:lines="8"
+                android:paddingLeft="18dp"
+                android:paddingRight="18dp"
+                android:paddingTop="8dp"
+                android:textSize="16sp" />
+
             <TextView
                 style="@style/myTextView"
-                android:text="图片"/>
+                android:text="图片" />
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/photoShow"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent" />
         </LinearLayout>
 
     </ScrollView>
