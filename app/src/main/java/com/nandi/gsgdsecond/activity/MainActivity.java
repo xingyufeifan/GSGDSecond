@@ -67,6 +67,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
 
+/**
+ * 群测群防主页
+ */
 public class MainActivity extends BaseActivity {
 
     @BindView(R.id.title_text)

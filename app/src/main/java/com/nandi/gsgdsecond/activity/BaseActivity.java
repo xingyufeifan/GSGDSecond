@@ -147,11 +147,13 @@ public class BaseActivity extends AppCompatActivity
 
     /**
      * 检查更新
-     *
+     * haveNewVersionUnicom 联通
+     * haveNewVersionLocomotion 移动
+     * haveNewVersionTelecom 电信
      * @param type
      */
     private void checkUpdate(final int type) {
-        OkHttpUtils.get().url(getResources().getString(R.string.update_base_url) + "haveNewVersion.do")
+        OkHttpUtils.get().url(getResources().getString(R.string.update_base_url)+"haveNewVersionLocomotion.do")
                 .build()
                 .execute(new StringCallback() {
                     @Override
@@ -190,6 +192,10 @@ public class BaseActivity extends AppCompatActivity
         return versionNumber;
     }
 
+    /**
+     * 下载 downloadTelecom 电信   downloadLocomotion移动   downloadUnicom 联通
+     * getResources().getString(R.string.update_base_url)
+     */
     private void showNotice() {
         new AlertDialog.Builder(context)
                 .setTitle("更新提示")
@@ -198,7 +204,7 @@ public class BaseActivity extends AppCompatActivity
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        new DownloadUtils(context).downloadAPK(getResources().getString(R.string.update_base_url) + "downloadApk.do", "app_release" + getVerCode(context) + ".apk");
+                        new DownloadUtils(context).downloadAPK(getResources().getString(R.string.update_base_url)+"downloadLocomotion.do", "app_gsgd" + getVerCode(context) + ".apk");
                     }
                 })
                 .setNegativeButton("取消", new DialogInterface.OnClickListener() {

@@ -49,7 +49,7 @@ import butterknife.OnClick;
 import okhttp3.Call;
 
 /**
- * 应急调查视频录制
+ * 应急调查视频录制界面
  */
 public class RecordVideoActivity extends AppCompatActivity {
 
@@ -130,7 +130,12 @@ public class RecordVideoActivity extends AppCompatActivity {
                 getNumber();
                 break;
             case R.id.btn_record:
-                recordVideo();
+                if (videoBeans.size() < 5){
+                    recordVideo();
+                } else {
+                    ToastUtils.showShort(context, "最多只能录制5条视频");
+                    btnRecord.setEnabled(false);
+                }
                 break;
             case R.id.btn_upload:
                 upload();
@@ -178,15 +183,13 @@ public class RecordVideoActivity extends AppCompatActivity {
             progressDialog.setCancelable(false);
             progressDialog.setCanceledOnTouchOutside(false);
             progressDialog.show();
-        } else if (uploadList.size() > 5) {
-            ToastUtils.showShort(context, "最多只能上传5条数据");
         } else {
-            ToastUtils.showShort(context, "没有需要上传的数据");
+            ToastUtils.showShort(context, "没有需要上传的视频");
         }
     }
 
     private void setRequest(final List<VideoBean> uploadList) {
-        PostFormBuilder formBuilder = OkHttpUtils.post().url(getString(R.string.local_base_url) + "saveSurveyVideo.do")
+        PostFormBuilder formBuilder = OkHttpUtils.post().url(getResources().getString(R.string.base_url)+ "saveSurveyVideo.do")
                 .addHeader("Content-Type", "multipart/form-data")
                 .addParams("mobile", mobile)
                 .addParams("type", type);
@@ -214,11 +217,11 @@ public class RecordVideoActivity extends AppCompatActivity {
     }
 
     private void clean(List<VideoBean> uploadList) {
+        btnRecord.setEnabled(true);
         for (VideoBean videoBean : uploadList) {
             FileUtils.deleteFile(new File(videoBean.getPath()));
         }
     }
-
 
     private void recordVideo() {
         Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);

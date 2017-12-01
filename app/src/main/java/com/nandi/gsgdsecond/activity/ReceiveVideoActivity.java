@@ -1,6 +1,5 @@
 package com.nandi.gsgdsecond.activity;
 
-
 import android.app.Activity;
 import android.app.KeyguardManager;
 import android.app.KeyguardManager.KeyguardLock;
@@ -22,7 +21,9 @@ import com.nandi.gsgdsecond.R;
 import com.nandi.gsgdsecond.bean.Message;
 import com.nandi.gsgdsecond.service.MyService;
 
-
+/**
+ * 应急视频接听界面
+ */
 public class ReceiveVideoActivity extends Activity implements OnClickListener {
     private Button btnAccept;
     private Button btnReject;
