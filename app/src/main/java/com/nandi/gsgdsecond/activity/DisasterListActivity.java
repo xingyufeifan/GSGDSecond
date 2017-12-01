@@ -1,6 +1,5 @@
 package com.nandi.gsgdsecond.activity;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +11,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bigkoo.pickerview.TimePickerView;
@@ -21,6 +21,7 @@ import com.google.gson.reflect.TypeToken;
 import com.nandi.gsgdsecond.R;
 import com.nandi.gsgdsecond.adapter.DisasterUpAdapter;
 import com.nandi.gsgdsecond.bean.DisasterUpInfo;
+import com.nandi.gsgdsecond.utils.CommonUtils;
 import com.nandi.gsgdsecond.utils.Constant;
 import com.nandi.gsgdsecond.utils.SharedUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -50,6 +51,12 @@ public class DisasterListActivity extends AppCompatActivity {
     Button btnSearch;
     @BindView(R.id.rv_disaster)
     RecyclerView rvDisaster;
+    @BindView(R.id.iv_back)
+    ImageView ivBack;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
+    @BindView(R.id.iv_call)
+    ImageView ivCall;
     private String disNum;
     private Context context;
     private ProgressDialog progress;
@@ -71,9 +78,9 @@ public class DisasterListActivity extends AppCompatActivity {
         disasterUpAdapter.setOnItemClickListener(new DisasterUpAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view) {
-                int position=rvDisaster.getChildAdapterPosition(view);
-                Intent intent=new Intent(context,MacoYesActivity.class);
-                intent.putExtra(Constant.DISASTER_UP,disasterUpInfos.get(position));
+                int position = rvDisaster.getChildAdapterPosition(view);
+                Intent intent = new Intent(context, MacoYesActivity.class);
+                intent.putExtra(Constant.DISASTER_UP, disasterUpInfos.get(position));
                 startActivity(intent);
             }
         });
@@ -103,7 +110,7 @@ public class DisasterListActivity extends AppCompatActivity {
         return getTime(time);
     }
 
-    @OnClick({R.id.tv_start_time, R.id.tv_end_time, R.id.btn_search})
+    @OnClick({R.id.iv_call,R.id.iv_back,R.id.tv_start_time, R.id.tv_end_time, R.id.btn_search})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_start_time:
@@ -139,9 +146,39 @@ public class DisasterListActivity extends AppCompatActivity {
                     setRequest(startTime, endTime);
                 }
                 break;
+            case R.id.iv_call:
+                getNumber();
+                break;
+            case R.id.iv_back:
+                finish();
+                break;
         }
     }
 
+    private void getNumber() {
+        progress.show();
+        OkHttpUtils.get().url(getResources().getString(R.string.base_url) + "getHelpMobile.do")
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        progress.dismiss();
+                        com.nandi.gsgdsecond.utils.ToastUtils.showLong(context, "获取失败");
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        progress.dismiss();
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String message = jsonObject.getString("message");
+                            CommonUtils.callPhone(message, DisasterListActivity.this);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
     private String getTime(Date date) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return format.format(date);
