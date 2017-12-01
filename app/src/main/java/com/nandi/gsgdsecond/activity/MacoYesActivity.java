@@ -1,14 +1,11 @@
 package com.nandi.gsgdsecond.activity;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nandi.gsgdsecond.R;
@@ -46,8 +43,13 @@ public class MacoYesActivity extends AppCompatActivity {
     TextView macroPhenomenon;
     @BindView(R.id.photoShow)
     RecyclerView photoShow;
+    @BindView(R.id.disValide)
+    TextView disValide;
+    @BindView(R.id.disState)
+    TextView disState;
     private MyProgressBar progressBar;
     private MacoYesActivity context;
+    private DisasterUpInfo disasterUpInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,15 +57,30 @@ public class MacoYesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_maco_yes);
         ButterKnife.bind(this);
         context = this;
-        DisasterUpInfo disasterUpInfo = (DisasterUpInfo) getIntent().getSerializableExtra(Constant.DISASTER_UP);
-        Log.d("cp",disasterUpInfo.toString());
+        disasterUpInfo = (DisasterUpInfo) getIntent().getSerializableExtra(Constant.DISASTER_UP);
+        Log.d("cp", disasterUpInfo.toString());
         initView();
+        initData();
 
     }
 
+    private void initData() {
+        disNum.setText(disasterUpInfo.getMacro_id());
+        disName.setText(disasterUpInfo.getDis_name());
+        disTime.setText(disasterUpInfo.getU_time());
+        macroPhenomenon.setText(disasterUpInfo.getMacro_data());
+        int is_validate = disasterUpInfo.getIs_validate();
+        if (1 == is_validate) {
+            disValide.setText("合法");
+        } else {
+            disValide.setText("不合法");
+        }
+    }
+
     private void initView() {
-        tvTitle.setText("巡查已上报");
+        tvTitle.setText("已上报巡查数据");
         progressBar = new MyProgressBar(context);
+        ToastUtils.showLong(disasterUpInfo.getDis_name());
     }
 
     @OnClick({R.id.iv_back, R.id.iv_call})
