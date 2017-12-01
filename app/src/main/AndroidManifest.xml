@@ -128,7 +128,9 @@
         <activity android:name=".activity.DailyListActivity" />
         <activity android:name=".activity.WeeklyListActivity" />
         <activity android:name=".activity.DisasterListActivity" />
-        <activity android:name=".activity.MonitorListActivity"></activity>
+        <activity android:name=".activity.MonitorListActivity" />
+        <activity android:name=".activity.MacoYesActivity" />
+        <activity android:name=".activity.MonitiorYesActivity"></activity>
     </application>
 
 </manifest>
