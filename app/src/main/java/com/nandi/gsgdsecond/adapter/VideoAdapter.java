@@ -2,6 +2,7 @@ package com.nandi.gsgdsecond.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +45,9 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
     @Override
     public void onBindViewHolder(VideoViewHolder holder, final int position) {
         holder.tvName.setText(list.get(position).getName());
-        holder.cbCheck.setChecked(list.get(position).isCheck());
+        boolean check = list.get(position).isCheck();
+        Log.d("cp","check:"+check);
+        holder.cbCheck.setChecked(check);
         if (listener!=null){
             holder.tvName.setOnClickListener(new View.OnClickListener() {
                 @Override

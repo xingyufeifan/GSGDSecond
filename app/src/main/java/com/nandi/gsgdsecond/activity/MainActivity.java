@@ -1,43 +1,15 @@
 package com.nandi.gsgdsecond.activity;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.LocationManager;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ExpandableListView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alibaba.sdk.android.push.CloudPushService;
-import com.alibaba.sdk.android.push.CommonCallback;
-import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory;
-import com.baidu.location.BDAbstractLocationListener;
-import com.baidu.location.BDLocation;
-import com.baidu.location.LocationClient;
-import com.baidu.location.LocationClientOption;
-import com.blankj.utilcode.util.ServiceUtils;
 import com.nandi.gsgdsecond.R;
 import com.nandi.gsgdsecond.adapter.ExpandableAdapter;
 import com.nandi.gsgdsecond.bean.DisasterPoint;
@@ -45,18 +17,8 @@ import com.nandi.gsgdsecond.bean.MonitorPoint;
 import com.nandi.gsgdsecond.greendao.GreenDaoHelper;
 import com.nandi.gsgdsecond.service.LocationService;
 import com.nandi.gsgdsecond.utils.Constant;
-import com.nandi.gsgdsecond.utils.DownloadUtils;
-import com.nandi.gsgdsecond.utils.MyProgressBar;
-import com.nandi.gsgdsecond.utils.SharedUtils;
-import com.nandi.gsgdsecond.utils.ToastUtils;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
-import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.StringCallback;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -64,8 +26,6 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
-import okhttp3.Call;
 
 /**
  * 群测群防主页
@@ -139,7 +99,7 @@ public class MainActivity extends BaseActivity {
             public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
                 Intent intent;
                 if (i1 == 0) {//宏观观测监听
-                    intent = new Intent(context, DisasterListActivity.class);
+                    intent = new Intent(context, DisasterActivity.class);
                     DisasterPoint disasterPoint = disasterPoints.get(i);
                     intent.putExtra(Constant.DISASTER, disasterPoint);
                 } else {//定量监测监听

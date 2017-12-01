@@ -67,7 +67,7 @@
             android:name=".activity.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|navigation" />
         <activity
-            android:name=".activity.DisasterListActivity"
+            android:name=".activity.DisasterActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|navigation" />
         <activity
             android:name=".activity.MonitorActivity"
@@ -127,7 +127,7 @@
             android:configChanges="keyboardHidden|orientation|screenSize|navigation" />
         <activity android:name=".activity.DailyListActivity" />
         <activity android:name=".activity.WeeklyListActivity" />
-        <activity android:name=".activity.DisasterActivity" />
+        <activity android:name=".activity.DisasterListActivity" />
         <activity android:name=".activity.MonitorListActivity"></activity>
     </application>
 

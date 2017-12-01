@@ -1,24 +1,20 @@
 package com.nandi.gsgdsecond.adapter;
 
-import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.RotateAnimation;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nandi.gsgdsecond.R;
-import com.nandi.gsgdsecond.activity.DailyListActivity;
-import com.nandi.gsgdsecond.activity.DailyReportActivity;
-import com.nandi.gsgdsecond.activity.DisasterActivity;
+import com.nandi.gsgdsecond.activity.DisasterListActivity;
 import com.nandi.gsgdsecond.activity.MonitorListActivity;
 import com.nandi.gsgdsecond.bean.DisasterPoint;
 import com.nandi.gsgdsecond.bean.MonitorPoint;
+import com.nandi.gsgdsecond.utils.Constant;
 
 import java.util.List;
 import java.util.Map;
@@ -117,8 +113,8 @@ public class ExpandableAdapter extends BaseExpandableListAdapter {
             viewHolder.nextView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent =  new Intent(context, DisasterActivity.class);
-                    intent.putExtra("disNum",disasterPoints.get(i).getNumber());
+                    Intent intent =  new Intent(context, DisasterListActivity.class);
+                    intent.putExtra(Constant.DISASTER_NUMBER,disasterPoints.get(i).getNumber());
                     context.startActivity(intent);
                 }
             });
@@ -128,8 +124,8 @@ public class ExpandableAdapter extends BaseExpandableListAdapter {
                 @Override
                 public void onClick(View v) {
                     Intent intent =  new Intent(context, MonitorListActivity.class);
-                    intent.putExtra("disNum",disasterPoints.get(i).getNumber());
-                    intent.putExtra("monNum",childMaps.get(disasterPoints.get(i).getNumber()).get(i1).getMonitorNumber());
+                    intent.putExtra(Constant.DISASTER_NUMBER,disasterPoints.get(i).getNumber());
+                    intent.putExtra(Constant.MONITOR_NUMBER,childMaps.get(disasterPoints.get(i).getNumber()).get(i1).getMonitorNumber());
                     context.startActivity(intent);
                 }
             });
