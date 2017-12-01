@@ -2,6 +2,7 @@ package com.nandi.gsgdsecond.adapter;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nandi.gsgdsecond.R;
+import com.nandi.gsgdsecond.activity.DailyListActivity;
+import com.nandi.gsgdsecond.activity.DailyReportActivity;
+import com.nandi.gsgdsecond.activity.DisasterActivity;
+import com.nandi.gsgdsecond.activity.MonitorListActivity;
 import com.nandi.gsgdsecond.bean.DisasterPoint;
 import com.nandi.gsgdsecond.bean.MonitorPoint;
 
@@ -96,21 +101,40 @@ public class ExpandableAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getChildView(int i, int i1, boolean b, View view, ViewGroup viewGroup) {
+    public View getChildView(final int i, final int i1, boolean b, View view, ViewGroup viewGroup) {
         ChildViewHolder viewHolder = null;
         if (view == null) {
             view = LayoutInflater.from(context).inflate(R.layout.item_child_view, viewGroup, false);
             viewHolder = new ChildViewHolder();
             viewHolder.tvChildName = (TextView) view.findViewById(R.id.tv_name);
+            viewHolder.nextView = (TextView) view.findViewById(R.id.nextView);
             view.setTag(viewHolder);
         } else {
             viewHolder = (ChildViewHolder) view.getTag();
         }
         if (i1 == 0) {
             viewHolder.tvChildName.setText(childMaps.get(disasterPoints.get(i).getNumber()).get(i1).getName());
+            viewHolder.nextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent =  new Intent(context, DisasterActivity.class);
+                    intent.putExtra("disNum",disasterPoints.get(i).getNumber());
+                    context.startActivity(intent);
+                }
+            });
         } else {
             viewHolder.tvChildName.setText("定量监测 - " + childMaps.get(disasterPoints.get(i).getNumber()).get(i1).getName());
+            viewHolder.nextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent =  new Intent(context, MonitorListActivity.class);
+                    intent.putExtra("disNum",disasterPoints.get(i).getNumber());
+                    intent.putExtra("monNum",childMaps.get(disasterPoints.get(i).getNumber()).get(i1).getMonitorNumber());
+                    context.startActivity(intent);
+                }
+            });
         }
+
         return view;
     }
 
@@ -129,5 +153,6 @@ public class ExpandableAdapter extends BaseExpandableListAdapter {
 
     private static class ChildViewHolder {
         TextView tvChildName;
+        TextView nextView;
     }
 }

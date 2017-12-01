@@ -10,11 +10,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nandi.gsgdsecond.R;
 import com.nandi.gsgdsecond.bean.DailyLogInfo;
+import com.nandi.gsgdsecond.fragment.YesReport;
 import com.nandi.gsgdsecond.greendao.GreenDaoHelper;
 import com.nandi.gsgdsecond.utils.Api;
 import com.nandi.gsgdsecond.utils.CommonUtils;

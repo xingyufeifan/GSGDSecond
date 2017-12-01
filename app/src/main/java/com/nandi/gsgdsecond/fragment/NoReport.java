@@ -1,4 +1,4 @@
-package com.nandi.gsgdsecond.activity;
+package com.nandi.gsgdsecond.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.nandi.gsgdsecond.R;
+import com.nandi.gsgdsecond.activity.DailyReportActivity;
 import com.nandi.gsgdsecond.adapter.DailyListAdapter;
 import com.nandi.gsgdsecond.bean.DailyLogInfo;
 import com.nandi.gsgdsecond.greendao.GreenDaoHelper;

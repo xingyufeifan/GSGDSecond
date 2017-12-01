@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.nandi.gsgdsecond.R;
 import com.nandi.gsgdsecond.adapter.DailyFragmentAdapter;
+import com.nandi.gsgdsecond.fragment.NoReport;
+import com.nandi.gsgdsecond.fragment.YesReport;
 import com.nandi.gsgdsecond.utils.CommonUtils;
 import com.nandi.gsgdsecond.utils.MyProgressBar;
 import com.nandi.gsgdsecond.utils.ToastUtils;
