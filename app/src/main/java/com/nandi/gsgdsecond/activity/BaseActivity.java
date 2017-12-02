@@ -258,7 +258,7 @@ public class BaseActivity extends AppCompatActivity
         new AlertDialog.Builder(context)
                 .setTitle("提示")
                 .setIcon(R.drawable.warning)
-                .setMessage("确定要清除保存的照片及数据吗？")
+                .setMessage("确定要清除保存的照片吗？")
                 .setPositiveButton("删除", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int j) {

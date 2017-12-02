@@ -36,6 +36,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
 
+/**
+ * 片区专管：查看已上报周报页面
+ */
 public class WeeklyListActivity extends AppCompatActivity {
     public static final int DANGER_REQUEST_CODE = 303;
     @BindView(R.id.data_show)

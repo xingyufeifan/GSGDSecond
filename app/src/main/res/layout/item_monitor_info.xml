@@ -29,14 +29,14 @@
             android:textSize="18sp" />
 
         <CheckBox
-            android:id="@+id/cb_is_find"
+            android:id="@+id/cb_yes_find"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/iv_photo"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="6dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="5dp"
             android:layout_toRightOf="@+id/iv_photo"
-            android:text="是否发现"
+            android:text="是"
             android:textColor="@color/text_color" />
 
         <ImageView

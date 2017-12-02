@@ -90,6 +90,8 @@ public class DisasterActivity extends AppCompatActivity {
     ImageView ivCall;
     @BindView(R.id.tv_title)
     TextView tv_title;
+    @BindView(R.id.et_disaster_remarks)
+    EditText etRemarks;
     private DisasterTypeAdapter adapter;
     private List<DisasterInfo> disasterInfos = new ArrayList<>();
     private DisasterActivity context;
@@ -171,6 +173,7 @@ public class DisasterActivity extends AppCompatActivity {
             }
         }
         etOther.setText((String) SharedUtils.getShare(context, disasterPoint.getNumber() + "other", ""));
+        etRemarks.setText((String) SharedUtils.getShare(context, disasterPoint.getNumber() + "remark", ""));
     }
 
     private void setListener() {
@@ -305,6 +308,7 @@ public class DisasterActivity extends AppCompatActivity {
         SharedUtils.putShare(context, disasterPoint.getNumber() + "other", etOther.getText().toString().trim());
         SharedUtils.putShare(context, disasterPoint.getNumber() + "lon", tvLongitude.getText().toString().trim());
         SharedUtils.putShare(context, disasterPoint.getNumber() + "lat", tvLatitude.getText().toString().trim());
+        SharedUtils.putShare(context, disasterPoint.getNumber() + "remark", etRemarks.getText().toString().trim());
         for (DisasterInfo disasterInfo : disasterInfos) {
             GreenDaoHelper.insertDisasterInfo(disasterInfo);
         }
@@ -415,6 +419,7 @@ public class DisasterActivity extends AppCompatActivity {
                 param.put("xpoint", (String) SharedUtils.getShare(context, disasterPoint.getNumber() + "lon", ""));
                 param.put("ypoint", (String) SharedUtils.getShare(context, disasterPoint.getNumber() + "lat", ""));
                 param.put("serialNo", serialNo);
+                param.put("remarks", etRemarks.getText().toString().trim());
                 params.add(param);
                 if (uploadInfo.getPhotoPath() == null) {
                     files.add(null);
@@ -434,6 +439,7 @@ public class DisasterActivity extends AppCompatActivity {
             param.put("xpoint", (String) SharedUtils.getShare(context, disasterPoint.getNumber() + "lon", ""));
             param.put("ypoint", (String) SharedUtils.getShare(context, disasterPoint.getNumber() + "lat", ""));
             param.put("serialNo", serialNo);
+            param.put("remarks", etRemarks.getText().toString().trim());
             params.add(param);
             files.add(null);
         }
@@ -516,6 +522,7 @@ public class DisasterActivity extends AppCompatActivity {
         SharedUtils.removeShare(context, disasterPoint.getNumber() + "other");
         SharedUtils.removeShare(context, disasterPoint.getNumber() + "lon");
         SharedUtils.removeShare(context, disasterPoint.getNumber() + "lat");
+        SharedUtils.removeShare(context, disasterPoint.getNumber() + "remark");
     }
 
     @Override

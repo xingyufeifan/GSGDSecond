@@ -88,7 +88,7 @@ public class DisasterTypeAdapter extends RecyclerView.Adapter<DisasterTypeAdapte
             super(itemView);
             ivPhoto = (ImageView) itemView.findViewById(R.id.iv_photo);
             ivTakePhoto = (ImageView) itemView.findViewById(R.id.iv_take_photo);
-            cbIsFind = (CheckBox) itemView.findViewById(R.id.cb_is_find);
+            cbIsFind = (CheckBox) itemView.findViewById(R.id.cb_yes_find);
             tvName = (TextView) itemView.findViewById(R.id.tv_name);
         }
     }

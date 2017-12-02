@@ -61,7 +61,7 @@
             android:orientation="horizontal"
             app:horizonGap="8dip"
             android:textSize="16sp"
-            app:texts="群测群防|驻守人员|片区专管|地环站"
+            app:texts="群测群防|驻守人员|片区专管"
             app:textColors="@color/white"
             app:verticalGap="8dip"
             app:selectedColor="@color/title_bg"/>

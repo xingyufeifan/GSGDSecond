@@ -28,7 +28,7 @@
             android:background="@color/white"
             android:gravity="right"
             android:padding="10dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="16dp"
             android:text="历史上报"
             android:textSize="18sp" />
 

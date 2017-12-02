@@ -72,7 +72,6 @@ public class RecordVideoActivity extends AppCompatActivity {
     private VideoAdapter adapter;
     private ProgressDialog progressDialog;
     private MyProgressBar progressBar;
-    private int count = 0;
     private String mobile;
     private String type;
 
