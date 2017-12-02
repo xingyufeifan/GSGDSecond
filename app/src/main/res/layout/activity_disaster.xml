@@ -12,27 +12,42 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
         android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="4"
+            android:layout_weight="5"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tv_start_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="点击选择开始时间"
+                android:drawableLeft="@drawable/greendot"
+                android:drawablePadding="20dp"
+                android:hint="开始时间"
+                android:textColorHint="@color/color_solid1"
                 android:padding="10dp"
                 android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="46dp"
+                android:background="@color/dividerColor"/>
 
             <TextView
                 android:id="@+id/tv_end_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="点击选择结束时间"
+                android:drawableLeft="@drawable/reddot"
+                android:drawablePadding="20dp"
+                android:hint="结束时间"
+                android:textColorHint="@color/color_solid1"
                 android:padding="10dp"
                 android:textSize="18sp" />
         </LinearLayout>
@@ -40,23 +55,24 @@
         <Button
             android:id="@+id/btn_search"
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:src="@drawable/search"
-            android:text="搜索" />
+            android:background="@null"
+            android:text="搜索"
+            android:textColor="@color/edit_text_bg"
+            android:textSize="20sp"/>
     </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorPrimary" />
+        android:layout_height="10dp"
+        android:background="@color/tv_bg"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_disaster"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="10dp">
+        android:layout_height="match_parent">
 
     </android.support.v7.widget.RecyclerView>
 </LinearLayout>

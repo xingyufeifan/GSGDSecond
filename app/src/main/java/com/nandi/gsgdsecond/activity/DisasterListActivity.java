@@ -41,6 +41,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
 
+/**
+ * 宏观观测已上报记录页面
+ */
 public class DisasterListActivity extends AppCompatActivity {
 
     @BindView(R.id.tv_start_time)
@@ -87,6 +90,7 @@ public class DisasterListActivity extends AppCompatActivity {
     }
 
     private void initData() {
+        tvTitle.setText("宏观巡查记录");
         disNum = getIntent().getStringExtra(Constant.DISASTER_NUMBER);
         mobile = (String) SharedUtils.getShare(context, Constant.MOBILE, "");
         progress = new ProgressDialog(context, ProgressDialog.STYLE_SPINNER);
