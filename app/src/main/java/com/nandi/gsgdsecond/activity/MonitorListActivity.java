@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -43,6 +42,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
 
+/**
+ * 定量监测已上报列表页面
+ */
 public class MonitorListActivity extends AppCompatActivity {
 
     @BindView(R.id.iv_back)
@@ -51,7 +53,7 @@ public class MonitorListActivity extends AppCompatActivity {
     TextView tvTitle;
     @BindView(R.id.iv_call)
     ImageView ivCall;
-    @BindView(R.id.rv_monitor)
+    @BindView(R.id.rv_disaster)
     RecyclerView rvMonitor;
     @BindView(R.id.tv_start_time)
     TextView tvStartTime;
@@ -69,7 +71,7 @@ public class MonitorListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_monitor_list);
+        setContentView(R.layout.activity_disaster);
         ButterKnife.bind(this);
         context = this;
         initData();
@@ -89,6 +91,7 @@ public class MonitorListActivity extends AppCompatActivity {
     }
 
     private void initData() {
+        tvTitle.setText("定量监测记录");
         disNum = getIntent().getStringExtra(Constant.DISASTER_NUMBER);
         monNum = getIntent().getStringExtra(Constant.MONITOR_NUMBER);
         mobile = (String) SharedUtils.getShare(context, Constant.MOBILE, "");

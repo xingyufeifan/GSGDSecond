@@ -42,7 +42,7 @@ import butterknife.OnClick;
 import okhttp3.Call;
 
 /**
- * 宏观观测已上报记录页面
+ * 宏观观测已上报列表页面
  */
 public class DisasterListActivity extends AppCompatActivity {
 

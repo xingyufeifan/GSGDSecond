@@ -27,6 +27,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
 
+/**
+ * 定量监测已上报数据页面
+ */
 public class MonitiorYesActivity extends AppCompatActivity {
 
     @BindView(R.id.iv_back)
@@ -65,8 +68,6 @@ public class MonitiorYesActivity extends AppCompatActivity {
         context = this;
         monitorUpInfo = (MonitorUpInfo) getIntent().getSerializableExtra(Constant.MONITOR_UP);
         initView();
-
-
     }
 
     private void initView() {

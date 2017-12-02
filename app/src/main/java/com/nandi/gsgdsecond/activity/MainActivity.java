@@ -116,24 +116,24 @@ public class MainActivity extends BaseActivity {
     @Override
     public void setListener() {
         super.setListener();
-        elDisasterList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-            @Override
-            public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
-                Intent intent;
-                if (i1 == 0) {//宏观观测监听
-                    intent = new Intent(context, DisasterActivity.class);
-                    DisasterPoint disasterPoint = disasterPoints.get(i);
-                    intent.putExtra(Constant.DISASTER, disasterPoint);
-                } else {//定量监测监听
-                    MonitorPoint monitorPoint = map.get(disasterPoints.get(i).getNumber()).get(i1);
-                    intent = new Intent(context, MonitorActivity.class);
-                    intent.putExtra(Constant.MONITOR, monitorPoint);
-                    intent.putExtra(Constant.DISASTER_NAME, disasterPoints.get(i).getName());
-                }
-                startActivity(intent);
-                return true;
-            }
-        });
+//        elDisasterList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+//            @Override
+//            public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
+//                Intent intent;
+//                if (i1 == 0) {//宏观观测监听
+//                    intent = new Intent(context, DisasterActivity.class);
+//                    DisasterPoint disasterPoint = disasterPoints.get(i);
+//                    intent.putExtra(Constant.DISASTER, disasterPoint);
+//                } else {//定量监测监听
+//                    MonitorPoint monitorPoint = map.get(disasterPoints.get(i).getNumber()).get(i1);
+//                    intent = new Intent(context, MonitorActivity.class);
+//                    intent.putExtra(Constant.MONITOR, monitorPoint);
+//                    intent.putExtra(Constant.DISASTER_NAME, disasterPoints.get(i).getName());
+//                }
+//                startActivity(intent);
+//                return true;
+//            }
+//        });
         //应急调查视频录制
         btn_videoRecord1.setOnClickListener(new View.OnClickListener() {
             @Override

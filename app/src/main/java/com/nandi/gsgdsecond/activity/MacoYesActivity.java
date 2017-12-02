@@ -106,7 +106,7 @@ public class MacoYesActivity extends AppCompatActivity {
         } else if (2 == warn_level) {
             warnLevel.setText("黄色告警");
         } else if (3 == warn_level) {
-            warnLevel.setText("程色告警");
+            warnLevel.setText("橙色告警");
         } else if (4 == warn_level) {
             warnLevel.setText("红色告警");
         } else if (-1 == warn_level) {

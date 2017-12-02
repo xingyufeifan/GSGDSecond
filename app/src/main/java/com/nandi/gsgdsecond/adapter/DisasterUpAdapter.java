@@ -42,7 +42,7 @@ public class DisasterUpAdapter extends RecyclerView.Adapter<DisasterUpAdapter.Di
 
     @Override
     public void onBindViewHolder(DisasterUpViewHolder holder, int position) {
-//        holder.tvName.setText(disasterUpInfo.get(position).getDis_name());
+        holder.tvName.setText(disasterUpInfo.get(position).getDis_name());
         holder.tvTime.setText(disasterUpInfo.get(position).getU_time());
         holder.TvType.setText(disasterUpInfo.get(position).getMacro_data());
     }
@@ -53,11 +53,11 @@ public class DisasterUpAdapter extends RecyclerView.Adapter<DisasterUpAdapter.Di
     }
 
     class DisasterUpViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView tvTime, TvType;
+        TextView tvName, tvTime, TvType;
 
         DisasterUpViewHolder(View itemView) {
             super(itemView);
-//            tvName = (TextView) itemView.findViewById(R.id.tv_name);
+            tvName = (TextView) itemView.findViewById(R.id.tv_name);
             tvTime = (TextView) itemView.findViewById(R.id.tv_time);
             TvType = (TextView) itemView.findViewById(R.id.tv_type);
             itemView.setOnClickListener(this);

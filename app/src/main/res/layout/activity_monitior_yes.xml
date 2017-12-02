@@ -223,8 +223,6 @@
 
             <View style="@style/myView" />
 
-
-
             <TextView
                 style="@style/myTextView"
                 android:text="图片" />
@@ -233,6 +231,8 @@
                 android:id="@+id/monitorPhoto"
                 android:layout_width="300dp"
                 android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:src="@drawable/downloading" />
         </LinearLayout>
