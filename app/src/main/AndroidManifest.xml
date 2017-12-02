@@ -65,7 +65,11 @@
             android:configChanges="keyboardHidden|orientation|screenSize|navigation" />
         <activity
             android:name=".activity.MainActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize|navigation" />
+            android:configChanges="keyboardHidden|orientation|screenSize|navigation">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activity.DisasterActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|navigation" />
@@ -130,7 +134,7 @@
         <activity android:name=".activity.DisasterListActivity" />
         <activity android:name=".activity.MonitorListActivity" />
         <activity android:name=".activity.MacoYesActivity" />
-        <activity android:name=".activity.MonitiorYesActivity"></activity>
+        <activity android:name=".activity.MonitiorYesActivity" />
     </application>
 
 </manifest>

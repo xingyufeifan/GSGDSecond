@@ -2,10 +2,13 @@ package com.nandi.gsgdsecond.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.util.Patterns;
 import android.view.View;
+import android.webkit.URLUtil;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
@@ -114,7 +117,24 @@ public class WeeklyActivity extends BaseActivity {
                 }
                 if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
                     String result = bundle.getString(CodeUtils.RESULT_STRING);
-                    Toast.makeText(this, "解析结果:" + result, Toast.LENGTH_LONG).show();
+
+                    if (Patterns.WEB_URL.matcher(result).matches() || URLUtil.isValidUrl(result)) {
+                        Intent intent = new Intent();
+                        intent.setAction("android.intent.action.VIEW");
+                        try {
+                            if (0 == (result.indexOf("http"))) {
+                                intent.setData(Uri.parse(result));
+                            } else {
+                                intent.setData(Uri.parse("https://" + result));
+                            }
+                            startActivity(intent);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        Toast.makeText(this, "解析结果:" + result, Toast.LENGTH_LONG).show();
+                    }
+
                 } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
                     Toast.makeText(context, "解析二维码失败", Toast.LENGTH_LONG).show();
                 }
