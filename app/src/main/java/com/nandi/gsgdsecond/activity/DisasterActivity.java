@@ -502,9 +502,8 @@ public class DisasterActivity extends AppCompatActivity {
                     public void onError(Call call, Exception e, int id) {
                         Log.d("error", e.toString());
                         progressDialog.dismiss();
-                        if (count < params.size()-1){
+                        if (count <=params.size()-1){
                             uploadAgain(params, files);
-                        } else {
                         }
                     }
 
@@ -534,9 +533,10 @@ public class DisasterActivity extends AppCompatActivity {
                 .setMessage("上传失败，是否重新上传？")
                 .setCancelable(false)
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        count += 1;
+                        Log.d("cp","again/count:"+count);
                         progressDialog.setProgress(count);
                         progressDialog.show();
                         setPost(params, files);
