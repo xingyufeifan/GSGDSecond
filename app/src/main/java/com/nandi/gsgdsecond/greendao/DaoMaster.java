@@ -21,20 +21,20 @@ public class DaoMaster extends AbstractDaoMaster {
 
     /** Creates underlying database table using DAOs. */
     public static void createAllTables(Database db, boolean ifNotExists) {
-        MonitorPointDao.createTable(db, ifNotExists);
-        DisasterInfoDao.createTable(db, ifNotExists);
         DailyLogInfoDao.createTable(db, ifNotExists);
-        MonitorInfoDao.createTable(db, ifNotExists);
+        DisasterInfoDao.createTable(db, ifNotExists);
         DisasterPointDao.createTable(db, ifNotExists);
+        MonitorInfoDao.createTable(db, ifNotExists);
+        MonitorPointDao.createTable(db, ifNotExists);
     }
 
     /** Drops underlying database table using DAOs. */
     public static void dropAllTables(Database db, boolean ifExists) {
-        MonitorPointDao.dropTable(db, ifExists);
-        DisasterInfoDao.dropTable(db, ifExists);
         DailyLogInfoDao.dropTable(db, ifExists);
-        MonitorInfoDao.dropTable(db, ifExists);
+        DisasterInfoDao.dropTable(db, ifExists);
         DisasterPointDao.dropTable(db, ifExists);
+        MonitorInfoDao.dropTable(db, ifExists);
+        MonitorPointDao.dropTable(db, ifExists);
     }
 
     /**
@@ -53,11 +53,11 @@ public class DaoMaster extends AbstractDaoMaster {
 
     public DaoMaster(Database db) {
         super(db, SCHEMA_VERSION);
-        registerDaoClass(MonitorPointDao.class);
-        registerDaoClass(DisasterInfoDao.class);
         registerDaoClass(DailyLogInfoDao.class);
-        registerDaoClass(MonitorInfoDao.class);
+        registerDaoClass(DisasterInfoDao.class);
         registerDaoClass(DisasterPointDao.class);
+        registerDaoClass(MonitorInfoDao.class);
+        registerDaoClass(MonitorPointDao.class);
     }
 
     public DaoSession newSession() {
