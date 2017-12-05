@@ -1,10 +1,12 @@
 package com.nandi.gsgdsecond.activity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,7 +15,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -203,7 +208,7 @@ public class DisReportActivity extends AppCompatActivity {
                         if (which == SELECT_PICTURE) {
                             getLocalImage();
                         } else {
-                            getCameraImage();
+                            checkPermission();
                         }
                     }
                 }).create().show();
@@ -218,6 +223,40 @@ public class DisReportActivity extends AppCompatActivity {
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_PICK);
         startActivityForResult(intent, SELECT_PICTURE);
+    }
+
+    //权限申请
+    private void checkPermission() {
+        final String permission = Manifest.permission.CAMERA;  //相机权限
+
+        if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {  //先判断是否被赋予权限，没有则申请权限
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)
+                    ) {  //给出权限申请说明
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 1);
+            } else { //直接申请权限
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 1); //申请权限，可同时申请多个权限，并根据用户是否赋予权限进行判断
+            }
+        } else {  //赋予过权限，则直接调用相机拍照
+            getCameraImage();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode){
+            case 1:
+                int length = grantResults.length;
+                final boolean isGranted = length >= 1 && PackageManager.PERMISSION_GRANTED == grantResults[length - 1];
+                if (isGranted) {  //如果用户赋予权限，则调用相机
+                    getCameraImage();
+                } else { //未赋予权限，则做出对应提示
+                    com.blankj.utilcode.util.ToastUtils.showShort("请打开照相机权限");
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+                break;
+        }
     }
 
     /**
