@@ -30,7 +30,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:text="灾&#160;&#160;害&#160;&#160;点:"
+                    android:text="监&#160;&#160;测&#160;&#160;点:"
                     android:textSize="18sp" />
 
                 <TextView

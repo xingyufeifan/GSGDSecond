@@ -50,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
     private String mobile;
     private String imei; //人员类型
     private int count = 0;
-
+    private String loginName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,6 +156,7 @@ public class LoginActivity extends AppCompatActivity {
             JSONObject object = new JSONObject(response);
             String result = object.getString("result");
             String info = object.getString("info");
+
             if (imei.trim().equals("0") && count == 0 && "1".equals(result)) {//解析第一次登录请求的信息
                 if ("{}".equals(info)) {//如果info里面数据为空说明该号码没有监测点信息
                     ToastUtils.showShort(context, "该号码没有监测点信息");
@@ -190,11 +191,14 @@ public class LoginActivity extends AppCompatActivity {
                 }
             } else if (imei.trim().equals("1")){ //驻守人员
                 if ("1".equals(result)){
+                    JSONObject infoObject = new JSONObject(info);
+                    loginName = infoObject.getString("name");
+
                     startActivity(new Intent(context, DailyLogActivity.class));
                     SharedUtils.putShare(context,Constant.IS_LOGIN,true);
                     SharedUtils.putShare(context, Constant.MOBILE, mobile);
                     SharedUtils.putShare(context, Constant.IMEI, imei);
-                    SharedUtils.putShare(context, Constant.LOGNAME, "");
+                    SharedUtils.putShare(context, Constant.LOGNAME, loginName);
                     SharedUtils.putShare(context, Constant.WORKTYPE, "");
                     SharedUtils.putShare(context, Constant.SITUATION, "");
                     finish();
@@ -204,12 +208,15 @@ public class LoginActivity extends AppCompatActivity {
                 }
             } else if (imei.trim().equals("2")){ //片区专管员
                 if ("1".equals(result)){
+                    JSONObject infoObject = new JSONObject(info);
+                    loginName = infoObject.getString("name");
+
                     startActivity(new Intent(context, WeeklyActivity.class));
                     SharedUtils.putShare(context,Constant.IS_LOGIN,true);
                     SharedUtils.putShare(context, Constant.MOBILE, mobile);
                     SharedUtils.putShare(context, Constant.IMEI, imei);
                     SharedUtils.putShare(context, Constant.TOWNS, "");
-                    SharedUtils.putShare(context, Constant.WEEKLYNAME, "");
+                    SharedUtils.putShare(context, Constant.WEEKLYNAME, loginName);
                     finish();
                 } else {
                     ToastUtils.showShort(context, info);
@@ -288,4 +295,5 @@ public class LoginActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
 }

@@ -43,7 +43,7 @@ public class MonitorUpAdapter extends RecyclerView.Adapter<MonitorUpAdapter.Moni
 
     @Override
     public void onBindViewHolder(MonitorUpViewHolder holder, int position) {
-        holder.tvName.setText(monitorUpInfos.get(position).getDis_name());
+        holder.tvName.setText(monitorUpInfos.get(position).getMonitor_name());
         holder.tvTime.setText(monitorUpInfos.get(position).getU_time());
         double monitor_data = monitorUpInfos.get(position).getMonitor_data();
         holder.tvData.setText(String.valueOf(monitor_data));

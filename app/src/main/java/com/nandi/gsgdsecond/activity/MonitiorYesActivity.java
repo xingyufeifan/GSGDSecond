@@ -40,6 +40,8 @@ public class MonitiorYesActivity extends AppCompatActivity {
     ImageView ivCall;
     @BindView(R.id.disName)
     TextView disName;
+    @BindView(R.id.monitorName)
+    TextView monitorName;
     @BindView(R.id.disTime)
     TextView disTime;
     @BindView(R.id.disValide)
@@ -75,6 +77,7 @@ public class MonitiorYesActivity extends AppCompatActivity {
         progressBar = new MyProgressBar(context);
         monitorData.setText( monitorUpInfo.getMonitor_data()+"");
         disName.setText(monitorUpInfo.getDis_name());
+        monitorName.setText(monitorUpInfo.getMonitor_name());
         disTime.setText(monitorUpInfo.getU_time());
         int is_validate = monitorUpInfo.getIs_valid();
         if (1 == is_validate) {
@@ -94,7 +97,7 @@ public class MonitiorYesActivity extends AppCompatActivity {
         } else if (2 == warn_level) {
             warnLevel.setText("黄色告警");
         } else if (3 == warn_level) {
-            warnLevel.setText("程色告警");
+            warnLevel.setText("橙色告警");
         } else if (4 == warn_level) {
             warnLevel.setText("红色告警");
         } else if (-1 == warn_level) {

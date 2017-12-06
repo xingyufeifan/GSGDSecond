@@ -35,6 +35,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.bigkoo.pickerview.TimePickerView;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.nandi.gsgdsecond.R;
 import com.nandi.gsgdsecond.utils.Api;
@@ -146,6 +147,7 @@ public class DisReportActivity extends AppCompatActivity {
         progressBar = new MyProgressBar(context);
         phoneNum = (String) SharedUtils.getShare(context, Constant.MOBILE, "");
         imei = (String) SharedUtils.getShare(context, Constant.IMEI, "");
+        et_disRecorder.setText((String) SharedUtils.getShare(context, Constant.LOGNAME, ""));
     }
 
     /**
@@ -299,17 +301,26 @@ public class DisReportActivity extends AppCompatActivity {
                 getNumber();
                 break;
             case R.id.tv_dis_time: //选择时间
-                showDateDialog();
+                new TimePickerView.Builder(context, new TimePickerView.OnTimeSelectListener() {
+                    @Override
+                    public void onTimeSelect(Date date, View v) { //选中事件回调
+                        tv_disTime.setText(getTime(date));
+                    }
+                }).setSubmitText("确定").setCancelText("取消").build().show();
                 break;
             case R.id.btn_report:
                 if (checkEditText()) {
                     ToastUtils.showShort(context, "请输入完整信息！");
                 } else {
                     reportText(new Api(context).getDisReportTextUrl());
-//                    reportText(getResources().getString(R.string.local_base_url)+"DailyApp/saveDisater.do");
                 }
                 break;
         }
+    }
+
+    private String getTime(Date date) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return format.format(date);
     }
 
     @Override
@@ -406,52 +417,6 @@ public class DisReportActivity extends AppCompatActivity {
                         }
                     }
                 });
-    }
-
-    private void showDateDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        View view = this.getLayoutInflater().inflate(R.layout.dialog_datetime, null);
-        datePicker = (DatePicker) view.findViewById(R.id.datePicker1);
-        timePicker = (TimePicker) view.findViewById(R.id.timePicker1);
-        datePicker.setDescendantFocusability(DatePicker.FOCUS_BLOCK_DESCENDANTS);
-        timePicker.setDescendantFocusability(TimePicker.FOCUS_BLOCK_DESCENDANTS);
-        builder.setTitle("设置时间");
-        builder.setView(view);
-        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                int day = datePicker.getDayOfMonth();
-                int month = datePicker.getMonth() + 1;
-                int year = datePicker.getYear();
-                int hour = timePicker.getCurrentHour();
-                int minute = timePicker.getCurrentMinute();
-                String month1 = month + "";
-                String day1 = day + "";
-                String hour1 = hour + "";
-                String minute1 = minute + "";
-                if (month <= 9) {
-                    month1 = 0 + month1;
-                }
-                if (day <= 9) {
-                    day1 = 0 + day1;
-                }
-                if (hour <= 9) {
-                    hour1 = 0 + hour1;
-                }
-                if (minute <= 9) {
-                    minute1 = 0 + minute1;
-                }
-                tv_disTime.setText(year + "-" + month1 + "-" + day1 + " " + hour1 + ":" + minute1 + ":" + "00");
-            }
-        });
-        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        dialog = builder.create();
-        dialog.show();
     }
 
     /**

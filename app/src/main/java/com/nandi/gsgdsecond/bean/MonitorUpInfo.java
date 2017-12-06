@@ -10,6 +10,7 @@ public class MonitorUpInfo implements Serializable{
 
     /**
      * dis_name : 测试
+     * monitor_name: 墙裂
      * u_time : 2017-11-07 10:23:04
      * id : 8051783
      * monitor_id : 53631
@@ -29,6 +30,7 @@ public class MonitorUpInfo implements Serializable{
      */
 
     private String dis_name;
+    private String monitor_name;
     private String u_time;
     private int id;
     private int monitor_id;
@@ -52,6 +54,14 @@ public class MonitorUpInfo implements Serializable{
 
     public void setDis_name(String dis_name) {
         this.dis_name = dis_name;
+    }
+
+    public String getMonitor_name() {
+        return monitor_name;
+    }
+
+    public void setMonitor_name(String monitor_name) {
+        this.monitor_name = monitor_name;
     }
 
     public String getU_time() {
@@ -187,6 +197,7 @@ public class MonitorUpInfo implements Serializable{
     public String toString() {
         return "MonitorUpInfo{" +
                 "dis_name='" + dis_name + '\'' +
+                ", monitor_name='" + monitor_name + '\'' +
                 ", u_time='" + u_time + '\'' +
                 ", id=" + id +
                 ", monitor_id=" + monitor_id +
