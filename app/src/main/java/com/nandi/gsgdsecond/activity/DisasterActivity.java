@@ -482,21 +482,22 @@ public class DisasterActivity extends AppCompatActivity {
                 param.put("remarks", etRemarks.getText().toString().trim());
                 params.add(param);
                 files.add(null);
+            } else {
+                Map<String, String> param = new HashMap<>();
+                param.put("macroscopicPhenomenon", "无异常");
+                param.put("monitorType", "宏观观测");
+                param.put("otherPhenomena", "");
+                param.put("monPointDate", currentDate);
+                param.put("unifiedNumber", disasterPoint.getNumber());
+                param.put("mobile", (String) SharedUtils.getShare(context, Constant.MOBILE, ""));
+                param.put("count", String.valueOf(uploadInfos.size()));
+                param.put("xpoint", (String) SharedUtils.getShare(context, disasterPoint.getNumber() + "lon", ""));
+                param.put("ypoint", (String) SharedUtils.getShare(context, disasterPoint.getNumber() + "lat", ""));
+                param.put("serialNo", serialNo);
+                param.put("remarks", etRemarks.getText().toString().trim());
+                params.add(param);
+                files.add(null);
             }
-            Map<String, String> param = new HashMap<>();
-            param.put("macroscopicPhenomenon", "无异常");
-            param.put("monitorType", "宏观观测");
-            param.put("otherPhenomena", "");
-            param.put("monPointDate", currentDate);
-            param.put("unifiedNumber", disasterPoint.getNumber());
-            param.put("mobile", (String) SharedUtils.getShare(context, Constant.MOBILE, ""));
-            param.put("count", String.valueOf(uploadInfos.size()));
-            param.put("xpoint", (String) SharedUtils.getShare(context, disasterPoint.getNumber() + "lon", ""));
-            param.put("ypoint", (String) SharedUtils.getShare(context, disasterPoint.getNumber() + "lat", ""));
-            param.put("serialNo", serialNo);
-            param.put("remarks", etRemarks.getText().toString().trim());
-            params.add(param);
-            files.add(null);
         }
         setPost(params, files);
         progressDialog.setMax(params.size());

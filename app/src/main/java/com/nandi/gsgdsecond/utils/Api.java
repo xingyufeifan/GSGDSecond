@@ -11,8 +11,8 @@ public class Api {
     private String ports;
 
     public Api(Context context) {
-        ip= (String) SharedUtils.getShare(context,Constant.IP,"183.230.108.112");
-        port= (String) SharedUtils.getShare(context,Constant.PORT,"8099");
+        ip= (String) SharedUtils.getShare(context,Constant.IP,"192.168.10.72");
+        port= (String) SharedUtils.getShare(context,Constant.PORT,"8080");
         ports = "8090";
     }
     public String getLoginUrl(){

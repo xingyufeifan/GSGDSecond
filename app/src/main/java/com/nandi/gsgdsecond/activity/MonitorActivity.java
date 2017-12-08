@@ -339,7 +339,6 @@ public class MonitorActivity extends AppCompatActivity {
     private void clickPhoto() {
         if (monitorInfo.getPhotoPath() == null) {
             checkPermission();
-            takePhoto();
         } else {
             enlargeOrDelete();
         }
