@@ -21,6 +21,7 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -299,6 +300,7 @@ public class DisasterActivity extends AppCompatActivity {
             takePhoto();
         }
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {  //申请权限的返回值
@@ -315,6 +317,7 @@ public class DisasterActivity extends AppCompatActivity {
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
+
     private void takePhoto() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         pictureFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + ".jpg");
@@ -367,7 +370,7 @@ public class DisasterActivity extends AppCompatActivity {
     private void setAdapter() {
         adapter = new DisasterTypeAdapter(disasterInfos, this);
         rvDisasterType.setLayoutManager(new LinearLayoutManager(this));
-        rvDisasterType.setAdapter(adapter); 
+        rvDisasterType.setAdapter(adapter);
     }
 
     private void initView() {
@@ -464,6 +467,22 @@ public class DisasterActivity extends AppCompatActivity {
                 }
             }
         } else {
+            if (!TextUtils.isEmpty(otherThings)) {
+                Map<String, String> param = new HashMap<>();
+                param.put("macroscopicPhenomenon", "其他现象");
+                param.put("monitorType", "宏观观测");
+                param.put("otherPhenomena", otherThings);
+                param.put("monPointDate", currentDate);
+                param.put("unifiedNumber", disasterPoint.getNumber());
+                param.put("mobile", (String) SharedUtils.getShare(context, Constant.MOBILE, ""));
+                param.put("count", String.valueOf(uploadInfos.size()));
+                param.put("xpoint", (String) SharedUtils.getShare(context, disasterPoint.getNumber() + "lon", ""));
+                param.put("ypoint", (String) SharedUtils.getShare(context, disasterPoint.getNumber() + "lat", ""));
+                param.put("serialNo", serialNo);
+                param.put("remarks", etRemarks.getText().toString().trim());
+                params.add(param);
+                files.add(null);
+            }
             Map<String, String> param = new HashMap<>();
             param.put("macroscopicPhenomenon", "无异常");
             param.put("monitorType", "宏观观测");
@@ -502,7 +521,7 @@ public class DisasterActivity extends AppCompatActivity {
                     public void onError(Call call, Exception e, int id) {
                         Log.d("error", e.toString());
                         progressDialog.dismiss();
-                        if (count <= params.size()-1){
+                        if (count <= params.size() - 1) {
                             uploadAgain(params, files);
                         }
                     }
@@ -536,7 +555,7 @@ public class DisasterActivity extends AppCompatActivity {
 
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Log.d("cp","again/count:"+count);
+                        Log.d("cp", "again/count:" + count);
                         progressDialog.setProgress(count);
                         progressDialog.show();
                         setPost(params, files);

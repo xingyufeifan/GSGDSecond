@@ -3,6 +3,7 @@ package com.nandi.gsgdsecond.activity;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -107,7 +108,9 @@ public class MonitiorYesActivity extends AppCompatActivity {
         }
         monitorLon.setText(monitorUpInfo.getLon() + "");
         monitorLat.setText(monitorUpInfo.getLat() + "");
-        Glide.with(context).load("http://183.230.108.112/meteor/downImage.do?imageName=" + monitorUpInfo.getMonitor_url()).into(monitorPhoto);
+        if (!TextUtils.isEmpty(monitorUpInfo.getMonitor_url().toString().trim())){
+            Glide.with(context).load("http://183.230.108.112/meteor/downImage.do?imageName=" + monitorUpInfo.getMonitor_url()).into(monitorPhoto);
+        }
     }
 
     @OnClick({R.id.iv_back, R.id.iv_call,R.id.monitorPhoto})

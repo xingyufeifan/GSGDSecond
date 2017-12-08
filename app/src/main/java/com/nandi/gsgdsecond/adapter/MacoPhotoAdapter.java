@@ -2,6 +2,7 @@ package com.nandi.gsgdsecond.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.nandi.gsgdsecond.R;
 import com.nandi.gsgdsecond.bean.DailyLogInfo;
 import com.nandi.gsgdsecond.bean.DisasterUpInfo;
+import com.nandi.gsgdsecond.utils.ToastUtils;
 
 import java.lang.reflect.Array;
 import java.util.List;
@@ -48,8 +50,12 @@ public class MacoPhotoAdapter extends RecyclerView.Adapter<MacoPhotoAdapter.MyVi
 
     @Override
     public void onBindViewHolder(MacoPhotoAdapter.MyViewHolder holder, final int position) {
-        Glide.with(mContext).load("http://183.230.108.112/meteor/downImage.do?imageName="+listBeans[position])
-                .placeholder(R.drawable.downloading).error(R.drawable.download_pass).into(holder.macroPhoto);
+        if (!TextUtils.isEmpty(listBeans[position].toString().trim())){
+
+            Glide.with(mContext).load("http://183.230.108.112/meteor/downImage.do?imageName="+listBeans[position])
+                    .placeholder(R.drawable.downloading).error(R.drawable.download_pass).into(holder.macroPhoto);
+        }
+
         if (mOnItemClickListener != null) {
 
             holder.macroPhoto.setOnClickListener(new View.OnClickListener() {
