@@ -48,7 +48,7 @@ public class WeeklyListAdapter extends RecyclerView.Adapter<WeeklyListAdapter.My
     public void onBindViewHolder(WeeklyListAdapter.MyViewHolder holder, final int position) {
         if (mOnItemClickListener != null) {
 
-            holder.person.setText(listBeans.get(position).getUser_id());
+            holder.person.setText(listBeans.get(position).getId());
             holder.name.setText(listBeans.get(position).getUser_name());
             holder.time.setText(listBeans.get(position).getRecord_time());
             holder.layout.setOnClickListener(new View.OnClickListener() {

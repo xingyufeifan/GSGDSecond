@@ -109,7 +109,7 @@ public class DisasterListActivity extends AppCompatActivity {
         Date date = new Date();//获取当前时间
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
-        calendar.add(Calendar.MONTH, -1);//当前时间减去一年，即一年前的时间
+        calendar.add(Calendar.MONTH, -1);//当前时间减去1，即一月前的时间
         Date time = calendar.getTime();
         return getTime(time);
     }
