@@ -36,6 +36,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.bigkoo.pickerview.TimePickerView;
+import com.blankj.utilcode.util.FileUtils;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.nandi.gsgdsecond.R;
 import com.nandi.gsgdsecond.utils.Api;
@@ -245,7 +246,7 @@ public class DisReportActivity extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode){
+        switch (requestCode) {
             case 1:
                 int length = grantResults.length;
                 final boolean isGranted = length >= 1 && PackageManager.PERMISSION_GRANTED == grantResults[length - 1];
@@ -266,7 +267,7 @@ public class DisReportActivity extends AppCompatActivity {
      */
     private void getCameraImage() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        pictureFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + ".jpg");
+        pictureFile = new File(createFileDir("Pictures"), new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + ".jpg");
         Uri imageUri;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {  //针对Android7.0，需要通过FileProvider封装过的路径，提供给外部调用
             imageUri = FileProvider.getUriForFile(context, "com.nandi.gsgdsecond.fileprovider", pictureFile);//通过FileProvider创建一个content类型的Uri，进行封装
@@ -276,6 +277,16 @@ public class DisReportActivity extends AppCompatActivity {
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
         Log.d("cp", "图片保存路径：" + pictureFile.getAbsolutePath());
         startActivityForResult(intent, SELECT_CAMERA);
+    }
+
+    private File createFileDir(String dir) {
+        String path = Environment.getExternalStorageDirectory() + "/" + dir;
+        boolean orExistsDir = FileUtils.createOrExistsDir(path);
+        if (orExistsDir) {
+            return new File(path);
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -469,7 +480,7 @@ public class DisReportActivity extends AppCompatActivity {
                     @Override
                     public void onError(Call call, Exception e, int id) {
                         ToastUtils.showShort(context, "网络连接失败,请稍后重试");
-                        Log.d("cp",e.getMessage());
+                        Log.d("cp", e.getMessage());
                         progressDialog.dismiss();
                     }
 
@@ -479,10 +490,10 @@ public class DisReportActivity extends AppCompatActivity {
                         try {
                             JSONObject obj = new JSONObject(response);
                             if ("200".equals(obj.optString("status"))) {
-                                    progressDialog.dismiss();
-                                    ToastUtils.showShort(context, "上传成功");
-                                    clearAllText();
-                                    context.finish();
+                                progressDialog.dismiss();
+                                ToastUtils.showShort(context, "上传成功");
+                                clearAllText();
+                                context.finish();
                             } else {
                                 progressDialog.dismiss();
                                 ToastUtils.showShort(context, "上传失败，请稍后重试!");

@@ -39,6 +39,7 @@ import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.blankj.utilcode.util.FileUtils;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.nandi.gsgdsecond.R;
 import com.nandi.gsgdsecond.adapter.DisasterTypeAdapter;
@@ -320,10 +321,11 @@ public class DisasterActivity extends AppCompatActivity {
 
     private void takePhoto() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        pictureFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + ".jpg");
+        pictureFile = new File(createFileDir("Pictures"), new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + ".jpg");
         Uri imageUri;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {  //针对Android7.0，需要通过FileProvider封装过的路径，提供给外部调用
             imageUri = FileProvider.getUriForFile(context, "com.nandi.gsgdsecond.fileprovider", pictureFile);//通过FileProvider创建一个content类型的Uri，进行封装
+            Log.d("cp",imageUri.getPath());
         } else { //7.0以下，如果直接拿到相机返回的intent值，拿到的则是拍照的原图大小，很容易发生OOM，所以我们同样将返回的地址，保存到指定路径，返回到Activity时，去指定路径获取，压缩图片
             imageUri = Uri.fromFile(pictureFile);
         }
@@ -331,7 +333,15 @@ public class DisasterActivity extends AppCompatActivity {
         Log.d("cp", "图片保存路径：" + pictureFile.getAbsolutePath());
         startActivityForResult(intent, 1);
     }
-
+    private File createFileDir(String dir) {
+        String path = Environment.getExternalStorageDirectory() + "/" + dir;
+        boolean orExistsDir = FileUtils.createOrExistsDir(path);
+        if (orExistsDir) {
+            return new File(path);
+        } else {
+            return null;
+        }
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
