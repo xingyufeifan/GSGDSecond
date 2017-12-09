@@ -267,7 +267,7 @@ public class DisReportActivity extends AppCompatActivity {
      */
     private void getCameraImage() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        pictureFile = new File(createFileDir("Pictures"), new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + ".jpg");
+        pictureFile = new File(CommonUtils.createFileDir("Pictures"), new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + ".jpg");
         Uri imageUri;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {  //针对Android7.0，需要通过FileProvider封装过的路径，提供给外部调用
             imageUri = FileProvider.getUriForFile(context, "com.nandi.gsgdsecond.fileprovider", pictureFile);//通过FileProvider创建一个content类型的Uri，进行封装
@@ -277,16 +277,6 @@ public class DisReportActivity extends AppCompatActivity {
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
         Log.d("cp", "图片保存路径：" + pictureFile.getAbsolutePath());
         startActivityForResult(intent, SELECT_CAMERA);
-    }
-
-    private File createFileDir(String dir) {
-        String path = Environment.getExternalStorageDirectory() + "/" + dir;
-        boolean orExistsDir = FileUtils.createOrExistsDir(path);
-        if (orExistsDir) {
-            return new File(path);
-        } else {
-            return null;
-        }
     }
 
     /**

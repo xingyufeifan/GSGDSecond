@@ -6,9 +6,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Environment;
 
+import com.blankj.utilcode.util.FileUtils;
 import com.nandi.gsgdsecond.R;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -63,6 +66,21 @@ public class CommonUtils {
                         dialogInterface.dismiss();
                     }
                 }).show();
+    }
+
+    /**
+     * 创建拍照文件夹
+     * @param dir
+     * @return
+     */
+    public static File createFileDir(String dir) {
+        String path = Environment.getExternalStorageDirectory() + "/" + dir;
+        boolean orExistsDir = FileUtils.createOrExistsDir(path);
+        if (orExistsDir) {
+            return new File(path);
+        } else {
+            return null;
+        }
     }
 
 }

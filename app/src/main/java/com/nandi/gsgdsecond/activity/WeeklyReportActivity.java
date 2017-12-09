@@ -72,6 +72,9 @@ public class WeeklyReportActivity extends AppCompatActivity {
         type = getIntent().getIntExtra("type", 0);
         if (3 == type) {
             initData();
+            etTownsName.setEnabled(false);
+            etUserName.setEnabled(false);
+            etWeeklyWork.setEnabled(false);
         }
     }
 

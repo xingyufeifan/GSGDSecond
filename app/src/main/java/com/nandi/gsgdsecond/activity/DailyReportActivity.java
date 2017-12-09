@@ -103,6 +103,11 @@ public class DailyReportActivity extends AppCompatActivity {
             btnSave.setText("删除");
         } else if (2 == type) {
             initData();
+            etName.setEnabled(false);
+            etLogContent.setEnabled(false);
+            etRemarks.setEnabled(false);
+            etSituation.setEnabled(false);
+            etWorkType.setEnabled(false);
             llBtn.setVisibility(View.GONE);
         } else {
             initDatas();

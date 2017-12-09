@@ -321,7 +321,7 @@ public class DisasterActivity extends AppCompatActivity {
 
     private void takePhoto() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        pictureFile = new File(createFileDir("Pictures"), new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + ".jpg");
+        pictureFile = new File(CommonUtils.createFileDir("Pictures"), new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + ".jpg");
         Uri imageUri;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {  //针对Android7.0，需要通过FileProvider封装过的路径，提供给外部调用
             imageUri = FileProvider.getUriForFile(context, "com.nandi.gsgdsecond.fileprovider", pictureFile);//通过FileProvider创建一个content类型的Uri，进行封装
@@ -333,15 +333,7 @@ public class DisasterActivity extends AppCompatActivity {
         Log.d("cp", "图片保存路径：" + pictureFile.getAbsolutePath());
         startActivityForResult(intent, 1);
     }
-    private File createFileDir(String dir) {
-        String path = Environment.getExternalStorageDirectory() + "/" + dir;
-        boolean orExistsDir = FileUtils.createOrExistsDir(path);
-        if (orExistsDir) {
-            return new File(path);
-        } else {
-            return null;
-        }
-    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
