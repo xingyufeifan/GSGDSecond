@@ -50,7 +50,8 @@ public class MacoPhotoAdapter extends RecyclerView.Adapter<MacoPhotoAdapter.MyVi
 
     @Override
     public void onBindViewHolder(MacoPhotoAdapter.MyViewHolder holder, final int position) {
-        if (!TextUtils.isEmpty(listBeans[position].toString().trim())){
+        if (!TextUtils.isEmpty(listBeans[position].toString().trim())
+                && !"2323232.jpg".equals(listBeans[position].toString().trim())){
 
             Glide.with(mContext).load("http://183.230.108.112/meteor/downImage.do?imageName="+listBeans[position])
                     .placeholder(R.drawable.downloading).error(R.drawable.download_pass).into(holder.macroPhoto);

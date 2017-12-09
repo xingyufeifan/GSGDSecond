@@ -108,7 +108,8 @@ public class MonitiorYesActivity extends AppCompatActivity {
         }
         monitorLon.setText(monitorUpInfo.getLon() + "");
         monitorLat.setText(monitorUpInfo.getLat() + "");
-        if (!TextUtils.isEmpty(monitorUpInfo.getMonitor_url().toString().trim())){
+        if (!TextUtils.isEmpty(monitorUpInfo.getMonitor_url().toString().trim())
+                && !"2323232.jpg".equals(monitorUpInfo.getMonitor_url().toString().trim())){
             Glide.with(context).load("http://183.230.108.112/meteor/downImage.do?imageName=" + monitorUpInfo.getMonitor_url()).into(monitorPhoto);
         }
     }
