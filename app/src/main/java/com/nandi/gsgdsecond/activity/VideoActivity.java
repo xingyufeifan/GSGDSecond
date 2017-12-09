@@ -13,6 +13,7 @@ import android.view.KeyEvent;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -69,6 +70,7 @@ public class VideoActivity extends Activity implements AnyChatBaseEvent {
 
 	private void InitLayout() {
 		this.setContentView(R.layout.video_frame);
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		this.setTitle("与 \"" + anychatSDK.GetUserName(userID) + "\" 对话中");
 		mMyView = (SurfaceView) findViewById(R.id.surface_local);
 		mOtherView = (SurfaceView) findViewById(R.id.surface_remote);

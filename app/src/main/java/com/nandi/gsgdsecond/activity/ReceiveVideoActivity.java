@@ -31,14 +31,16 @@ public class ReceiveVideoActivity extends Activity implements OnClickListener {
     private Message message;
     private MediaPlayer player;
     private NotificationManager manager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_receive_video);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
-                | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+                | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
+                | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         message = (Message) getIntent().getSerializableExtra("MESSAGE");
-        manager= (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         wakeUpAndUnlock();
         play();
         initView();
@@ -100,8 +102,8 @@ public class ReceiveVideoActivity extends Activity implements OnClickListener {
                 Intent progressIntent = new Intent(this, ProgressActivity.class);
                 startActivity(progressIntent);
                 Intent i = new Intent(this, MyService.class);
-                i.putExtra("ROOM_ID",message.getRoomId());
-                i.putExtra("USER_ID",message.getUserId());
+                i.putExtra("ROOM_ID", message.getRoomId());
+                i.putExtra("USER_ID", message.getUserId());
                 Log.e("视频接听", "进入通话界面。。。。。。。");
                 startService(i);
                 finish();
