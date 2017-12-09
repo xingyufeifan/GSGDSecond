@@ -1,6 +1,7 @@
 package com.nandi.gsgdsecond.activity;
 
 import android.app.AlertDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -68,6 +69,7 @@ public class MacoYesActivity extends AppCompatActivity {
     private DisasterUpInfo disasterUpInfo;
     private MacoPhotoAdapter myAdapter;
     private String[] urlArray;
+    private String disNumber;
 
 
     @Override
@@ -76,6 +78,7 @@ public class MacoYesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_maco_yes);
         ButterKnife.bind(this);
         context = this;
+        disNumber = getIntent().getStringExtra(Constant.DISASTER_NUMBER);
         disasterUpInfo = (DisasterUpInfo) getIntent().getSerializableExtra(Constant.DISASTER_UP);
         Log.d("cp", disasterUpInfo.toString());
         initView();
@@ -84,7 +87,7 @@ public class MacoYesActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        disNum.setText(disasterUpInfo.getSerial_no());
+        disNum.setText(disNumber);
         disName.setText(disasterUpInfo.getDis_name());
         disTime.setText(disasterUpInfo.getU_time());
         macroPhenomenon.setText(disasterUpInfo.getMacro_data());
@@ -96,23 +99,29 @@ public class MacoYesActivity extends AppCompatActivity {
         }
         int state = disasterUpInfo.getState();
         if (1 == state) {
-            disState.setText("合法");
+            disState.setText("有效");
         } else {
-            disState.setText("不合法");
+            disState.setText("无效");
         }
         int warn_level = disasterUpInfo.getWarn_level();
         if (1 == warn_level) {
             warnLevel.setText("蓝色告警");
+            warnLevel.setTextColor(Color.BLUE);
         } else if (2 == warn_level) {
             warnLevel.setText("黄色告警");
+            warnLevel.setTextColor(Color.YELLOW);
         } else if (3 == warn_level) {
             warnLevel.setText("橙色告警");
+            warnLevel.setTextColor(Color.argb(255,255, 165, 0));
         } else if (4 == warn_level) {
             warnLevel.setText("红色告警");
+            warnLevel.setTextColor(Color.RED);
         } else if (-1 == warn_level) {
             warnLevel.setText("异常");
+            warnLevel.setTextColor(Color.argb(255,153, 50, 204));
         } else {
             warnLevel.setText("正常");
+            warnLevel.setTextColor(Color.GREEN);
         }
         monitorLat.setText(disasterUpInfo.getLat()+"");
         monitorLon.setText(disasterUpInfo.getLon()+"");

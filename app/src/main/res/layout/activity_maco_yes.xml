@@ -171,7 +171,7 @@
                     android:paddingBottom="10dp"
                     android:paddingLeft="18dp"
                     android:paddingTop="10dp"
-                    android:text="相&#160;&#160;邻&#160;告&#160;&#160;警："
+                    android:text="告&#160;&#160;警&#160;等&#160;&#160;级："
                     android:textSize="18sp" />
 
                 <TextView

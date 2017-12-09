@@ -83,6 +83,7 @@ public class DisasterListActivity extends AppCompatActivity {
             public void onItemClick(View view) {
                 int position = rvDisaster.getChildAdapterPosition(view);
                 Intent intent = new Intent(context, MacoYesActivity.class);
+                intent.putExtra(Constant.DISASTER_NUMBER, disNum);
                 intent.putExtra(Constant.DISASTER_UP, disasterUpInfos.get(position));
                 startActivity(intent);
             }
