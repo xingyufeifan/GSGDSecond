@@ -50,6 +50,8 @@
             android:id="@+id/el_disaster_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingBottom="12dp"
+            android:layout_above="@id/btn_videoRecord1"
             android:divider="@null">
         </ExpandableListView>
 
