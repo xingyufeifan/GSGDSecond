@@ -22,9 +22,9 @@ import com.zhy.http.okhttp.callback.StringCallback;
 import okhttp3.Call;
 
 /**
+ * 定位服务
  * Created by ChenPeng on 2017/11/25.
  */
-
 public class LocationService extends Service {
     private Context context;
     private String uploadUrl;
@@ -57,7 +57,7 @@ public class LocationService extends Service {
         option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
         option.setCoorType("bd09ll");
         //可选，默认gcj02，设置返回的定位结果坐标系
-        option.setScanSpan(10 * 60 * 1000);
+        option.setScanSpan(3 * 60 * 60 * 1000);
         //可选，默认0，即仅定位一次，设置发起定位请求的间隔需要大于等于1000ms才是有效的
         option.setOpenGps(true);
         option.setIgnoreKillProcess(false);
