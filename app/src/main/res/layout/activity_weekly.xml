@@ -27,7 +27,7 @@
                 android:layout_weight="3"
                 android:gravity="left"
                 android:padding="10dp"
-                android:text="乡镇名称："
+                android:text="乡镇名称:"
                 android:textSize="18sp" />
 
             <EditText
@@ -55,7 +55,7 @@
                 android:layout_weight="3"
                 android:gravity="left"
                 android:padding="10dp"
-                android:text="周报时间："
+                android:text="周报时间:"
                 android:textSize="18sp" />
 
             <TextView
@@ -82,7 +82,7 @@
                 android:layout_weight="3"
                 android:gravity="left"
                 android:padding="10dp"
-                android:text="片区负责人："
+                android:text="片区负责人:"
                 android:textSize="18sp" />
 
             <EditText
@@ -110,7 +110,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:padding="10dp"
-                android:text="本周工作情况："
+                android:text="本周工作情况"
                 android:textSize="18sp" />
 
             <EditText

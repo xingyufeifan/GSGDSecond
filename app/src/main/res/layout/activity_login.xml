@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center_horizontal"
-            android:text="@string/logo_name"
+            android:text="@string/login_name"
             android:shadowColor="#FF000000"
             android:shadowDx="5"
             android:shadowDy="5"

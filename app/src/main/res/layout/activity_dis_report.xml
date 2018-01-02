@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     tools:context="com.nandi.gsgdsecond.activity.DisReportActivity">
 
     <include
@@ -12,7 +14,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/titleBar">
+        android:layout_below="@id/titleBar"
+        android:layout_above="@id/btn_report">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,11 +34,11 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
+                    android:layout_weight="3.5"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
                     android:paddingLeft="18dp"
-                    android:text="姓        名："
+                    android:text="姓        名:"
                     android:textSize="18sp"/>
 
                 <EditText
@@ -59,11 +62,11 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
+                    android:layout_weight="3.5"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
                     android:paddingLeft="18dp"
-                    android:text="发生日期："
+                    android:text="发生日期:"
                     android:textSize="18sp"/>
 
                 <TextView
@@ -103,11 +106,11 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
+                    android:layout_weight="3.5"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
                     android:paddingLeft="18dp"
-                    android:text="乡/镇      ："
+                    android:text="乡/镇      :"
                     android:textSize="18sp"/>
 
                 <EditText
@@ -131,11 +134,11 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
+                    android:layout_weight="3.5"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
                     android:paddingLeft="18dp"
-                    android:text="村            ："
+                    android:text="村            :"
                     android:textSize="18sp"/>
 
                 <EditText
@@ -159,11 +162,11 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
+                    android:layout_weight="3.5"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
                     android:paddingLeft="18dp"
-                    android:text="组            ："
+                    android:text="组            :"
                     android:textSize="18sp"/>
 
                 <EditText
@@ -189,11 +192,11 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
+                    android:layout_weight="3.5"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
                     android:paddingLeft="18dp"
-                    android:text="受灾人数："
+                    android:text="受灾人数:"
                     android:textSize="18sp"/>
 
                 <EditText
@@ -218,11 +221,11 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
+                    android:layout_weight="3.5"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
                     android:paddingLeft="18dp"
-                    android:text="死亡人数："
+                    android:text="死亡人数:"
                     android:textSize="18sp"/>
 
                 <EditText
@@ -247,11 +250,11 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
+                    android:layout_weight="3.5"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
                     android:paddingLeft="18dp"
-                    android:text="失踪人数："
+                    android:text="失踪人数:"
                     android:textSize="18sp"/>
 
                 <EditText
@@ -276,11 +279,11 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
+                    android:layout_weight="3.5"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
                     android:paddingLeft="18dp"
-                    android:text="受伤人数："
+                    android:text="受伤人数:"
                     android:textSize="18sp"/>
 
                 <EditText
@@ -306,11 +309,11 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
+                    android:layout_weight="3.5"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
                     android:paddingLeft="18dp"
-                    android:text="潜在威胁："
+                    android:text="潜在威胁:"
                     android:textSize="18sp"/>
 
                 <EditText
@@ -320,6 +323,7 @@
                     android:layout_weight="2"
                     android:background="@drawable/shape_report"
                     android:padding="5dp"
+                    android:layout_marginLeft="10dp"
                     android:inputType="number"
                     android:textSize="18sp" />
 
@@ -381,20 +385,21 @@
             <View
                 style="@style/myView" />
 
-            <Button
-                android:id="@+id/btn_report"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="5dp"
-                android:background="@drawable/save_btn_selector"
-                android:text="@string/report"
-                android:textColor="@color/white"
-                android:textSize="18sp"/>
-
         </LinearLayout>
     </ScrollView>
+
+    <Button
+        android:id="@+id/btn_report"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/save_btn_selector"
+        android:text="@string/report"
+        android:textColor="@color/white"
+        android:textSize="18sp"/>
 
 </RelativeLayout>

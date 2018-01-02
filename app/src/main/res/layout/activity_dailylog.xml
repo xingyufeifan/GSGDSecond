@@ -2,136 +2,51 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
     <include
         android:id="@+id/titleBar"
         layout="@layout/layout_titlebar" />
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:orientation="vertical"
-        android:layout_below="@+id/titleBar">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:gravity="right"
-                android:padding="8dp"
-                android:text="记录时间："
-                android:textSize="10sp" />
-
-            <TextView
-                android:id="@+id/tv_recordtime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="7"
-                android:padding="5dp"
-                android:text="2016-6-28 14:36:04"
-                android:textColor="@color/text_color"
-                android:textSize="10sp" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.01dp"
-            android:background="@color/dividerColor" />
+        android:layout_below="@+id/titleBar"
+        android:layout_above="@id/ll_btn">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
-                    android:gravity="left"
-                    android:padding="10dp"
-                    android:text="记录人员："
-                    android:textSize="18sp" />
-
-                <EditText
-                    android:id="@+id/et_recorder"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="7"
-                    android:background="@null"
-                    android:hint="@string/edit"
-                    android:padding="5dp"
-                    android:textSize="16sp" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.01dp"
-                android:background="@color/dividerColor" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                    android:gravity="right"
+                    android:padding="8dp"
+                    android:text="记录时间："
+                    android:textSize="10sp" />
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="4"
-                    android:gravity="left"
-                    android:padding="10dp"
-                    android:text="工作类型："
-                    android:textSize="18sp" />
-
-                <EditText
-                    android:id="@+id/et_worktype"
-                    android:layout_width="0dp"
+                    android:id="@+id/tv_recordtime"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
-                    android:background="@null"
-                    android:hint="@string/edit"
                     android:padding="5dp"
-                    android:textSize="16sp" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.01dp"
-                android:background="@color/dividerColor" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="4"
-                    android:gravity="left"
-                    android:padding="10dp"
-                    android:text="在岗情况："
-                    android:textSize="18sp" />
-
-                <EditText
-                    android:id="@+id/et_situation"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="7"
-                    android:background="@null"
-                    android:hint="@string/edit"
-                    android:padding="5dp"
-                    android:textSize="16sp" />
+                    android:text="2016-6-28 14:36:04"
+                    android:textColor="@color/text_color"
+                    android:textSize="10sp" />
             </LinearLayout>
 
             <View
@@ -144,66 +59,163 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:gravity="left"
+                        android:padding="10dp"
+                        android:text="记录人员："
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/et_recorder"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="7"
+                        android:background="@null"
+                        android:hint="@string/edit"
+                        android:padding="5dp"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.01dp"
+                    android:background="@color/dividerColor" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:gravity="left"
+                        android:padding="10dp"
+                        android:text="工作类型："
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/et_worktype"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="7"
+                        android:background="@null"
+                        android:hint="@string/edit"
+                        android:padding="5dp"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.01dp"
+                    android:background="@color/dividerColor" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:gravity="left"
+                        android:padding="10dp"
+                        android:text="在岗情况："
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/et_situation"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="7"
+                        android:background="@null"
+                        android:hint="@string/edit"
+                        android:padding="5dp"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.01dp"
+                    android:background="@color/dividerColor" />
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="left|center"
-                    android:padding="10dp"
-                    android:text="日志内容"
-                    android:textSize="18sp" />
+                    android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/et_dailywork"
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left|center"
+                        android:padding="10dp"
+                        android:text="日志内容"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/et_dailywork"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="2dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/shape_report"
+                        android:gravity="left"
+                        android:hint="@string/edit"
+                        android:lines="6"
+                        android:padding="8dp"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="2dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:background="@drawable/shape_report"
-                    android:gravity="left"
-                    android:hint="@string/edit"
-                    android:lines="6"
-                    android:padding="8dp"
-                    android:textSize="16sp" />
-            </LinearLayout>
+                    android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left|center"
+                        android:padding="10dp"
+                        android:text="备注"
+                        android:textSize="18sp" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="left|center"
-                    android:padding="10dp"
-                    android:text="备注"
-                    android:textSize="18sp" />
-
-                <EditText
-                    android:id="@+id/et_remarks"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:background="@drawable/shape_report"
-                    android:gravity="left"
-                    android:hint="@string/edit"
-                    android:lines="3"
-                    android:padding="8dp"
-                    android:textSize="16sp" />
+                    <EditText
+                        android:id="@+id/et_remarks"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/shape_report"
+                        android:gravity="left"
+                        android:hint="@string/edit"
+                        android:lines="3"
+                        android:padding="8dp"
+                        android:textSize="16sp" />
+                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>
-    </LinearLayout>
+
+    </ScrollView>
 
     <LinearLayout
         android:id="@+id/ll_btn"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:padding="5dp">
+        android:paddingTop="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp">
         <Button
             android:id="@+id/btn_save"
             style="@style/myButtons2"

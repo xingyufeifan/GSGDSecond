@@ -18,7 +18,6 @@ import com.nandi.gsgdsecond.utils.ConfigService;
 import com.nandi.gsgdsecond.utils.SharedUtils;
 import com.nandi.gsgdsecond.utils.ToastUtils;
 
-
 /**
  * Created by ChenPeng on 2017/5/31.
  */

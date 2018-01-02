@@ -32,11 +32,11 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="4"
+                    android:layout_weight="4.5"
                     android:paddingBottom="10dp"
                     android:paddingLeft="18dp"
                     android:paddingTop="10dp"
-                    android:text="灾害点编号："
+                    android:text="灾害点编号:"
                     android:textSize="18sp" />
 
                 <TextView
@@ -59,11 +59,11 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="4"
+                    android:layout_weight="4.5"
                     android:paddingBottom="10dp"
                     android:paddingLeft="18dp"
                     android:paddingTop="10dp"
-                    android:text="灾害点名称："
+                    android:text="灾害点名称:"
                     android:textSize="18sp" />
 
                 <TextView
@@ -86,11 +86,11 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="4"
+                    android:layout_weight="4.5"
                     android:paddingBottom="10dp"
                     android:paddingLeft="18dp"
                     android:paddingTop="10dp"
-                    android:text="监&#160;&#160;测&#160;时&#160;&#160;间："
+                    android:text="监&#160;&#160;测&#160;时&#160;&#160;间:"
                     android:textSize="18sp" />
 
                 <TextView
@@ -113,11 +113,11 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="4"
+                    android:layout_weight="4.5"
                     android:paddingBottom="10dp"
                     android:paddingLeft="18dp"
                     android:paddingTop="10dp"
-                    android:text="是&#160;&#160;否&#160;合&#160;&#160;法："
+                    android:text="是&#160;&#160;否&#160;合&#160;&#160;法:"
                     android:textSize="18sp" />
 
                 <TextView
@@ -140,11 +140,11 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="4"
+                    android:layout_weight="4.5"
                     android:paddingBottom="10dp"
                     android:paddingLeft="18dp"
                     android:paddingTop="10dp"
-                    android:text="数据有效性："
+                    android:text="数据有效性:"
                     android:textSize="18sp" />
 
                 <TextView
@@ -167,11 +167,11 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="4"
+                    android:layout_weight="4.5"
                     android:paddingBottom="10dp"
                     android:paddingLeft="18dp"
                     android:paddingTop="10dp"
-                    android:text="告&#160;&#160;警&#160;等&#160;&#160;级："
+                    android:text="告&#160;&#160;警&#160;等&#160;&#160;级:"
                     android:textSize="18sp" />
 
                 <TextView
@@ -194,11 +194,11 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="4"
+                    android:layout_weight="4.5"
                     android:paddingBottom="10dp"
                     android:paddingLeft="18dp"
                     android:paddingTop="10dp"
-                    android:text="其&#160;&#160;他&#160;现&#160;&#160;象："
+                    android:text="其&#160;&#160;他&#160;现&#160;&#160;象:"
                     android:textSize="18sp" />
 
                 <TextView
@@ -218,18 +218,21 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="4.5"
                     android:paddingBottom="10dp"
                     android:paddingLeft="18dp"
                     android:paddingTop="10dp"
-                    android:text="经度："
+                    android:text="经&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;度:"
                     android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/monitorLon"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:padding="5dp"
                     android:textSize="18sp" />
 
             </LinearLayout>
@@ -241,18 +244,21 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="4.5"
                     android:paddingBottom="10dp"
                     android:paddingLeft="18dp"
                     android:paddingTop="10dp"
-                    android:text="纬度："
+                    android:text="纬&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;度:"
                     android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/monitorLat"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:padding="5dp"
                     android:textSize="18sp" />
             </LinearLayout>
 
@@ -264,7 +270,7 @@
                 android:paddingBottom="10dp"
                 android:paddingLeft="18dp"
                 android:paddingTop="10dp"
-                android:text="备&#160;&#160;注&#160;信&#160;&#160;息："
+                android:text="备&#160;&#160;注&#160;信&#160;&#160;息:"
                 android:textSize="18sp"
                 tools:ignore="HardcodedText" />
 
@@ -290,7 +296,7 @@
                 android:paddingBottom="10dp"
                 android:paddingLeft="18dp"
                 android:paddingTop="10dp"
-                android:text="宏&#160;&#160;观&#160;现&#160;&#160;象："
+                android:text="宏&#160;&#160;观&#160;现&#160;&#160;象:"
                 android:textSize="18sp"
                 tools:ignore="HardcodedText" />
 
