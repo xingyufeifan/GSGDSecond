@@ -79,10 +79,10 @@ public class WeeklyReportActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        etTownsName.setText(listBean.getUnits());
-        tvWeeklyTime.setText(listBean.getRecord_time());
-        etUserName.setText(listBean.getUser_name());
-        etWeeklyWork.setText(listBean.getJobContent());
+        etTownsName.setText("null".equals(listBean.getUnits()) ? "无" : listBean.getUnits());
+        tvWeeklyTime.setText("null".equals(listBean.getRecord_time()) ? "无" : listBean.getRecord_time());
+        etUserName.setText("null".equals(listBean.getUser_name()) ? "无" : listBean.getUser_name());
+        etWeeklyWork.setText("null".equals(listBean.getJobContent()) ? "无" : listBean.getJobContent());
         btnReport.setVisibility(View.GONE);
     }
 
@@ -131,7 +131,6 @@ public class WeeklyReportActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-
                 break;
         }
     }

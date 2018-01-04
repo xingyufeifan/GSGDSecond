@@ -78,15 +78,6 @@ public class DailyReportActivity extends AppCompatActivity {
         initView();
     }
 
-    private void initData() {
-        etName.setText(listBean.getUserName());
-        etLogContent.setText(listBean.getLogContent());
-        etRemarks.setText(listBean.getRemarks());
-        etSituation.setText(listBean.getSituation());
-        etWorkType.setText(listBean.getWorkType());
-        recordtime.setText(listBean.getTime());
-    }
-
     private void initView() {
         tv_title.setText("工作日志");
         recordtime.setText(CommonUtils.getSystemTime());
@@ -112,6 +103,15 @@ public class DailyReportActivity extends AppCompatActivity {
         } else {
             initDatas();
         }
+    }
+
+    private void initData() {
+        etName.setText("null".equals(listBean.getUserName()) ? "无" : listBean.getUserName());
+        etLogContent.setText("null".equals(listBean.getLogContent()) ? "无" : listBean.getLogContent());
+        etRemarks.setText("null".equals(listBean.getRemarks()) ? "无" : listBean.getRemarks());
+        etSituation.setText("null".equals(listBean.getSituation()) ? "无" : listBean.getSituation());
+        etWorkType.setText("null".equals(listBean.getWorkType()) ? "无" : listBean.getWorkType());
+        recordtime.setText("null".equals(listBean.getTime()) ? "无" : listBean.getTime());
     }
 
     /**

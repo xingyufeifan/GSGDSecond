@@ -33,10 +33,21 @@ public class MyReceiver extends MessageReceiver {
     public void onNotification(Context context, String title, String summary, Map<String, String> extraMap) {
         // TODO 处理推送通知
         Log.e(REC_TAG, "Receive notification, title: " + title + ", summary: " + summary + ", extraMap: " + extraMap);
+        manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        Message message = new Message();
+        message.setUserId(Integer.parseInt(extraMap.get("userid")));
+        message.setInviteMan(extraMap.get("invite"));
+        message.setMessage(extraMap.get("message"));
+        message.setRoomId(Integer.parseInt(extraMap.get("roomid")));
+        Intent intent = new Intent(context, ReceiveVideoActivity.class);
+        intent.putExtra("MESSAGE", message);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
     }
     @Override
     public void onMessage(Context context, CPushMessage cPushMessage) {
-        Log.e("MyMessageReceiver", "onMessage, messageId: " + cPushMessage.getMessageId() + ", title: " + cPushMessage.getTitle() + ", content:" + cPushMessage.getContent());
+        Log.e("MyMessageReceiver", "onMessage, messageId: " + cPushMessage.getMessageId() + ", title: "
+                + cPushMessage.getTitle() + ", content:" + cPushMessage.getContent());
         String content = cPushMessage.getContent();
         manager= (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         Log.e(REC_TAG, "onMessage, messageId: " + cPushMessage.getMessageId() + ", title: " + cPushMessage.getTitle() + ", content:" + cPushMessage.getContent());

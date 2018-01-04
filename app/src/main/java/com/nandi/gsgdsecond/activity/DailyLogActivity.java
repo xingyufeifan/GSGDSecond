@@ -141,7 +141,6 @@ public class DailyLogActivity extends BaseActivity{
         dailyLog_situation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO
             startActivity(new Intent(context, DailyListActivity.class));
             }
         });

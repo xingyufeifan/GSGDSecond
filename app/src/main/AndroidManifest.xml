@@ -46,10 +46,10 @@
             android:value="sNDGQvGEWi0WTxDSEtuV8a1MFlcf2ZD4" />
         <meta-data
             android:name="com.alibaba.app.appkey"
-            android:value="24659909" />
+            android:value="24752532" />
         <meta-data
             android:name="com.alibaba.app.appsecret"
-            android:value="9a82e1c5cfb77e38373ab33271cead62" />
+            android:value="f43de50ae3e5f097939ec68464b03542" />
 
         <activity
             android:name=".activity.WelcomeActivity"

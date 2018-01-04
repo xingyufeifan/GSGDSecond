@@ -47,7 +47,6 @@ public class DailyListActivity extends AppCompatActivity {
     TextView tv_title;
     private DailyFragmentAdapter myFragmentPagerAdapter;
     private List<Fragment> list;
-    private ProgressDialog progressDialog;
     private MyProgressBar progressBar;
     private DailyListActivity context;
 
@@ -63,11 +62,6 @@ public class DailyListActivity extends AppCompatActivity {
 
     private void initView() {
         tv_title.setText("日志情况");
-        progressDialog = new ProgressDialog(context);
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        progressDialog.setTitle("正在上传...");
-        progressDialog.setCancelable(false);
-        progressDialog.setCanceledOnTouchOutside(false);
         progressBar = new MyProgressBar(context);
     }
 
