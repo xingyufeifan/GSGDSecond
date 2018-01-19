@@ -174,13 +174,25 @@ public class DisasterActivity extends AppCompatActivity {
         disasterPoint = (DisasterPoint) getIntent().getSerializableExtra(Constant.DISASTER);
         String disasterType = disasterPoint.getDisasterType();
         split = disasterType.split(",");
-        for (String s : split) {
-            if ("其他现象".equals(s)) {
-                llOther.setVisibility(View.VISIBLE);
-            }
-        }
         etOther.setText((String) SharedUtils.getShare(context, disasterPoint.getNumber() + "other", ""));
         etRemarks.setText((String) SharedUtils.getShare(context, disasterPoint.getNumber() + "remark", ""));
+    }
+
+    private void initView() {
+        progressBar = new MyProgressBar(context);
+        List<DisasterInfo> queryList = GreenDaoHelper.queryDisasterInfoByNumber(disasterPoint.getNumber());
+        if (queryList == null || queryList.size() == 0) {
+            for (String s : split) {
+                disasterInfos.add(new DisasterInfo(null, s, false, null, disasterPoint.getNumber()));
+            }
+        } else {
+            disasterInfos.addAll(queryList);
+        }
+        DisasterInfo disInfo = disasterInfos.get(disasterInfos.size()-1);
+        if ("其他现象".equals(disInfo.getName()) && disInfo.getFind() != false){
+            isShowOther(disInfo, true);
+        }
+        setAdapter();
     }
 
     private void setListener() {
@@ -188,6 +200,7 @@ public class DisasterActivity extends AppCompatActivity {
             @Override
             public void onTakePhotoClick(int position) {
                 checkPermission(position);
+                isShowOther(disasterInfos.get(position), true);
             }
 
             @Override
@@ -213,9 +226,27 @@ public class DisasterActivity extends AppCompatActivity {
                     }
                 }
                 disasterInfos.set(position, disasterInfo);
+
+                isShowOther(disasterInfo, b);
+
                 adapter.notifyDataSetChanged();
             }
         });
+    }
+
+    /**
+     * 是否显示其他现象输入框
+     */
+    private void isShowOther(DisasterInfo disasterInfo, boolean b){
+        if ("其他现象".equals(disasterInfo.getName())) {
+            if (b) {
+                llOther.setVisibility(View.VISIBLE);
+            } else {
+                llOther.setVisibility(View.GONE);
+                etOther.setText("");
+                SharedUtils.removeShare(context, disasterPoint.getNumber() + "other");
+            }
+        }
     }
 
     private void showOrDelete(final int position) {
@@ -264,6 +295,7 @@ public class DisasterActivity extends AppCompatActivity {
                         disasterInfo.setFind(false);
                         disasterInfo.setPhotoPath(null);
                         disasterInfos.set(position, disasterInfo);
+                        isShowOther(disasterInfo, false);
                         adapter.notifyDataSetChanged();
                     }
                 })
@@ -325,7 +357,7 @@ public class DisasterActivity extends AppCompatActivity {
         Uri imageUri;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {  //针对Android7.0，需要通过FileProvider封装过的路径，提供给外部调用
             imageUri = FileProvider.getUriForFile(context, "com.nandi.gsgdsecond.fileprovider", pictureFile);//通过FileProvider创建一个content类型的Uri，进行封装
-            Log.d("cp",imageUri.getPath());
+            Log.d("cp", imageUri.getPath());
         } else { //7.0以下，如果直接拿到相机返回的intent值，拿到的则是拍照的原图大小，很容易发生OOM，所以我们同样将返回的地址，保存到指定路径，返回到Activity时，去指定路径获取，压缩图片
             imageUri = Uri.fromFile(pictureFile);
         }
@@ -373,19 +405,6 @@ public class DisasterActivity extends AppCompatActivity {
         adapter = new DisasterTypeAdapter(disasterInfos, this);
         rvDisasterType.setLayoutManager(new LinearLayoutManager(this));
         rvDisasterType.setAdapter(adapter);
-    }
-
-    private void initView() {
-        progressBar = new MyProgressBar(context);
-        List<DisasterInfo> queryList = GreenDaoHelper.queryDisasterInfoByNumber(disasterPoint.getNumber());
-        if (queryList == null || queryList.size() == 0) {
-            for (String s : split) {
-                disasterInfos.add(new DisasterInfo(null, s, false, null, disasterPoint.getNumber()));
-            }
-        } else {
-            disasterInfos.addAll(queryList);
-        }
-        setAdapter();
     }
 
     @OnClick({R.id.btn_save, R.id.btn_upload, R.id.iv_back, R.id.iv_call})
@@ -447,6 +466,7 @@ public class DisasterActivity extends AppCompatActivity {
                 uploadInfos.add(disasterInfo);
             }
         }
+
         if (uploadInfos.size() > 0) {
             for (DisasterInfo uploadInfo : uploadInfos) {
                 Map<String, String> param = new HashMap<>();
@@ -469,22 +489,6 @@ public class DisasterActivity extends AppCompatActivity {
                 }
             }
         } else {
-            if (!TextUtils.isEmpty(otherThings)) {
-                Map<String, String> param = new HashMap<>();
-                param.put("macroscopicPhenomenon", "其他现象");
-                param.put("monitorType", "宏观观测");
-                param.put("otherPhenomena", otherThings);
-                param.put("monPointDate", currentDate);
-                param.put("unifiedNumber", disasterPoint.getNumber());
-                param.put("mobile", (String) SharedUtils.getShare(context, Constant.MOBILE, ""));
-                param.put("count", String.valueOf(uploadInfos.size()));
-                param.put("xpoint", (String) SharedUtils.getShare(context, disasterPoint.getNumber() + "lon", ""));
-                param.put("ypoint", (String) SharedUtils.getShare(context, disasterPoint.getNumber() + "lat", ""));
-                param.put("serialNo", serialNo);
-                param.put("remarks", etRemarks.getText().toString().trim());
-                params.add(param);
-                files.add(null);
-            } else {
                 Map<String, String> param = new HashMap<>();
                 param.put("macroscopicPhenomenon", "无异常");
                 param.put("monitorType", "宏观观测");
@@ -499,7 +503,6 @@ public class DisasterActivity extends AppCompatActivity {
                 param.put("remarks", etRemarks.getText().toString().trim());
                 params.add(param);
                 files.add(null);
-            }
         }
         setPost(params, files);
         progressDialog.setMax(params.size());

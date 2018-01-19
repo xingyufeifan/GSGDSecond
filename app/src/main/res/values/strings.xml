@@ -4,7 +4,7 @@
     <string name="endCall1">结束通话</string>
     <string name="update_base_url">http://www.cqdzjc.com:8090/meteor/</string>
     <string name="base_url">http://www.cqdzjc.com:8090/meteor/</string>
-    <string name="local_base_url">http://192.168.10.72:8080/meteor/</string>
+    <string name="local_base_url">http://192.168.10.89:8080/meteor/</string>
     <string name="permission_get_accounts_hint">没有此权限，无法开启这个功能，请开启权限。PERMISSION_GET_ACCOUNTS</string>
     <string name="permission_read_phone_hint">没有此权限，无法开启这个功能，请开启权限。PERMISSION_READ_PHONE_STATE</string>
     <string name="permission_call_phone_hint">没有此权限，无法开启这个功能，请开启权限。PERMISSION_CALL_PHONE</string>

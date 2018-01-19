@@ -64,7 +64,7 @@ public class WeeklyActivity extends BaseActivity {
 
     private void startLocationService() {
         Intent intent = new Intent(context, LocationService.class);
-        intent.putExtra(Constant.UPLOAD_URL, "receiveLonLat.do");
+        intent.putExtra(Constant.UPLOAD_URL, "uploadAreaAdminLonLat.do");
         startService(intent);
     }
 

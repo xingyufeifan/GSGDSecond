@@ -108,7 +108,7 @@ public class DailyReportActivity extends AppCompatActivity {
     private void initData() {
         etName.setText("null".equals(listBean.getUserName()) ? "无" : listBean.getUserName());
         etLogContent.setText("null".equals(listBean.getLogContent()) ? "无" : listBean.getLogContent());
-        etRemarks.setText("null".equals(listBean.getRemarks()) ? "无" : listBean.getRemarks());
+        etRemarks.setText(("null".equals(listBean.getRemarks())||"".equals(listBean.getRemarks())) ? "无" : listBean.getRemarks());
         etSituation.setText("null".equals(listBean.getSituation()) ? "无" : listBean.getSituation());
         etWorkType.setText("null".equals(listBean.getWorkType()) ? "无" : listBean.getWorkType());
         recordtime.setText("null".equals(listBean.getTime()) ? "无" : listBean.getTime());
@@ -207,8 +207,7 @@ public class DailyReportActivity extends AppCompatActivity {
                 etName.getText().toString().trim().length() == 0 ||
                 etWorkType.getText().toString().trim().length() == 0 ||
                 etSituation.getText().toString().trim().length() == 0 ||
-                etLogContent.getText().toString().trim().length() == 0 ||
-                etRemarks.getText().toString().trim().length() == 0) {
+                etLogContent.getText().toString().trim().length() == 0) {
             return true;
         } else {
             return false;

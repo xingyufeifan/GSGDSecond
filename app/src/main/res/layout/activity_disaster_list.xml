@@ -97,24 +97,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/ll_save"
+        android:gravity="center"
         android:orientation="horizontal"
-        android:paddingLeft="7dp"
-        android:paddingRight="7dp"
-        android:paddingTop="5dp">
+        android:padding="7dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingRight="10dp"
-            android:text="坐标"
-            android:textColor="@color/edit_text_bg"
-            android:textSize="18sp" />
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/location"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="10dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="经度:"
-            android:textColor="@color/relic_text_color"
+            android:textColor="@color/primary_text"
             android:textSize="18sp" />
 
         <TextView
@@ -122,14 +120,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textColor="@color/relic_text_color"
+            android:textColor="@color/primary_text"
             android:textSize="16sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="纬度:"
-            android:textColor="@color/relic_text_color"
+            android:textColor="@color/primary_text"
             android:textSize="18sp" />
 
         <TextView
@@ -137,7 +135,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textColor="@color/relic_text_color"
+            android:textColor="@color/primary_text"
             android:textSize="16sp" />
     </LinearLayout>
 
