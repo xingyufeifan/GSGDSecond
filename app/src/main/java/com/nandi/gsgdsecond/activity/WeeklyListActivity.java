@@ -57,6 +57,7 @@ public class WeeklyListActivity extends AppCompatActivity {
     private String mobile;
     private ProgressDialog progressDialog;
     private MyProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,8 +93,9 @@ public class WeeklyListActivity extends AppCompatActivity {
             }
         });
     }
+
     private void request() {
-        OkHttpUtils.post().url(getString(R.string.base_url)+"listByMobile.do")
+        OkHttpUtils.post().url(getString(R.string.base_url) + "listByMobile.do")
                 .addParams("mobile", mobile)
                 .addParams("type", "2")
                 .build()
@@ -122,6 +124,7 @@ public class WeeklyListActivity extends AppCompatActivity {
     private void initView(String data) {
         listBean = new ArrayList<>();
         listBean = getListByArray(data);
+
         dataShow.setLayoutManager(new LinearLayoutManager(mContext));
         listAdapter = new WeeklyListAdapter(mContext, listBean);
         listAdapter.setOnItemClickListener(new WeeklyListAdapter.OnItemClickListener() {
@@ -135,13 +138,15 @@ public class WeeklyListActivity extends AppCompatActivity {
         });
         dataShow.setAdapter(listAdapter);
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode==DANGER_REQUEST_CODE){
+        if (resultCode == DANGER_REQUEST_CODE) {
             refresh();
         }
     }
+
     public List<DailyBean> getListByArray(String jsonString) {
         listBean = new ArrayList<DailyBean>();
 
@@ -195,7 +200,7 @@ public class WeeklyListActivity extends AppCompatActivity {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             String message = jsonObject.getString("message");
-                            CommonUtils.callPhone(message,WeeklyListActivity.this);
+                            CommonUtils.callPhone(message, WeeklyListActivity.this);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

@@ -60,4 +60,5 @@ dependencies {
     compile 'cn.yipianfengye.android:zxing-library:2.2'
     compile 'com.contrarywind:Android-PickerView:3.2.6'
     compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.github.huburt-Hu:NewbieGuide:v1.2.0'
 }

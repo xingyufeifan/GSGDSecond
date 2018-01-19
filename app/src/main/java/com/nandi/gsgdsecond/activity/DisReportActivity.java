@@ -4,6 +4,8 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -324,6 +326,66 @@ public class DisReportActivity extends AppCompatActivity {
         return format.format(date);
     }
 
+    /**
+     * 解决小米手机上获取图片路径为null的情况
+     */
+    public Uri getPictureUri(android.content.Intent intent) {
+        Uri uri = intent.getData();
+        String type = intent.getType();
+        if (uri.getScheme().equals("file") && (type.contains("image/*"))) {
+            String path = uri.getEncodedPath();
+            if (path != null) {
+                path = Uri.decode(path);
+                ContentResolver cr = context.getContentResolver();
+                StringBuffer buff = new StringBuffer();
+                buff.append("(").append(MediaStore.Images.ImageColumns.DATA).append("=")
+                        .append("'" + path + "'").append(")");
+                Cursor cur = cr.query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                        new String[] { MediaStore.Images.ImageColumns._ID },
+                        buff.toString(), null, null);
+                int index = 0;
+                for (cur.moveToFirst(); !cur.isAfterLast(); cur.moveToNext()) {
+                    index = cur.getColumnIndex(MediaStore.Images.ImageColumns._ID);
+                    // set _id value
+                    index = cur.getInt(index);
+                }
+                if (index == 0) {
+                    // do nothing
+                } else {
+                    Uri uri_temp = Uri
+                            .parse("content://media/external/images/media/"
+                                    + index);
+                    if (uri_temp != null) {
+                        uri = uri_temp;
+                    }
+                }
+            }
+        }
+        return uri;
+    }
+
+    /**
+     * 根据 Uri 获取文件所在的位置
+     *
+     * @param context
+     * @param contentUri
+     * @return
+     */
+    private String getRealPathFromURI(Context context, Uri contentUri) {
+
+        Cursor cursor = null;
+        try {
+            String[] proj = {MediaStore.Images.Media.DATA};
+            cursor = context.getContentResolver().query(contentUri, proj, null, null, null);
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            return cursor.getString(column_index);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -331,15 +393,16 @@ public class DisReportActivity extends AppCompatActivity {
             Cursor cursor;
             switch (requestCode) {
                 case SELECT_PICTURE: //从相册选择
-                    Uri vUri = data.getData();
-                    // 将图片内容解析成字节数组
-                    String[] proj = {MediaStore.Images.Media.DATA};
-                    cursor = context.getContentResolver().query(vUri, proj, null, null, null);
-                    int column_index = cursor.getColumnIndex(proj[0]);
-                    cursor.moveToFirst();
-                    String path1 = cursor.getString(column_index);
-                    cursor.close();
-                    cursor = null;
+//                    Uri vUri = data.getData();
+//                    // 将图片内容解析成字节数组
+//                    String[] proj = {MediaStore.Images.Media.DATA};
+//                    cursor = context.getContentResolver().query(vUri, proj, null, null, null);
+//                    int column_index = cursor.getColumnIndex(proj[0]);
+//                    cursor.moveToFirst();
+//                    String path1 = cursor.getString(column_index);
+//                    cursor.close();
+//                    cursor = null;
+                    String path1 = getRealPathFromURI(context, getPictureUri(data));
                     imgFileList.add(path1);
                     Bitmap bm = PictureUtils.getxtsldraw(context, path1);
                     if (null != bm) {

@@ -12,7 +12,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -34,12 +33,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.app.hubert.library.Controller;
+import com.app.hubert.library.HighLight;
+import com.app.hubert.library.NewbieGuide;
+import com.app.hubert.library.OnGuideChangedListener;
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
-import com.blankj.utilcode.util.FileUtils;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.nandi.gsgdsecond.R;
 import com.nandi.gsgdsecond.adapter.DisasterTypeAdapter;
@@ -99,6 +102,8 @@ public class DisasterActivity extends AppCompatActivity {
     TextView tv_title;
     @BindView(R.id.et_disaster_remarks)
     EditText etRemarks;
+    @BindView(R.id.btnLocation)
+    ImageView btnLocation;
     private DisasterTypeAdapter adapter;
     private List<DisasterInfo> disasterInfos = new ArrayList<>();
     private DisasterActivity context;
@@ -122,11 +127,24 @@ public class DisasterActivity extends AppCompatActivity {
         initData();
         initView();
         setListener();
-        initLocation();
+        NewbieGuide.with(this)//传入activity
+                .setLabel("guide1")//设置引导层标示，用于区分不同引导层，必传！否则报错
+                .addHighLight(btnLocation, HighLight.Type.CIRCLE)//添加需要高亮的view
+                .setLayoutRes(R.layout.view_guide)//自定义的提示layout，不要添加背景色，引导层背景色通过setBackgroundColor()设置
+                .alwaysShow(false)
+                .show();//显示引导层
+        tv_title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                initLocation();
+            }
+        });
     }
 
     private void initLocation() {
+
         locationClient = new LocationClient(getApplicationContext());
+        locationClient.registerLocationListener(new LocationListener());
         LocationClientOption option = new LocationClientOption();
         option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
         option.setCoorType("bd09ll");
@@ -136,8 +154,8 @@ public class DisasterActivity extends AppCompatActivity {
         option.setOpenGps(true);
         //可选，默认false,设置是否使用gps
         locationClient.setLocOption(option);
-        locationClient.registerLocationListener(new LocationListener());
         locationClient.start();
+
     }
 
     private class LocationListener extends BDAbstractLocationListener {
@@ -150,6 +168,8 @@ public class DisasterActivity extends AppCompatActivity {
                 double lat = bdLocation.getLatitude();
                 tvLongitude.setText(lon + "");
                 tvLatitude.setText(lat + "");
+                ToastUtils.showShort(context, "定位信息获取成功");
+                locationClient.unRegisterLocationListener(this);
                 locationClient.stop();
             }
         }
@@ -188,8 +208,8 @@ public class DisasterActivity extends AppCompatActivity {
         } else {
             disasterInfos.addAll(queryList);
         }
-        DisasterInfo disInfo = disasterInfos.get(disasterInfos.size()-1);
-        if ("其他现象".equals(disInfo.getName()) && disInfo.getFind() != false){
+        DisasterInfo disInfo = disasterInfos.get(disasterInfos.size() - 1);
+        if ("其他现象".equals(disInfo.getName()) && disInfo.getFind() != false) {
             isShowOther(disInfo, true);
         }
         setAdapter();
@@ -237,7 +257,7 @@ public class DisasterActivity extends AppCompatActivity {
     /**
      * 是否显示其他现象输入框
      */
-    private void isShowOther(DisasterInfo disasterInfo, boolean b){
+    private void isShowOther(DisasterInfo disasterInfo, boolean b) {
         if ("其他现象".equals(disasterInfo.getName())) {
             if (b) {
                 llOther.setVisibility(View.VISIBLE);
@@ -378,14 +398,18 @@ public class DisasterActivity extends AppCompatActivity {
 
     private void save() {
         isSave = true;
-        SharedUtils.putShare(context, disasterPoint.getNumber() + "other", etOther.getText().toString().trim());
-        SharedUtils.putShare(context, disasterPoint.getNumber() + "lon", tvLongitude.getText().toString().trim());
-        SharedUtils.putShare(context, disasterPoint.getNumber() + "lat", tvLatitude.getText().toString().trim());
-        SharedUtils.putShare(context, disasterPoint.getNumber() + "remark", etRemarks.getText().toString().trim());
-        for (DisasterInfo disasterInfo : disasterInfos) {
-            GreenDaoHelper.insertDisasterInfo(disasterInfo);
+        if (TextUtils.isEmpty(tvLongitude.getText().toString().trim())){
+          ToastUtils.showShort(context,"请先获取灾害点附近定位信息");
+        }else{
+            SharedUtils.putShare(context, disasterPoint.getNumber() + "other", etOther.getText().toString().trim());
+            SharedUtils.putShare(context, disasterPoint.getNumber() + "lon", tvLongitude.getText().toString().trim());
+            SharedUtils.putShare(context, disasterPoint.getNumber() + "lat", tvLatitude.getText().toString().trim());
+            SharedUtils.putShare(context, disasterPoint.getNumber() + "remark", etRemarks.getText().toString().trim());
+            for (DisasterInfo disasterInfo : disasterInfos) {
+                GreenDaoHelper.insertDisasterInfo(disasterInfo);
+            }
+            ToastUtils.showShort(context, "保存成功");
         }
-        ToastUtils.showShort(context, "保存成功");
     }
 
     private void showPhoto() {
@@ -407,7 +431,7 @@ public class DisasterActivity extends AppCompatActivity {
         rvDisasterType.setAdapter(adapter);
     }
 
-    @OnClick({R.id.btn_save, R.id.btn_upload, R.id.iv_back, R.id.iv_call})
+    @OnClick({R.id.btn_save, R.id.btn_upload, R.id.iv_back, R.id.iv_call, R.id.btnLocation})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_save:
@@ -425,6 +449,10 @@ public class DisasterActivity extends AppCompatActivity {
                 break;
             case R.id.iv_call:
                 getNumber();
+                break;
+            case R.id.btnLocation:
+                System.out.println("view = 我点了一次");
+                initLocation();
                 break;
         }
     }
@@ -489,20 +517,20 @@ public class DisasterActivity extends AppCompatActivity {
                 }
             }
         } else {
-                Map<String, String> param = new HashMap<>();
-                param.put("macroscopicPhenomenon", "无异常");
-                param.put("monitorType", "宏观观测");
-                param.put("otherPhenomena", "");
-                param.put("monPointDate", currentDate);
-                param.put("unifiedNumber", disasterPoint.getNumber());
-                param.put("mobile", (String) SharedUtils.getShare(context, Constant.MOBILE, ""));
-                param.put("count", String.valueOf(uploadInfos.size()));
-                param.put("xpoint", (String) SharedUtils.getShare(context, disasterPoint.getNumber() + "lon", ""));
-                param.put("ypoint", (String) SharedUtils.getShare(context, disasterPoint.getNumber() + "lat", ""));
-                param.put("serialNo", serialNo);
-                param.put("remarks", etRemarks.getText().toString().trim());
-                params.add(param);
-                files.add(null);
+            Map<String, String> param = new HashMap<>();
+            param.put("macroscopicPhenomenon", "无异常");
+            param.put("monitorType", "宏观观测");
+            param.put("otherPhenomena", "");
+            param.put("monPointDate", currentDate);
+            param.put("unifiedNumber", disasterPoint.getNumber());
+            param.put("mobile", (String) SharedUtils.getShare(context, Constant.MOBILE, ""));
+            param.put("count", String.valueOf(uploadInfos.size()));
+            param.put("xpoint", (String) SharedUtils.getShare(context, disasterPoint.getNumber() + "lon", ""));
+            param.put("ypoint", (String) SharedUtils.getShare(context, disasterPoint.getNumber() + "lat", ""));
+            param.put("serialNo", serialNo);
+            param.put("remarks", etRemarks.getText().toString().trim());
+            params.add(param);
+            files.add(null);
         }
         setPost(params, files);
         progressDialog.setMax(params.size());

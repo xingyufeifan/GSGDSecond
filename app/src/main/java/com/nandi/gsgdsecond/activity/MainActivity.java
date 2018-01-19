@@ -36,7 +36,6 @@ import butterknife.ButterKnife;
  * 群测群防主页
  */
 public class MainActivity extends BaseActivity {
-
     @BindView(R.id.title_text)
     TextView titleText;
     @BindView(R.id.rl_list)

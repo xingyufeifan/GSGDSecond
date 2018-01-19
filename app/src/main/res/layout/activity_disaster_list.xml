@@ -102,8 +102,9 @@
         android:padding="7dp">
 
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:id="@+id/btnLocation"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:background="@drawable/location"
             android:layout_marginLeft="6dp"
             android:layout_marginRight="10dp"/>

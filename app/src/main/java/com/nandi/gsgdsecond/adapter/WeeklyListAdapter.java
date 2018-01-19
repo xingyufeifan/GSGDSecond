@@ -39,18 +39,19 @@ public class WeeklyListAdapter extends RecyclerView.Adapter<WeeklyListAdapter.My
 
     @Override
     public WeeklyListAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_daily_list, parent,false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_daily_list, parent, false);
         WeeklyListAdapter.MyViewHolder holderA = new WeeklyListAdapter.MyViewHolder(view);
         return holderA;
     }
 
     @Override
     public void onBindViewHolder(WeeklyListAdapter.MyViewHolder holder, final int position) {
+
+        holder.person.setText(String.valueOf(listBeans.get(position).getId()));
+        holder.name.setText(listBeans.get(position).getUser_name());
+        holder.time.setText(listBeans.get(position).getRecord_time());
         if (mOnItemClickListener != null) {
 
-            holder.person.setText(String.valueOf(listBeans.get(position).getId()));
-            holder.name.setText(listBeans.get(position).getUser_name());
-            holder.time.setText(listBeans.get(position).getRecord_time());
             holder.layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -62,7 +63,7 @@ public class WeeklyListAdapter extends RecyclerView.Adapter<WeeklyListAdapter.My
 
     @Override
     public int getItemCount() {
-        return listBeans.size();
+        return listBeans.size()!=0?listBeans.size():0;
     }
 
 
