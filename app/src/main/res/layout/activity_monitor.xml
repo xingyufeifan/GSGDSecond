@@ -148,7 +148,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="4"
-            android:hint="请输入信息..."
+            android:hint="请输入..."
             android:background="@null"
             android:inputType="number|numberDecimal"
             android:textColor="@color/relic_text_color"
@@ -223,19 +223,73 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_lon_lat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ll_save"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="7dp">
+
+        <ImageView
+            android:id="@+id/btnLocation"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="@drawable/location"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="经度:"
+            android:textColor="@color/primary_text"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_longitude"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="请获取..."
+            android:textColor="@color/primary_text"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="纬度:"
+            android:textColor="@color/primary_text"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_latitude"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="请获取..."
+            android:textColor="@color/primary_text"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_save"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
         android:layout_alignParentBottom="true"
-        android:padding="5dp">
+        android:paddingTop="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp">
 
         <Button
             android:id="@+id/btn_save"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="15dp"
             android:layout_weight="1"
-            android:background="@drawable/save_btn_selector"
+            android:background="@drawable/upload_btn_selector"
             android:text="保存"
             android:textColor="@color/white"
             android:textSize="18sp" />
@@ -245,7 +299,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/save_btn_selector"
+            android:background="@drawable/upload_btn_selector"
             android:text="上传"
             android:textColor="@color/white"
             android:textSize="18sp" />

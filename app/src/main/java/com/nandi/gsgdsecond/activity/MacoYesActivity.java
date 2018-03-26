@@ -130,7 +130,11 @@ public class MacoYesActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        urlArray = disasterUpInfo.getMacro_url().split(",");
+        if (disasterUpInfo.getMacro_url() == null) {
+            urlArray = new String[]{"no_img.jpg"};
+        } else {
+            urlArray = disasterUpInfo.getMacro_url().split(",");
+        }
         photoShow.setLayoutManager(new GridLayoutManager(context, 3));
         myAdapter = new MacoPhotoAdapter(context, urlArray);
         myAdapter.setOnItemClickListener(new MacoPhotoAdapter.OnItemClickListener() {

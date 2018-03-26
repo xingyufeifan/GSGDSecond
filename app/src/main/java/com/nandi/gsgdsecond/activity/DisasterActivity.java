@@ -133,12 +133,6 @@ public class DisasterActivity extends AppCompatActivity {
                 .setLayoutRes(R.layout.view_guide)//自定义的提示layout，不要添加背景色，引导层背景色通过setBackgroundColor()设置
                 .alwaysShow(false)
                 .show();//显示引导层
-        tv_title.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                initLocation();
-            }
-        });
     }
 
     private void initLocation() {
@@ -155,7 +149,6 @@ public class DisasterActivity extends AppCompatActivity {
         //可选，默认false,设置是否使用gps
         locationClient.setLocOption(option);
         locationClient.start();
-
     }
 
     private class LocationListener extends BDAbstractLocationListener {
@@ -194,6 +187,8 @@ public class DisasterActivity extends AppCompatActivity {
         disasterPoint = (DisasterPoint) getIntent().getSerializableExtra(Constant.DISASTER);
         String disasterType = disasterPoint.getDisasterType();
         split = disasterType.split(",");
+        tvLongitude.setText((String) SharedUtils.getShare(context, disasterPoint.getNumber() + "lon", ""));
+        tvLatitude.setText((String) SharedUtils.getShare(context, disasterPoint.getNumber() + "lat", ""));
         etOther.setText((String) SharedUtils.getShare(context, disasterPoint.getNumber() + "other", ""));
         etRemarks.setText((String) SharedUtils.getShare(context, disasterPoint.getNumber() + "remark", ""));
     }
@@ -397,10 +392,10 @@ public class DisasterActivity extends AppCompatActivity {
     }
 
     private void save() {
-        isSave = true;
         if (TextUtils.isEmpty(tvLongitude.getText().toString().trim())){
-          ToastUtils.showShort(context,"请先获取灾害点附近定位信息");
+            ToastUtils.showShort(context,"请先在灾害点附近获取定位信息");
         }else{
+            isSave = true;
             SharedUtils.putShare(context, disasterPoint.getNumber() + "other", etOther.getText().toString().trim());
             SharedUtils.putShare(context, disasterPoint.getNumber() + "lon", tvLongitude.getText().toString().trim());
             SharedUtils.putShare(context, disasterPoint.getNumber() + "lat", tvLatitude.getText().toString().trim());
@@ -451,7 +446,6 @@ public class DisasterActivity extends AppCompatActivity {
                 getNumber();
                 break;
             case R.id.btnLocation:
-                System.out.println("view = 我点了一次");
                 initLocation();
                 break;
         }
@@ -505,8 +499,8 @@ public class DisasterActivity extends AppCompatActivity {
                 param.put("unifiedNumber", uploadInfo.getNumber());
                 param.put("mobile", (String) SharedUtils.getShare(context, Constant.MOBILE, ""));
                 param.put("count", String.valueOf(uploadInfos.size()));
-                param.put("xpoint", (String) SharedUtils.getShare(context, disasterPoint.getNumber() + "lon", ""));
-                param.put("ypoint", (String) SharedUtils.getShare(context, disasterPoint.getNumber() + "lat", ""));
+                param.put("xpoint", tvLongitude.getText().toString().trim());
+                param.put("ypoint", tvLatitude.getText().toString().trim());
                 param.put("serialNo", serialNo);
                 param.put("remarks", etRemarks.getText().toString().trim());
                 params.add(param);
@@ -525,8 +519,8 @@ public class DisasterActivity extends AppCompatActivity {
             param.put("unifiedNumber", disasterPoint.getNumber());
             param.put("mobile", (String) SharedUtils.getShare(context, Constant.MOBILE, ""));
             param.put("count", String.valueOf(uploadInfos.size()));
-            param.put("xpoint", (String) SharedUtils.getShare(context, disasterPoint.getNumber() + "lon", ""));
-            param.put("ypoint", (String) SharedUtils.getShare(context, disasterPoint.getNumber() + "lat", ""));
+            param.put("xpoint", tvLongitude.getText().toString().trim());
+            param.put("ypoint", tvLatitude.getText().toString().trim());
             param.put("serialNo", serialNo);
             param.put("remarks", etRemarks.getText().toString().trim());
             params.add(param);

@@ -3,16 +3,16 @@
     <item
         android:state_pressed="true"
         android:state_enabled="true"
-        android:drawable="@drawable/save_bg_pressed"/>
+        android:drawable="@drawable/upload_bg_pressed"/>
 
     <item
         android:state_pressed="false"
         android:state_enabled="true"
-        android:drawable="@drawable/save_bg_normal"/>
+        android:drawable="@drawable/upload_bg_normal"/>
 
     <item
         android:state_enabled="false"
         android:state_pressed="false"
-        android:drawable="@drawable/save_bg_enabled" />
+        android:drawable="@drawable/upload_bg_enabled" />
 
 </selector>

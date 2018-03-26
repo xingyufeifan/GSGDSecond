@@ -158,37 +158,35 @@ public class LoginActivity extends AppCompatActivity {
             String info = object.getString("info");
 
             if (imei.trim().equals("0") && count == 0 && "1".equals(result)) {//解析第一次登录请求的信息
-                if ("{}".equals(info)) {//如果info里面数据为空说明该号码没有监测点信息
-                    ToastUtils.showShort(context, "该号码没有监测点信息");
+                if ("{}".equals(info)) { //info为空说明该号码没有监测点
+                    ToastUtils.showShort(context, "该号码无监测点信息");
                     progressBar.dismiss();
+                    saveLoginInfo();
                 } else {
                     setRequest(new Api(context).getMacoUrl());//登录请求成功，请求灾害点信息
                     count++;
                 }
             } else if (imei.trim().equals("0") && count == 1 && "1".equals(result)) {//解析第二次灾害点请求信息
-                saveDisaster(info);                       //保存灾害点信息到数据库
-                setRequest(new Api(context).getMonitorUrl());//请求监测点信息
-                count++;
-            } else if (imei.trim().equals("0") && count == 2 && "1".equals(result)) {//解析监测点信息
+                if (!"[]".equals(info)) { //灾害点信息不为空
+                    saveDisaster(info);
+                    setRequest(new Api(context).getMonitorUrl()); //请求监测点信息
+                    count++;
+                } else {
+                    count = 0;
+                    ToastUtils.showShort(context, "该号码无灾害点信息");
+                    progressBar.dismiss();
+                    saveLoginInfo();
+                }
+            } else if (imei.trim().equals("0") && count == 2 && "1".equals(result)) {//解析第三次监测点信息
                 if (!"[]".equals(info)) {  //监测点信息不为空
                     Log.d(TAG, "monitor:"+info);
                     saveMonitor(info);
-                    progressBar.dismiss();
-                    count = 0;
-                    SharedUtils.putShare(context,Constant.IS_LOGIN,true);
-                    SharedUtils.putShare(context, Constant.MOBILE, mobile);
-                    SharedUtils.putShare(context, Constant.IMEI, imei);
-                    startActivity(new Intent(context, MainActivity.class));
-                    finish();
-                } else {//监测点信息为空
-                    progressBar.dismiss();
-                    count = 0;
-                    startActivity(new Intent(context, MainActivity.class));
-                    SharedUtils.putShare(context,Constant.IS_LOGIN,true);
-                    SharedUtils.putShare(context, Constant.MOBILE, mobile);
-                    SharedUtils.putShare(context, Constant.IMEI, imei);
-                    finish();
                 }
+                progressBar.dismiss();
+                count = 0;
+                saveLoginInfo();
+                finish();
+
             } else if (imei.trim().equals("1")){ //驻守人员
                 if ("1".equals(result)){
                     JSONObject infoObject = new JSONObject(info);
@@ -222,23 +220,22 @@ public class LoginActivity extends AppCompatActivity {
                     ToastUtils.showShort(context, info);
                     progressBar.dismiss();
                 }
-            } else if (imei.trim().equals("3")){ //地环站
-                ToastUtils.showShort(context, "暂未查询到该地环站人员");
-                progressBar.dismiss();
-//                if ("1".equals(result)){
-//                    startActivity(new Intent(context, WeeklyActivity.class));
-//                    SharedUtils.putShare(context,Constant.IS_LOGIN,true);
-//                    SharedUtils.putShare(context, Constant.MOBILE, mobile);
-//                    SharedUtils.putShare(context, Constant.IMEI, imei);
-//                    finish();
-//                } else {
-//                    ToastUtils.showShort(context, info);
-//                    progressBar.dismiss();
-//                }
             }
+//            else {
+//                count = 0;
+//                progressBar.dismiss();
+//                ToastUtils.showShort(context, "该号码无监测点信息");
+//            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private void saveLoginInfo(){
+        SharedUtils.putShare(context,Constant.IS_LOGIN,true);
+        SharedUtils.putShare(context, Constant.MOBILE, mobile);
+        SharedUtils.putShare(context, Constant.IMEI, imei);
+        startActivity(new Intent(context, MainActivity.class));
     }
 
     /**

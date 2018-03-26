@@ -30,6 +30,7 @@ public class LocationService extends Service {
     private String uploadUrl;
     private String mobile;
     private LocationClient locationClient;
+    int cont = 1;
 
     @Nullable
     @Override
@@ -74,6 +75,7 @@ public class LocationService extends Service {
             if (locType == BDLocation.TypeOffLineLocation || locType == BDLocation.TypeGpsLocation || locType == BDLocation.TypeNetWorkLocation) {
                 double lon = bdLocation.getLongitude();
                 double lat = bdLocation.getLatitude();
+                ToastUtils.showLong(context, lon+"--"+lat);
                 setPost(lon, lat);
             }
         }
@@ -88,6 +90,8 @@ public class LocationService extends Service {
         }
 
         private void setPost(double lon, double lat) {
+
+            Log.e("bhy", cont+++"");
 
             OkHttpUtils.get().url(getResources().getString(R.string.base_url) + uploadUrl)
                     .addParams("phone", mobile)
@@ -106,6 +110,7 @@ public class LocationService extends Service {
                         }
                     });
         }
+
     }
 
     @Override

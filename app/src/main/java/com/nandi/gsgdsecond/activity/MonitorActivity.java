@@ -35,6 +35,8 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.app.hubert.library.HighLight;
+import com.app.hubert.library.NewbieGuide;
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
@@ -84,6 +86,12 @@ public class MonitorActivity extends AppCompatActivity {
     TextView tvHappenTime;
     @BindView(R.id.iv_photo)
     ImageView ivPhoto;
+    @BindView(R.id.btnLocation)
+    ImageView btnLocation;
+    @BindView(R.id.tv_longitude)
+    TextView tvLongitude;
+    @BindView(R.id.tv_latitude)
+    TextView tvLatitude;
     @BindView(R.id.btn_save)
     Button btnSave;
     @BindView(R.id.btn_upload)
@@ -120,7 +128,12 @@ public class MonitorActivity extends AppCompatActivity {
         initData();
         initView();
         setListener();
-        initLocation();
+        NewbieGuide.with(this)//传入activity
+                .setLabel("guide1")//设置引导层标示，用于区分不同引导层，必传！否则报错
+                .addHighLight(btnLocation, HighLight.Type.CIRCLE)//添加需要高亮的view
+                .setLayoutRes(R.layout.view_guide)//自定义的提示layout，不要添加背景色，引导层背景色通过setBackgroundColor()设置
+                .alwaysShow(false)
+                .show();//显示引导层
     }
 
     private void initLocation() {
@@ -138,7 +151,6 @@ public class MonitorActivity extends AppCompatActivity {
         locationClient.start();
     }
 
-
     private class LocationListener extends BDAbstractLocationListener {
 
         @Override
@@ -149,6 +161,9 @@ public class MonitorActivity extends AppCompatActivity {
                 double lat = bdLocation.getLatitude();
                 monitorInfo.setLongitude(String.valueOf(lon));
                 monitorInfo.setLatitude(String.valueOf(lat));
+                tvLongitude.setText(lon + "");
+                tvLatitude.setText(lat + "");
+                ToastUtils.showShort(context, "定位信息获取成功");
                 locationClient.stop();
             }
         }
@@ -211,6 +226,8 @@ public class MonitorActivity extends AppCompatActivity {
         tvDisasterName.setText(monitorInfo.getDisasterName());
         tvMonitorName.setText(monitorInfo.getMonitorName());
         tvHappenTime.setText(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+        tvLongitude.setText(monitorInfo.getLongitude()==null ? "" : monitorInfo.getLongitude());
+        tvLatitude.setText(monitorInfo.getLatitude()==null ? "" : monitorInfo.getLatitude());
         etDilie.setText(monitorInfo.getCrackLength() == null ? "" : monitorInfo.getCrackLength());
         if (monitorInfo.getPhotoPath() != null) {
             ivPhoto.setImageBitmap(PictureUtils.getSmallBitmap(monitorInfo.getPhotoPath(), 200, 200));
@@ -218,7 +235,7 @@ public class MonitorActivity extends AppCompatActivity {
         }
     }
 
-    @OnClick({R.id.iv_photo, R.id.btn_save, R.id.btn_upload, R.id.iv_back,R.id.iv_call})
+    @OnClick({R.id.iv_photo, R.id.btn_save, R.id.btn_upload, R.id.iv_back,R.id.iv_call, R.id.btnLocation})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_photo:
@@ -229,9 +246,11 @@ public class MonitorActivity extends AppCompatActivity {
                 break;
             case R.id.btn_upload:
                 String otherThings = etDilie.getText().toString().trim();
-                if (TextUtils.isEmpty(otherThings)){
+                if(TextUtils.isEmpty(tvLongitude.getText().toString().trim())) {
+                    ToastUtils.showShort(context,"请先在监测点附近获取定位信息");
+                } else if (TextUtils.isEmpty(otherThings)){
                     ToastUtils.showShort(context,"信息填写不完整");
-                }else {
+                } else {
                     upload(otherThings);
                 }
                 break;
@@ -240,6 +259,9 @@ public class MonitorActivity extends AppCompatActivity {
                 break;
             case R.id.iv_call:
                 getNumber();
+                break;
+            case R.id.btnLocation:
+                initLocation();
                 break;
         }
     }

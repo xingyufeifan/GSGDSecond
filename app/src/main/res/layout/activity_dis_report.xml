@@ -397,7 +397,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="5dp"
-        android:background="@drawable/save_btn_selector"
+        android:background="@drawable/upload_btn_selector"
         android:text="@string/report"
         android:textColor="@color/white"
         android:textSize="18sp"/>

@@ -121,6 +121,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:hint="请获取..."
             android:textColor="@color/primary_text"
             android:textSize="16sp" />
 
@@ -136,6 +137,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:hint="请获取..."
             android:textColor="@color/primary_text"
             android:textSize="16sp" />
     </LinearLayout>
@@ -154,7 +156,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:background="@drawable/save_btn_selector"
+            android:background="@drawable/upload_btn_selector"
             android:text="保存"
             android:textColor="@color/white"
             android:textSize="18sp" />
@@ -164,7 +166,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/save_btn_selector"
+            android:background="@drawable/upload_btn_selector"
             android:text="上传"
             android:textColor="@color/white"
             android:textSize="18sp" />

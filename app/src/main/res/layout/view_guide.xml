@@ -5,8 +5,8 @@
 
     <ImageView
         android:id="@+id/iv"
-        android:src="@drawable/guide"
+        android:src="@drawable/guide3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        />
+        android:layout_centerInParent="true"/>
 </RelativeLayout>

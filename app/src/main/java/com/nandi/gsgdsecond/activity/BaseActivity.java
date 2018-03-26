@@ -87,7 +87,6 @@ public class BaseActivity extends AppCompatActivity
         checkUpdate(0);
     }
 
-
     private void initGPS() {
         LocationManager locationManager = (LocationManager) this
                 .getSystemService(Context.LOCATION_SERVICE);
@@ -147,13 +146,13 @@ public class BaseActivity extends AppCompatActivity
 
     /**
      * 检查更新
-     * haveNewVersionUnicom 联通
-     * haveNewVersionLocomotion 移动
-     * haveNewVersionTelecom 电信
-     * @param type
+     *  http://www.cqdzjc.com:8090/meteor/haveNewVersion.do
+     *  type --- 0:Android、1:IOS
+     * @param tags 0自动更新 1手动更新
      */
-    private void checkUpdate(final int type) {
-        OkHttpUtils.get().url(getResources().getString(R.string.update_base_url)+"haveNewVersionTelecom.do")
+    private void checkUpdate(final int tags) {
+        OkHttpUtils.get().url(getResources().getString(R.string.update_base_url)+"haveNewVersion.do")
+                .addParams("type","0")
                 .build()
                 .execute(new StringCallback() {
                     @Override
@@ -169,7 +168,7 @@ public class BaseActivity extends AppCompatActivity
                                 int code = object.getInt("data");
                                 if (code > getVerCode(context)) {
                                     showNotice();
-                                } else if (code <= getVerCode(context) && type != 0) {
+                                } else if (code <= getVerCode(context) && tags != 0) {
                                     ToastUtils.showShort(context, "当前没有新版本");
                                 }
                             }
@@ -196,7 +195,6 @@ public class BaseActivity extends AppCompatActivity
      * 下载 downloadTelecom 电信
      * downloadLocomotion 移动
      * downloadUnicom 联通
-     * getResources().getString(R.string.update_base_url)
      */
     private void showNotice() {
         new AlertDialog.Builder(context)
@@ -206,7 +204,7 @@ public class BaseActivity extends AppCompatActivity
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        new DownloadUtils(context).downloadAPK(getResources().getString(R.string.update_base_url)+"downloadTelecom.do", "app_gsgd" + getVerCode(context) + ".apk");
+                        new DownloadUtils(context).downloadAPK(getResources().getString(R.string.update_base_url)+"downloadUnicom.do", "app_gsgd" + getVerCode(context) + ".apk");
                     }
                 })
                 .setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -260,7 +258,7 @@ public class BaseActivity extends AppCompatActivity
         new AlertDialog.Builder(context)
                 .setTitle("提示")
                 .setIcon(R.drawable.warning)
-                .setMessage("确定要清除保存的照片吗？")
+                .setMessage("确定要清除保存的数据、照片吗？")
                 .setPositiveButton("删除", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int j) {
@@ -274,6 +272,8 @@ public class BaseActivity extends AppCompatActivity
                         } else if (file.exists()) {
                             file.delete();
                         }
+                        //清空所有share
+                        SharedUtils.clearShare(context);
                         ToastUtils.showLong(context, "清除成功");
                     }
                 })
@@ -311,7 +311,9 @@ public class BaseActivity extends AppCompatActivity
 
             }
         });
-        SharedUtils.removeShare(context, Constant.IS_LOGIN);
+        GreenDaoHelper.deleteAllInfo();
+        //清空所有share
+        SharedUtils.clearShare(context);
         startActivity(new Intent(context, LoginActivity.class));
         dialog.dismiss();
         finish();
