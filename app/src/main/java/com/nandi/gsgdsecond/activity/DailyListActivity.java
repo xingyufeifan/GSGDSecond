@@ -108,6 +108,7 @@ public class DailyListActivity extends AppCompatActivity {
             case R.id.iv_call:
                 getNumber();
                 break;
+            default:
         }
     }
 }

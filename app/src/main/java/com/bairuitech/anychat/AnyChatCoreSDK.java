@@ -47,8 +47,9 @@ public class AnyChatCoreSDK
 	// 获取单例模式对象
 	public synchronized static AnyChatCoreSDK getInstance(Context context)
 	{
-		if(mAnyChat==null)
-			mAnyChat = new AnyChatCoreSDK();
+		if(mAnyChat==null) {
+            mAnyChat = new AnyChatCoreSDK();
+        }
 		return mAnyChat;
 	}
 	
@@ -59,8 +60,9 @@ public class AnyChatCoreSDK
 	// 设置AnyChat基本事件通知接口
 	public void SetBaseEvent(AnyChatBaseEvent e)
 	{
-		if (mHandler == null)
-			mHandler = new MainHandler(this);
+		if (mHandler == null) {
+            mHandler = new MainHandler(this);
+        }
 		RegisterNotify();
 		this.baseEvent = e;
 	}
@@ -127,28 +129,39 @@ public class AnyChatCoreSDK
 	// 移除所有事件
 	public void removeEvent(Object e) 
 	{
-		if (this.baseEvent == e) 
-			this.baseEvent = null;
-		if (this.stateChgEvent == e) 
-			this.stateChgEvent = null;
-		if (this.privateChatEvent == e)
-			this.privateChatEvent = null;
-		if (this.textMsgEvent == e) 
-			this.textMsgEvent = null;
-		if (this.transDataEvent == e)
-			this.transDataEvent = null;
-		if (this.videoCallEvent == e)
-			this.videoCallEvent = null;
-		if (this.userInfoEvent == e)
-			this.userInfoEvent = null;
-		if (this.encdecEvent == e)
-			this.encdecEvent = null;
-		if (this.recordEvent == e)
-			this.recordEvent = null;
-		if (this.objectEvent == e)
-			this.objectEvent = null;
-		if (this.coresdkEvent == e)
-			this.coresdkEvent = null;
+		if (this.baseEvent == e) {
+            this.baseEvent = null;
+        }
+		if (this.stateChgEvent == e) {
+            this.stateChgEvent = null;
+        }
+		if (this.privateChatEvent == e) {
+            this.privateChatEvent = null;
+        }
+		if (this.textMsgEvent == e) {
+            this.textMsgEvent = null;
+        }
+		if (this.transDataEvent == e) {
+            this.transDataEvent = null;
+        }
+		if (this.videoCallEvent == e) {
+            this.videoCallEvent = null;
+        }
+		if (this.userInfoEvent == e) {
+            this.userInfoEvent = null;
+        }
+		if (this.encdecEvent == e) {
+            this.encdecEvent = null;
+        }
+		if (this.recordEvent == e) {
+            this.recordEvent = null;
+        }
+		if (this.objectEvent == e) {
+            this.objectEvent = null;
+        }
+		if (this.coresdkEvent == e) {
+            this.coresdkEvent = null;
+        }
 	}
 	
 	// 查询SDK主版本号
@@ -379,87 +392,107 @@ public class AnyChatCoreSDK
     	switch(dwNotifyMsg)
     	{
 		case AnyChatDefine.WM_GV_CONNECT:			
-			if(baseEvent != null)
-				baseEvent.OnAnyChatConnectMessage(wParam>=1?true:false);
+			if(baseEvent != null) {
+                baseEvent.OnAnyChatConnectMessage(wParam >= 1 ? true : false);
+            }
 			break;
 		case AnyChatDefine.WM_GV_LOGINSYSTEM:
-			if(baseEvent != null)
-				baseEvent.OnAnyChatLoginMessage(wParam,lParam);
+			if(baseEvent != null) {
+                baseEvent.OnAnyChatLoginMessage(wParam, lParam);
+            }
 			break;
 		case AnyChatDefine.WM_GV_ENTERROOM:
-			if(baseEvent != null)
-				baseEvent.OnAnyChatEnterRoomMessage(wParam, lParam);
+			if(baseEvent != null) {
+                baseEvent.OnAnyChatEnterRoomMessage(wParam, lParam);
+            }
 			break;
 		case AnyChatDefine.WM_GV_USERATROOM:
-			if(baseEvent != null)
-				baseEvent.OnAnyChatUserAtRoomMessage(wParam,lParam>=1?true:false);
+			if(baseEvent != null) {
+                baseEvent.OnAnyChatUserAtRoomMessage(wParam, lParam >= 1 ? true : false);
+            }
 			break;
 		case AnyChatDefine.WM_GV_LINKCLOSE:
-			if(baseEvent != null)
-				baseEvent.OnAnyChatLinkCloseMessage(lParam);
+			if(baseEvent != null) {
+                baseEvent.OnAnyChatLinkCloseMessage(lParam);
+            }
 			break;
 		case AnyChatDefine.WM_GV_ONLINEUSER:
-			if(baseEvent != null)
-				baseEvent.OnAnyChatOnlineUserMessage(wParam,lParam);
+			if(baseEvent != null) {
+                baseEvent.OnAnyChatOnlineUserMessage(wParam, lParam);
+            }
 			break;
 		case AnyChatDefine.WM_GV_MICSTATECHANGE:
-			if(stateChgEvent != null)
-				stateChgEvent.OnAnyChatMicStateChgMessage(wParam,lParam==0?false:true);
+			if(stateChgEvent != null) {
+                stateChgEvent.OnAnyChatMicStateChgMessage(wParam, lParam == 0 ? false : true);
+            }
 			break;			
 		case AnyChatDefine.WM_GV_CAMERASTATE:
-			if(stateChgEvent != null)
-				stateChgEvent.OnAnyChatCameraStateChgMessage(wParam,lParam);
+			if(stateChgEvent != null) {
+                stateChgEvent.OnAnyChatCameraStateChgMessage(wParam, lParam);
+            }
 			break;
 		case AnyChatDefine.WM_GV_CHATMODECHG:
-			if(stateChgEvent != null)
-				stateChgEvent.OnAnyChatChatModeChgMessage(wParam,lParam==0?true:false);
+			if(stateChgEvent != null) {
+                stateChgEvent.OnAnyChatChatModeChgMessage(wParam, lParam == 0 ? true : false);
+            }
 			break;
 		case AnyChatDefine.WM_GV_ACTIVESTATE:
-			if(stateChgEvent != null)
-				stateChgEvent.OnAnyChatActiveStateChgMessage(wParam,lParam);
+			if(stateChgEvent != null) {
+                stateChgEvent.OnAnyChatActiveStateChgMessage(wParam, lParam);
+            }
 			break;
 		case AnyChatDefine.WM_GV_P2PCONNECTSTATE:
-			if(stateChgEvent != null)
-				stateChgEvent.OnAnyChatP2PConnectStateMessage(wParam,lParam);
+			if(stateChgEvent != null) {
+                stateChgEvent.OnAnyChatP2PConnectStateMessage(wParam, lParam);
+            }
 			break;
 		case AnyChatDefine.WM_GV_VIDEOSIZECHG:
 //			OnAnyChatVideoSizeChgMessage(wParam, LOWORD(lParam), HIWORD(lParam));
 			break;
 		case AnyChatDefine.WM_GV_PRIVATEREQUEST:
-			if(privateChatEvent != null)
-				privateChatEvent.OnAnyChatPrivateRequestMessage(wParam,lParam);
+			if(privateChatEvent != null) {
+                privateChatEvent.OnAnyChatPrivateRequestMessage(wParam, lParam);
+            }
 			break;
 		case AnyChatDefine.WM_GV_PRIVATEECHO:
-			if(privateChatEvent != null)
-				privateChatEvent.OnAnyChatPrivateEchoMessage(wParam,lParam);
+			if(privateChatEvent != null) {
+                privateChatEvent.OnAnyChatPrivateEchoMessage(wParam, lParam);
+            }
 			break;
 		case AnyChatDefine.WM_GV_PRIVATEEXIT:
-			if(privateChatEvent != null)
-				privateChatEvent.OnAnyChatPrivateExitMessage(wParam,lParam);
+			if(privateChatEvent != null) {
+                privateChatEvent.OnAnyChatPrivateExitMessage(wParam, lParam);
+            }
 			break;
 		case AnyChatDefine.WM_GV_USERINFOUPDATE:
-			if(userInfoEvent != null)
-				userInfoEvent.OnAnyChatUserInfoUpdate(wParam, lParam);
+			if(userInfoEvent != null) {
+                userInfoEvent.OnAnyChatUserInfoUpdate(wParam, lParam);
+            }
 			break;
 		case AnyChatDefine.WM_GV_FRIENDSTATUS:
-			if(userInfoEvent != null)
-				userInfoEvent.OnAnyChatFriendStatus(wParam, lParam);
+			if(userInfoEvent != null) {
+                userInfoEvent.OnAnyChatFriendStatus(wParam, lParam);
+            }
 			break;
 		case AnyChatDefine.WM_GV_AUDIOPLAYCTRL:
-			if(mAudioHelper == null)
-				break;
-			if(wParam == 1)
-				mAudioHelper.InitAudioPlayer(lParam);
-			else
-				mAudioHelper.ReleaseAudioPlayer();
+			if(mAudioHelper == null) {
+                break;
+            }
+			if(wParam == 1) {
+                mAudioHelper.InitAudioPlayer(lParam);
+            } else {
+                mAudioHelper.ReleaseAudioPlayer();
+            }
 			break;
 		case AnyChatDefine.WM_GV_AUDIORECCTRL:
-			if(mAudioHelper == null)
-				break;
-			if(wParam == 1)
-				mAudioHelper.InitAudioRecorder(lParam);
-			else
-				mAudioHelper.ReleaseAudioRecorder();
+			if(mAudioHelper == null) {
+                break;
+            }
+			if(wParam == 1) {
+                mAudioHelper.InitAudioRecorder(lParam);
+            } else {
+                mAudioHelper.ReleaseAudioRecorder();
+            }
 			break;
 		case AnyChatDefine.WM_GV_VIDEOCAPCTRL:
 			mCameraHelper.CaptureControl(wParam==0 ? false : true);
@@ -481,11 +514,13 @@ public class AnyChatCoreSDK
          {
              super(L);
          }
-         public void handleMessage(Message nMsg)
+         @Override
+		 public void handleMessage(Message nMsg)
          {
         	 AnyChatCoreSDK anychat = mAnyChat.get();
-        	 if(anychat == null)
-        		 return;
+        	 if(anychat == null) {
+                 return;
+             }
              super.handleMessage(nMsg);
              Bundle tBundle=nMsg.getData();
              int type = tBundle.getInt("HANDLETYPE");
@@ -502,8 +537,9 @@ public class AnyChatCoreSDK
                  int toid = tBundle.getInt("TOUSERID");
                  int secret = tBundle.getInt("SECRET");
                  String message = tBundle.getString("MESSAGE");
-                 if(anychat.textMsgEvent != null)
-                	 anychat.textMsgEvent.OnAnyChatTextMessage(fromid, toid, secret!=0?true:false, message);
+                 if(anychat.textMsgEvent != null) {
+                     anychat.textMsgEvent.OnAnyChatTextMessage(fromid, toid, secret != 0 ? true : false, message);
+                 }
              }
              else if(type == HANDLE_TYPE_TRANSFILE)
              {
@@ -514,16 +550,18 @@ public class AnyChatCoreSDK
                  int wparam = tBundle.getInt("WPARAM");
                  int lparam = tBundle.getInt("LPARAM");
                  int taskid = tBundle.getInt("TASKID");
-                 if(anychat.transDataEvent != null)
-                	 anychat.transDataEvent.OnAnyChatTransFile(userid, filename, tempfile, length, wparam, lparam, taskid);
+                 if(anychat.transDataEvent != null) {
+                     anychat.transDataEvent.OnAnyChatTransFile(userid, filename, tempfile, length, wparam, lparam, taskid);
+                 }
              }
              else if(type == HANDLE_TYPE_TRANSBUF)
              {
             	 int userid = tBundle.getInt("USERID");
             	 int length = tBundle.getInt("LENGTH");
             	 byte[] buf = tBundle.getByteArray("BUF");
-            	 if(anychat.transDataEvent != null)
-            		 anychat.transDataEvent.OnAnyChatTransBuffer(userid, buf, length);
+            	 if(anychat.transDataEvent != null) {
+                     anychat.transDataEvent.OnAnyChatTransBuffer(userid, buf, length);
+                 }
              }
              else if(type == HANDLE_TYPE_TRANSBUFEX)
              {
@@ -533,15 +571,17 @@ public class AnyChatCoreSDK
             	 int wparam = tBundle.getInt("WPARAM");
             	 int lparam = tBundle.getInt("LPARAM");
             	 int taskid = tBundle.getInt("TASKID");
-            	 if(anychat.transDataEvent != null)
-            		 anychat.transDataEvent.OnAnyChatTransBufferEx(userid, buf, length, wparam, lparam, taskid);
+            	 if(anychat.transDataEvent != null) {
+                     anychat.transDataEvent.OnAnyChatTransBufferEx(userid, buf, length, wparam, lparam, taskid);
+                 }
              }
              else if(type == HANDLE_TYPE_SDKFILTER)
              {
             	 int length = tBundle.getInt("LENGTH");
             	 byte[] buf = tBundle.getByteArray("BUF");
-            	 if(anychat.transDataEvent != null)
-            		 anychat.transDataEvent.OnAnyChatSDKFilterData(buf, length); 
+            	 if(anychat.transDataEvent != null) {
+                     anychat.transDataEvent.OnAnyChatSDKFilterData(buf, length);
+                 }
              }
              else if(type == HANDLE_TYPE_VIDEOCALL)
              {
@@ -551,8 +591,9 @@ public class AnyChatCoreSDK
             	 int dwFlags = tBundle.getInt("FLAGS");
             	 int dwParam = tBundle.getInt("PARAM");
             	 String userStr = tBundle.getString("USERSTR");
-            	 if(anychat.videoCallEvent != null)
-            		 anychat.videoCallEvent.OnAnyChatVideoCallEvent(dwEventType, dwUserId, dwErrorCode, dwFlags, dwParam, userStr);
+            	 if(anychat.videoCallEvent != null) {
+                     anychat.videoCallEvent.OnAnyChatVideoCallEvent(dwEventType, dwUserId, dwErrorCode, dwFlags, dwParam, userStr);
+                 }
              }
              else if(type == HANDLE_TYPE_RECORD)
              {
@@ -565,10 +606,11 @@ public class AnyChatCoreSDK
             	 String userstr = tBundle.getString("USERSTR");
 
             	 if(anychat.recordEvent != null) {
-                 	 if((dwFlags & AnyChatDefine.ANYCHAT_RECORD_FLAGS_SNAPSHOT) == 0)
-                 		 anychat.recordEvent.OnAnyChatRecordEvent(dwUserId, dwErrorCode, filename, dwElapse, dwFlags, dwParam, userstr);
-                 	 else
-                 		 anychat.recordEvent.OnAnyChatSnapShotEvent(dwUserId, dwErrorCode, filename, dwFlags, dwParam, userstr);
+                 	 if((dwFlags & AnyChatDefine.ANYCHAT_RECORD_FLAGS_SNAPSHOT) == 0) {
+                         anychat.recordEvent.OnAnyChatRecordEvent(dwUserId, dwErrorCode, filename, dwElapse, dwFlags, dwParam, userstr);
+                     } else {
+                         anychat.recordEvent.OnAnyChatSnapShotEvent(dwUserId, dwErrorCode, filename, dwFlags, dwParam, userstr);
+                     }
             	 }
              }
              else if(type == HANDLE_TYPE_OBJECTEVENT)
@@ -581,13 +623,15 @@ public class AnyChatCoreSDK
             	 int dwParam3 = tBundle.getInt("PARAM3");
             	 int dwParam4 = tBundle.getInt("PARAM4");
             	 String strParam = tBundle.getString("STRPARAM");
-            	 if(anychat.objectEvent != null)
-            		 anychat.objectEvent.OnAnyChatObjectEvent(dwObjectType, dwObjectId, dwEventType, dwParam1, dwParam2, dwParam3, dwParam4, strParam);
+            	 if(anychat.objectEvent != null) {
+                     anychat.objectEvent.OnAnyChatObjectEvent(dwObjectType, dwObjectId, dwEventType, dwParam1, dwParam2, dwParam3, dwParam4, strParam);
+                 }
             }
 	        else if(type == HANDLE_TYPE_CORESDKEVENT)
 	        {
-	        	 if(anychat.coresdkEvent != null)
-	        		 anychat.coresdkEvent.OnAnyChatCoreSDKEvent(tBundle.getInt("EVENTTYPE"), tBundle.getString("JSONSTR"));
+	        	 if(anychat.coresdkEvent != null) {
+                     anychat.coresdkEvent.OnAnyChatCoreSDKEvent(tBundle.getInt("EVENTTYPE"), tBundle.getString("JSONSTR"));
+                 }
 	        }
         }
      }
@@ -595,8 +639,9 @@ public class AnyChatCoreSDK
     // 异步消息通知（AnyChat底层其它线程回调上来，需要通过Msg传递到主线程）
 	private void OnAnyChatNotifyMsg(int dwNotifyMsg, int wParam, int lParam)
     {
-		if(mHandler == null)
-			return;
+		if(mHandler == null) {
+            return;
+        }
     	Message tMsg=new Message();
         Bundle tBundle=new Bundle();
         tBundle.putInt("HANDLETYPE", HANDLE_TYPE_NOTIFYMSG);       
@@ -609,8 +654,9 @@ public class AnyChatCoreSDK
     // 文字消息通知（AnyChat底层其它线程回调上来，需要通过Msg传递到主线程）
 	private void OnTextMessageCallBack(int dwFromUserid, int dwToUserid, int bSecret, String message)
     {
-		if(mHandler == null)
-			return;
+		if(mHandler == null) {
+            return;
+        }
     	Message tMsg=new Message();
         Bundle tBundle=new Bundle();
         tBundle.putInt("HANDLETYPE", HANDLE_TYPE_TEXTMSG);       
@@ -624,8 +670,9 @@ public class AnyChatCoreSDK
     // 文件传输回调函数定义
 	private void OnTransFileCallBack(int userid, String filename, String tempfilepath, int filelength, int wparam, int lparam, int taskid)
     {
-		if(mHandler == null)
-			return;
+		if(mHandler == null) {
+            return;
+        }
     	Message tMsg=new Message();
         Bundle tBundle=new Bundle();
         tBundle.putInt("HANDLETYPE", HANDLE_TYPE_TRANSFILE);       
@@ -642,8 +689,9 @@ public class AnyChatCoreSDK
     // 缓冲区回调函数定义
 	private void OnTransBufferCallBack(int userid, byte[] buf, int len)
     {
-		if(mHandler == null)
-			return;
+		if(mHandler == null) {
+            return;
+        }
     	Message tMsg=new Message();
         Bundle tBundle=new Bundle();
         tBundle.putInt("HANDLETYPE", HANDLE_TYPE_TRANSBUF);       
@@ -656,8 +704,9 @@ public class AnyChatCoreSDK
     // 缓冲区扩展回调函数定义
 	private void OnTransBufferExCallBack(int userid, byte[] buf, int len, int wparam, int lparam, int taskid)
     {
-		if(mHandler == null)
-			return;
+		if(mHandler == null) {
+            return;
+        }
     	Message tMsg=new Message();
         Bundle tBundle=new Bundle();
         tBundle.putInt("HANDLETYPE", HANDLE_TYPE_TRANSBUFEX);       
@@ -673,8 +722,9 @@ public class AnyChatCoreSDK
     // 服务器发送的SDK Filter Data数据回调函数定义
 	private void OnSDKFilterDataCallBack(byte[] buf, int len)
     {
-		if(mHandler == null)
-			return;
+		if(mHandler == null) {
+            return;
+        }
     	Message tMsg=new Message();
         Bundle tBundle=new Bundle();
         tBundle.putInt("HANDLETYPE", HANDLE_TYPE_SDKFILTER);       
@@ -696,8 +746,9 @@ public class AnyChatCoreSDK
 	// 视频呼叫事件回调函数
 	private void OnVideoCallEventCallBack(int eventtype, int userid, int errorcode, int flags, int param, String userStr)
 	{
-		if(mHandler == null)
-			return;
+		if(mHandler == null) {
+            return;
+        }
 		Message tMsg=new Message();
         Bundle tBundle=new Bundle();
         tBundle.putInt("HANDLETYPE", HANDLE_TYPE_VIDEOCALL);
@@ -714,8 +765,9 @@ public class AnyChatCoreSDK
 	// 录像、快照任务完成回调函数
 	private void OnRecordSnapShotExCallBack(int dwUserId, int dwErrorCode, String lpFileName, int dwElapse, int dwFlags, int dwParam, String lpUserStr)
 	{
-		if(mHandler == null)
-			return;
+		if(mHandler == null) {
+            return;
+        }
 		Message tMsg=new Message();
         Bundle tBundle=new Bundle();
         tBundle.putInt("HANDLETYPE", HANDLE_TYPE_RECORD);
@@ -733,17 +785,19 @@ public class AnyChatCoreSDK
 	// 数据加密、解密回调函数
 	private int OnDataEncDecCallBack(int userid, int flags, byte[] buf, int len, AnyChatOutParam outParam)
 	{
-		if(encdecEvent != null)
-			return encdecEvent.OnAnyChatDataEncDec(userid, flags, buf, len, outParam);
-		else
-			return -1;
+		if(encdecEvent != null) {
+            return encdecEvent.OnAnyChatDataEncDec(userid, flags, buf, len, outParam);
+        } else {
+            return -1;
+        }
 	}
 	
 	// 业务对象事件回调函数定义
 	private void OnObjectEventNotifyCallBack(int dwObjectType, int dwObjectId, int dwEventType, int dwParam1, int dwParam2, int dwParam3, int dwParam4, String lpStrParam)
 	{
-		if(mHandler == null)
-			return;
+		if(mHandler == null) {
+            return;
+        }
 		Message tMsg=new Message();
         Bundle tBundle=new Bundle();
         tBundle.putInt("HANDLETYPE", HANDLE_TYPE_OBJECTEVENT);
@@ -762,8 +816,9 @@ public class AnyChatCoreSDK
 	// Core SDK事件回调函数
 	private void OnAnyChatCoreSDKEventCallBack(int dwEventType, String lpJsonStr)
 	{
-		if(mHandler == null)
-			return;
+		if(mHandler == null) {
+            return;
+        }
 		Message tMsg=new Message();
         Bundle tBundle=new Bundle();
         tBundle.putInt("HANDLETYPE", HANDLE_TYPE_CORESDKEVENT);

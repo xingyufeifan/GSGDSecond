@@ -41,8 +41,9 @@ public class AnyChatCameraHelper implements SurfaceHolder.Callback{
 	// 初始化摄像机，在surfaceCreated中调用
 	private void initCamera()
 	{
-		if (null == mCamera)
-			return;
+		if (null == mCamera) {
+            return;
+        }
 		try {
 			if (bIfPreview) {
 				mCamera.stopPreview();// stopCamera();
@@ -84,8 +85,9 @@ public class AnyChatCameraHelper implements SurfaceHolder.Callback{
                         parameters.setPreviewSize(s.width, s.height);
                         break;
                     }
-                    if(s.width == 320 && s.height == 240)
+                    if(s.width == 320 && s.height == 240) {
                         bExistDefaultSize = true;
+                    }
                 }
             }
 
@@ -141,23 +143,24 @@ public class AnyChatCameraHelper implements SurfaceHolder.Callback{
 			bIfPreview = true;
 
 			// 获取设置后的相关参数
-			if(mCamera.getParameters().getPreviewFormat() == ImageFormat.NV21)
-				mVideoPixfmt = AnyChatDefine.BRAC_PIX_FMT_NV21;
-			else if(mCamera.getParameters().getPreviewFormat() == ImageFormat.YV12)
-				mVideoPixfmt = AnyChatDefine.BRAC_PIX_FMT_YV12;
-			else if(mCamera.getParameters().getPreviewFormat() == ImageFormat.NV16)
-				mVideoPixfmt = AnyChatDefine.BRAC_PIX_FMT_NV16;
-			else if(mCamera.getParameters().getPreviewFormat() == ImageFormat.YUY2)
-				mVideoPixfmt = AnyChatDefine.BRAC_PIX_FMT_YUY2;
-			else if(mCamera.getParameters().getPreviewFormat() == ImageFormat.RGB_565)
-				mVideoPixfmt = AnyChatDefine.BRAC_PIX_FMT_RGB565;
-			else
-				Log.e(TAG, "unknow camera privew format:" + mCamera.getParameters().getPreviewFormat());
+			if(mCamera.getParameters().getPreviewFormat() == ImageFormat.NV21) {
+                mVideoPixfmt = AnyChatDefine.BRAC_PIX_FMT_NV21;
+            } else if(mCamera.getParameters().getPreviewFormat() == ImageFormat.YV12) {
+                mVideoPixfmt = AnyChatDefine.BRAC_PIX_FMT_YV12;
+            } else if(mCamera.getParameters().getPreviewFormat() == ImageFormat.NV16) {
+                mVideoPixfmt = AnyChatDefine.BRAC_PIX_FMT_NV16;
+            } else if(mCamera.getParameters().getPreviewFormat() == ImageFormat.YUY2) {
+                mVideoPixfmt = AnyChatDefine.BRAC_PIX_FMT_YUY2;
+            } else if(mCamera.getParameters().getPreviewFormat() == ImageFormat.RGB_565) {
+                mVideoPixfmt = AnyChatDefine.BRAC_PIX_FMT_RGB565;
+            } else {
+                Log.e(TAG, "unknow camera privew format:" + mCamera.getParameters().getPreviewFormat());
+            }
 			
 			Camera.Size previewSize = mCamera.getParameters().getPreviewSize();
 			AnyChatCoreSDK.SetSDKOptionInt(AnyChatDefine.BRAC_SO_CORESDK_EXTVIDEOINPUT, 1);
-			
-			int iCurPreviewRange[] = new int[2];  
+
+			int[] iCurPreviewRange = new int[2];
 			parameters.getPreviewFpsRange(iCurPreviewRange);
 			AnyChatCoreSDK.SetInputVideoFormat(mVideoPixfmt, previewSize.width, previewSize.height, iCurPreviewRange[1]/1000, 0);
 			AnyChatCoreSDK.SetSDKOptionInt(AnyChatDefine.BRAC_SO_LOCALVIDEO_CAMERAFACE, cameraInfo.facing);
@@ -167,7 +170,8 @@ public class AnyChatCameraHelper implements SurfaceHolder.Callback{
 	}
 
     class CameraSizeComparator implements Comparator<Size> {
-        public int compare(Camera.Size lhs, Camera.Size rhs) {
+        @Override
+		public int compare(Camera.Size lhs, Camera.Size rhs) {
             if(lhs.width == rhs.width){
                 if(lhs.height == rhs.height){
                     return 0;
@@ -228,8 +232,9 @@ public class AnyChatCameraHelper implements SurfaceHolder.Callback{
 	}
 	// 自动对焦
 	public void CameraAutoFocus() {
-		if(mCamera == null || !bIfPreview)
-			return;
+		if(mCamera == null || !bIfPreview) {
+            return;
+        }
 		try {		
 			mCamera.autoFocus(null);
 		} catch (Exception ex) {
@@ -240,8 +245,9 @@ public class AnyChatCameraHelper implements SurfaceHolder.Callback{
 	// 切换摄像头
 	public void SwitchCamera() {
 		try {
-			if(Camera.getNumberOfCameras() == 1 || currentHolder == null)
-				return;
+			if(Camera.getNumberOfCameras() == 1 || currentHolder == null) {
+                return;
+            }
 			iCurrentCameraId = (iCurrentCameraId==0) ? 1 : 0;
 			if(null != mCamera)	{
 				mCamera.stopPreview(); 
@@ -280,10 +286,12 @@ public class AnyChatCameraHelper implements SurfaceHolder.Callback{
 	// 根据摄像头的序号选择摄像头（0 - GetCameraNumber()）
 	public void SelectCamera(int iCameraId) {
 		try {
-			if(Camera.getNumberOfCameras() <= iCameraId || currentHolder == null)
-				return;
-			if(null != mCamera && iCurrentCameraId==iCameraId)
-				return;
+			if(Camera.getNumberOfCameras() <= iCameraId || currentHolder == null) {
+                return;
+            }
+			if(null != mCamera && iCurrentCameraId==iCameraId) {
+                return;
+            }
 			iCurrentCameraId = iCameraId;
 			if(null != mCamera)	{
 				mCamera.stopPreview(); 
@@ -370,8 +378,9 @@ public class AnyChatCameraHelper implements SurfaceHolder.Callback{
     }
 	
 	public void setCameraDisplayOrientation () {
-		if(mContext == null)
-			return;
+		if(mContext == null) {
+            return;
+        }
 		try {
 			Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
 			Camera.getCameraInfo(iCurrentCameraId, cameraInfo);
@@ -384,6 +393,7 @@ public class AnyChatCameraHelper implements SurfaceHolder.Callback{
 				case Surface.ROTATION_90 : degrees = 90 ; break ;
 				case Surface.ROTATION_180 : degrees = 180 ; break ;
 				case Surface.ROTATION_270 : degrees = 270 ; break ;
+				default:
 			}
 
 			int result;

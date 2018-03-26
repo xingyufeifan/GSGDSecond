@@ -38,8 +38,9 @@ public class AnyChatAudioHelper {
 	
 	// 初始化音频播放器
 	public int InitAudioPlayer(int profile) {
-		if(mAudioTrack != null)
-			return 0;
+		if(mAudioTrack != null) {
+            return 0;
+        }
 		mProfile = profile;
 		Log.d(TAG, "InitAudioPlayer, profile: " + profile);
 		int channel, samplerate, samplebit;
@@ -78,8 +79,9 @@ public class AnyChatAudioHelper {
 	}
 	// 销毁音频播放器
 	public void ReleaseAudioPlayer() {
-		if(mAudioPlayReleased)
-			return;
+		if(mAudioPlayReleased) {
+            return;
+        }
 		mAudioPlayReleased = true;
 		Log.d(TAG, "ReleaseAudioPlayer");
 		if (mPlayAudioThread != null) {
@@ -105,8 +107,9 @@ public class AnyChatAudioHelper {
 	{
 		@Override
 		public void run() {
-			if(mAudioTrack == null)
-				return;
+			if(mAudioTrack == null) {
+                return;
+            }
 			try {
                 android.os.Process.setThreadPriority(
                     android.os.Process.THREAD_PRIORITY_URGENT_AUDIO);
@@ -164,8 +167,9 @@ public class AnyChatAudioHelper {
 	
 	// 初始化音频采集设备
 	public int InitAudioRecorder(int profile) {
-		if(mAudioRecord != null)
-			return 0;
+		if(mAudioRecord != null) {
+            return 0;
+        }
 		Log.d(TAG, "InitAudioRecorder, profile: " + profile);
 		int channel, samplerate, samplebit;
 		// 根据上层设定的profile来配置参数
@@ -207,8 +211,9 @@ public class AnyChatAudioHelper {
 	}
 	// 销毁音频采集设备
 	public void ReleaseAudioRecorder() {
-		if(mAudioRecordReleased)
-			return;
+		if(mAudioRecordReleased) {
+            return;
+        }
 		mAudioRecordReleased = true;
 		Log.d(TAG, "ReleaseAudioRecorder");
 		if (mRecordAudioThread != null) {
@@ -234,8 +239,9 @@ public class AnyChatAudioHelper {
 	{
 		@Override
 		public void run() {
-			if(mAudioRecord == null)
-				return;
+			if(mAudioRecord == null) {
+                return;
+            }
 			try {
                 android.os.Process.setThreadPriority(
                     android.os.Process.THREAD_PRIORITY_URGENT_AUDIO);
@@ -253,8 +259,9 @@ public class AnyChatAudioHelper {
 			{											
 				try {
 					int ret = mAudioRecord.read(recordbuf, 0, recordbuf.length);
-					if(ret == AudioRecord.ERROR || ret ==  AudioRecord.ERROR_INVALID_OPERATION || ret == AudioRecord.ERROR_BAD_VALUE)
-						break;
+					if(ret == AudioRecord.ERROR || ret ==  AudioRecord.ERROR_INVALID_OPERATION || ret == AudioRecord.ERROR_BAD_VALUE) {
+                        break;
+                    }
 					// 通过AnyChat的外部音频输入接口将音频采样数据传入内核
 					AnyChatCoreSDK.InputAudioData(recordbuf, ret, 0);
 				} catch (Exception e) {

@@ -25,7 +25,7 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     private void checkIsLogin() {
-        if (isLogin && imei.equals("0")){
+        if (isLogin && "0".equals(imei)){
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -33,7 +33,7 @@ public class WelcomeActivity extends AppCompatActivity {
                     finish();
                 }
             },2000);
-        } else if (isLogin && imei.equals("1")) {
+        } else if (isLogin && "1".equals(imei)) {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -41,7 +41,7 @@ public class WelcomeActivity extends AppCompatActivity {
                     finish();
                 }
             },2000);
-        } else if (isLogin && imei.equals("2")) {
+        } else if (isLogin && "2".equals(imei)) {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {

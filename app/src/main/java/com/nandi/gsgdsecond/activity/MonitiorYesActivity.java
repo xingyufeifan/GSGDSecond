@@ -131,6 +131,7 @@ public class MonitiorYesActivity extends AppCompatActivity {
                 new AlertDialog.Builder(context, R.style.Transparent)
                         .setView(v)
                         .show();
+            default:
         }
     }
 

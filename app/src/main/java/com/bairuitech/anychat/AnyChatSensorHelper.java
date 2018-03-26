@@ -33,6 +33,7 @@ public class AnyChatSensorHelper implements SensorEventListener{
 			case Surface.ROTATION_90 : degrees = 90 ; break ;
 			case Surface.ROTATION_180 : degrees = 180 ; break ;
 			case Surface.ROTATION_270 : degrees = 270 ; break ;
+			default:
 		}
 		AnyChatCoreSDK.SetSDKOptionInt(AnyChatDefine.BRAC_SO_LOCALVIDEO_SURFACEROTATION, degrees);
 		
@@ -83,10 +84,11 @@ public class AnyChatSensorHelper implements SensorEventListener{
 			if (bCameraNeedFocus && interval > 1000) {
 				bCameraNeedFocus = false;
 				// 如果是采用Java视频采集，则在Java层进行摄像头自动对焦操作
-				if(AnyChatCoreSDK.GetSDKOptionInt(AnyChatDefine.BRAC_SO_LOCALVIDEO_CAPDRIVER) == AnyChatDefine.VIDEOCAP_DRIVER_JAVA)
-					AnyChatCoreSDK.mCameraHelper.CameraAutoFocus();
-				else
-					AnyChatCoreSDK.SetSDKOptionInt(AnyChatDefine.BRAC_SO_LOCALVIDEO_FOCUSCTRL, 1);
+				if(AnyChatCoreSDK.GetSDKOptionInt(AnyChatDefine.BRAC_SO_LOCALVIDEO_CAPDRIVER) == AnyChatDefine.VIDEOCAP_DRIVER_JAVA) {
+                    AnyChatCoreSDK.mCameraHelper.CameraAutoFocus();
+                } else {
+                    AnyChatCoreSDK.SetSDKOptionInt(AnyChatDefine.BRAC_SO_LOCALVIDEO_FOCUSCTRL, 1);
+                }
 			}
 		} else {
 			bCameraNeedFocus = true;
@@ -115,9 +117,9 @@ class AnyChatOrientationEventListener extends OrientationEventListener{
 		
 		//确定由角度与屏幕方向的对应范围  
 		int orientation = ANYCHAT_DEVICEORIENTATION_UNKNOW;
-		if(degree == -1)
-			orientation = ANYCHAT_DEVICEORIENTATION_FACEUP;
-		else if(degree > 325 || degree <= 45){  
+		if(degree == -1) {
+            orientation = ANYCHAT_DEVICEORIENTATION_FACEUP;
+        } else if(degree > 325 || degree <= 45){
         	orientation = ANYCHAT_DEVICEORIENTATION_PORTRAIT;  
         }else if(degree > 45 && degree <= 135){  
         	orientation = ANYCHAT_DEVICEORIENTATION_LANDSCAPERIGHT;

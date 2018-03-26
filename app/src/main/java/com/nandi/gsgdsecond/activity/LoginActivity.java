@@ -64,14 +64,14 @@ public class LoginActivity extends AppCompatActivity {
         progressBar = new MyProgressBar(context);
         etMobile.setText((String) SharedUtils.getShare(context, Constant.MOBILE, ""));
         imei = (String) SharedUtils.getShare(context, Constant.IMEI, "");
-        if (imei.trim().equals("0")||imei.trim().equals("")) {
+        if ("0".equals(imei.trim()) || "".equals(imei.trim())) {
             imei="0";
             mSegments.setSelectedIndex(0);
-        }else if (imei.trim().equals("1")){
+        }else if ("1".equals(imei.trim())){
             mSegments.setSelectedIndex(1);
-        }else if (imei.trim().equals("2")){
+        }else if ("2".equals(imei.trim())){
             mSegments.setSelectedIndex(2);
-        }else if (imei.trim().equals("3")){
+        }else if ("3".equals(imei.trim())){
             mSegments.setSelectedIndex(3);
         }
 
@@ -101,6 +101,7 @@ public class LoginActivity extends AppCompatActivity {
                     break;
                 case PermissionUtils.CODE_READ_EXTERNAL_STORAGE:
                     break;
+                default:
             }
         }
     };
@@ -157,7 +158,7 @@ public class LoginActivity extends AppCompatActivity {
             String result = object.getString("result");
             String info = object.getString("info");
 
-            if (imei.trim().equals("0") && count == 0 && "1".equals(result)) {//解析第一次登录请求的信息
+            if ("0".equals(imei.trim()) && count == 0 && "1".equals(result)) {//解析第一次登录请求的信息
                 if ("{}".equals(info)) { //info为空说明该号码没有监测点
                     ToastUtils.showShort(context, "该号码无监测点信息");
                     progressBar.dismiss();
@@ -166,7 +167,7 @@ public class LoginActivity extends AppCompatActivity {
                     setRequest(new Api(context).getMacoUrl());//登录请求成功，请求灾害点信息
                     count++;
                 }
-            } else if (imei.trim().equals("0") && count == 1 && "1".equals(result)) {//解析第二次灾害点请求信息
+            } else if ("0".equals(imei.trim()) && count == 1 && "1".equals(result)) {//解析第二次灾害点请求信息
                 if (!"[]".equals(info)) { //灾害点信息不为空
                     saveDisaster(info);
                     setRequest(new Api(context).getMonitorUrl()); //请求监测点信息
@@ -177,7 +178,7 @@ public class LoginActivity extends AppCompatActivity {
                     progressBar.dismiss();
                     saveLoginInfo();
                 }
-            } else if (imei.trim().equals("0") && count == 2 && "1".equals(result)) {//解析第三次监测点信息
+            } else if ("0".equals(imei.trim()) && count == 2 && "1".equals(result)) {//解析第三次监测点信息
                 if (!"[]".equals(info)) {  //监测点信息不为空
                     Log.d(TAG, "monitor:"+info);
                     saveMonitor(info);
@@ -187,7 +188,7 @@ public class LoginActivity extends AppCompatActivity {
                 saveLoginInfo();
                 finish();
 
-            } else if (imei.trim().equals("1")){ //驻守人员
+            } else if ("1".equals(imei.trim())){ //驻守人员
                 if ("1".equals(result)){
                     JSONObject infoObject = new JSONObject(info);
                     loginName = infoObject.getString("name");
@@ -204,7 +205,7 @@ public class LoginActivity extends AppCompatActivity {
                     ToastUtils.showShort(context, info);
                     progressBar.dismiss();
                 }
-            } else if (imei.trim().equals("2")){ //片区专管员
+            } else if ("2".equals(imei.trim())){ //片区专管员
                 if ("1".equals(result)){
                     JSONObject infoObject = new JSONObject(info);
                     loginName = infoObject.getString("name");

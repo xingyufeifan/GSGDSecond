@@ -318,6 +318,7 @@ public class DisReportActivity extends AppCompatActivity {
                     reportText(new Api(context).getDisReportTextUrl());
                 }
                 break;
+            default:
         }
     }
 
@@ -332,7 +333,7 @@ public class DisReportActivity extends AppCompatActivity {
     public Uri getPictureUri(android.content.Intent intent) {
         Uri uri = intent.getData();
         String type = intent.getType();
-        if (uri.getScheme().equals("file") && (type.contains("image/*"))) {
+        if ("file".equals(uri.getScheme()) && (type.contains("image/*"))) {
             String path = uri.getEncodedPath();
             if (path != null) {
                 path = Uri.decode(path);

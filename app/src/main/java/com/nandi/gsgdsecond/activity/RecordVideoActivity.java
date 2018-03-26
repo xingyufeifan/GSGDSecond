@@ -139,6 +139,7 @@ public class RecordVideoActivity extends AppCompatActivity {
             case R.id.btn_upload:
                 upload();
                 break;
+            default:
         }
     }
 

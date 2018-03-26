@@ -132,6 +132,7 @@ public class WeeklyReportActivity extends AppCompatActivity {
                     }
                 }
                 break;
+            default:
         }
     }
 

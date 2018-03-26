@@ -157,6 +157,7 @@ public class DisasterListActivity extends AppCompatActivity {
             case R.id.iv_back:
                 finish();
                 break;
+            default:
         }
     }
 

@@ -193,7 +193,7 @@ public class VideoActivity extends Activity implements AnyChatBaseEvent {
 					return;
 				}
 
-				String strVideoCaptures[] = anychatSDK.EnumVideoCapture();
+				String[] strVideoCaptures = anychatSDK.EnumVideoCapture();
 				String temp = anychatSDK.GetCurVideoCapture();
 				for (int i = 0; i < strVideoCaptures.length; i++) {
 					if (!temp.equals(strVideoCaptures[i])) {
@@ -282,6 +282,7 @@ public class VideoActivity extends Activity implements AnyChatBaseEvent {
 		return super.onKeyDown(keyCode, event);
 	}
 
+	@Override
 	protected void onRestart() {
 		super.onRestart();
 		// 如果是采用Java视频显示，则需要设置Surface的CallBack
@@ -296,10 +297,12 @@ public class VideoActivity extends Activity implements AnyChatBaseEvent {
 		bOnPaused = false;
 	}
 
+	@Override
 	protected void onResume() {
 		super.onResume();
 	}
 
+	@Override
 	protected void onPause() {
 		super.onPause();
 		bOnPaused = true;
@@ -309,6 +312,7 @@ public class VideoActivity extends Activity implements AnyChatBaseEvent {
 		anychatSDK.UserSpeakControl(-1, 0);
 	}
 
+	@Override
 	protected void onDestroy() {
 		super.onDestroy();
 		handler.removeCallbacks(runnable);
@@ -333,27 +337,29 @@ public class VideoActivity extends Activity implements AnyChatBaseEvent {
 		if (bLandScape) {
 
 			if (AnyChatCoreSDK
-					.GetSDKOptionInt(AnyChatDefine.BRAC_SO_LOCALVIDEO_WIDTHCTRL) != 0)
-				height = width
-						* AnyChatCoreSDK
-								.GetSDKOptionInt(AnyChatDefine.BRAC_SO_LOCALVIDEO_HEIGHTCTRL)
-						/ AnyChatCoreSDK
-								.GetSDKOptionInt(AnyChatDefine.BRAC_SO_LOCALVIDEO_WIDTHCTRL)
-						+ 5;
-			else
-				height = (float) 3 / 4 * width + 5;
+					.GetSDKOptionInt(AnyChatDefine.BRAC_SO_LOCALVIDEO_WIDTHCTRL) != 0) {
+                height = width
+                        * AnyChatCoreSDK
+                        .GetSDKOptionInt(AnyChatDefine.BRAC_SO_LOCALVIDEO_HEIGHTCTRL)
+                        / AnyChatCoreSDK
+                        .GetSDKOptionInt(AnyChatDefine.BRAC_SO_LOCALVIDEO_WIDTHCTRL)
+                        + 5;
+            } else {
+                height = (float) 3 / 4 * width + 5;
+            }
 		} else {
 
 			if (AnyChatCoreSDK
-					.GetSDKOptionInt(AnyChatDefine.BRAC_SO_LOCALVIDEO_HEIGHTCTRL) != 0)
-				height = width
-						* AnyChatCoreSDK
-								.GetSDKOptionInt(AnyChatDefine.BRAC_SO_LOCALVIDEO_WIDTHCTRL)
-						/ AnyChatCoreSDK
-								.GetSDKOptionInt(AnyChatDefine.BRAC_SO_LOCALVIDEO_HEIGHTCTRL)
-						+ 5;
-			else
-				height = (float) 4 / 3 * width + 5;
+					.GetSDKOptionInt(AnyChatDefine.BRAC_SO_LOCALVIDEO_HEIGHTCTRL) != 0) {
+                height = width
+                        * AnyChatCoreSDK
+                        .GetSDKOptionInt(AnyChatDefine.BRAC_SO_LOCALVIDEO_WIDTHCTRL)
+                        / AnyChatCoreSDK
+                        .GetSDKOptionInt(AnyChatDefine.BRAC_SO_LOCALVIDEO_HEIGHTCTRL)
+                        + 5;
+            } else {
+                height = (float) 4 / 3 * width + 5;
+            }
 		}
 		layoutParams.width = (int) width;
 		layoutParams.height = (int) height;
@@ -406,8 +412,9 @@ public class VideoActivity extends Activity implements AnyChatBaseEvent {
 			}
 
 		} else {
-			if (userID != 0)
-				return;
+			if (userID != 0) {
+                return;
+            }
 
 			int index = anychatSDK.mVideoHelper.bindVideo(mOtherView
 					.getHolder());

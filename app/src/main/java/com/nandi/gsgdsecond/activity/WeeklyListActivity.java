@@ -180,6 +180,7 @@ public class WeeklyListActivity extends AppCompatActivity {
             case R.id.iv_call:
                 getNumber();
                 break;
+            default:
         }
     }
 

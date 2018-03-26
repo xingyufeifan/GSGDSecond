@@ -122,6 +122,7 @@ public class PictureUtils {
                 case ExifInterface.ORIENTATION_ROTATE_270:
                     degree = 270;
                     break;
+                default:
             }
             if (degree != 0 && drawable != null) {
                 Matrix m = new Matrix();

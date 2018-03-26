@@ -133,10 +133,11 @@ public class VideoConfig extends Activity{
     	mServerModelConfigBtn.setOnClickListener(onClickListener);
     	mCustomModelConfigBtn.setOnClickListener(onClickListener);
 	    
-    	if (mConfigEntity.mConfigMode == ConfigEntity.VIDEO_MODE_SERVERCONFIG)
-    		mServerModelConfigBtn.setChecked(true);
-    	else
-    		mCustomModelConfigBtn.setChecked(true);
+    	if (mConfigEntity.mConfigMode == ConfigEntity.VIDEO_MODE_SERVERCONFIG) {
+            mServerModelConfigBtn.setChecked(true);
+        } else {
+            mCustomModelConfigBtn.setChecked(true);
+        }
     		
     	//选择视频分辨率：
     	mResolutionTV = (TextView)this.findViewById(R.id.resolutionTV);

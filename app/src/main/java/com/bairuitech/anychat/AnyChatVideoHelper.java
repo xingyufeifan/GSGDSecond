@@ -17,7 +17,7 @@ import android.view.SurfaceHolder.Callback;
 //AnyChat 视频显示包装类，实现Java层面的视频播放
 public class AnyChatVideoHelper {
 	private int MAX_VIDEO_NUM = 10;
-	VideoRenderer render[];
+	VideoRenderer[] render;
 	
 	public AnyChatVideoHelper() {
 		render = new VideoRenderer[MAX_VIDEO_NUM];
@@ -45,17 +45,20 @@ public class AnyChatVideoHelper {
 	}
 	
 	public void SetVideoUser(int index, int userid) {
-		if(index < 0 || index >= MAX_VIDEO_NUM)
-			return;
-		if(render[index] == null)
-			return;
+		if(index < 0 || index >= MAX_VIDEO_NUM) {
+            return;
+        }
+		if(render[index] == null) {
+            return;
+        }
 		render[index].SetUserId(userid);
 	}
 	
 	public int SetVideoFmt(int userid, int width, int height) {
 		VideoRenderer r = GetRenderByUserId(userid);
-		if(r == null)
-			return -1;
+		if(r == null) {
+            return -1;
+        }
 		try
 		{
 			r.CreateBitmap(width, height);
@@ -79,8 +82,9 @@ public class AnyChatVideoHelper {
 	
 	public void ShowVideo(int userid, byte [] mPixel, int rotation, int mirror) {
 		VideoRenderer r = GetRenderByUserId(userid);
-		if(r == null)
-			return;
+		if(r == null) {
+            return;
+        }
 		r.DrawByteBuffer(mPixel, rotation, mirror);
 	}
 	
@@ -118,8 +122,9 @@ class VideoRenderer implements Callback {
 	
 	
     public VideoRenderer(SurfaceHolder holder) {
-        if(holder == null)
+        if(holder == null) {
             return;
+        }
         mUserid = 0;			// 未知状态
         surfaceHolder = holder;
         holder.addCallback(this);
@@ -131,8 +136,9 @@ class VideoRenderer implements Callback {
     public void SetUserId(int userid)	{		mUserid = userid;   	}
     // 设置最大裁剪图片的比例
 	public void setMaxCutScale(float scale) {
-		if(scale>1.0)
-			scale=1.0f;
+		if(scale>1.0) {
+            scale = 1.0f;
+        }
 		this.max_cut_imgscale=scale;
 	}
     
@@ -175,8 +181,9 @@ class VideoRenderer implements Callback {
             catch (Exception e) {
             }
         }
-        if(bitmap != null && (srcRect.bottom != height || srcRect.right != width))
-        	bitmap = null;
+        if(bitmap != null && (srcRect.bottom != height || srcRect.right != width)) {
+            bitmap = null;
+        }
         if(bitmap == null) {
 	        bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
 	        srcRect.left = 0;
@@ -195,8 +202,9 @@ class VideoRenderer implements Callback {
     }
 
     public void DrawByteBuffer(byte [] mPixel, int rotation, int mirror) {
-        if(bitmap == null)
+        if(bitmap == null) {
             return;
+        }
         ByteBuffer byteBuffer = ByteBuffer.wrap(mPixel); // 将 byte 数组包装到缓冲区中
 		byteBuffer.rewind();
 		bitmap.copyPixelsFromBuffer(byteBuffer);

@@ -101,6 +101,7 @@ public class DownloadUtils {
                 case DownloadManager.STATUS_FAILED:
                     Toast.makeText(mContext, "下载失败", Toast.LENGTH_SHORT).show();
                     break;
+                default:
             }
         }
         c.close();

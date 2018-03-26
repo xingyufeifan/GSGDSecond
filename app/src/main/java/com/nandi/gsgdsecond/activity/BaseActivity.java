@@ -332,6 +332,7 @@ public class BaseActivity extends AppCompatActivity
             case R.id.iv_call:
                 getNumber();
                 break;
+                default:
         }
     }
 

@@ -12,8 +12,10 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
@@ -43,6 +45,7 @@ import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.blankj.utilcode.util.FileUtils;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.nandi.gsgdsecond.R;
 import com.nandi.gsgdsecond.adapter.DisasterTypeAdapter;
@@ -380,6 +383,16 @@ public class DisasterActivity extends AppCompatActivity {
         Log.d("cp", "图片保存路径：" + pictureFile.getAbsolutePath());
         startActivityForResult(intent, 1);
     }
+    @Nullable
+    private File createFileDir(String dir) {
+        String path = Environment.getExternalStorageDirectory() + "/" + dir;
+        boolean orExistsDir = FileUtils.createOrExistsDir(path);
+        if (orExistsDir) {
+            return new File(path);
+        } else {
+            return null;
+        }
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -448,6 +461,7 @@ public class DisasterActivity extends AppCompatActivity {
             case R.id.btnLocation:
                 initLocation();
                 break;
+            default:
         }
     }
 

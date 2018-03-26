@@ -24,7 +24,9 @@ public class ToastUtils {
     }
 
     public static void showLong(Context context,CharSequence text) {
-        if(isShow)Toast.makeText(context,text,Toast.LENGTH_LONG).show();
+        if(isShow) {
+            Toast.makeText(context, text, Toast.LENGTH_LONG).show();
+        }
     }
 
     public static void showLong(String s) {

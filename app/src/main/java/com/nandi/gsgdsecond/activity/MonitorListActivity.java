@@ -219,6 +219,7 @@ public class MonitorListActivity extends AppCompatActivity {
                     setRequest(startTime, endTime);
                 }
                 break;
+            default:
         }
     }
 }

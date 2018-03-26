@@ -220,7 +220,7 @@ public class MyService extends Service implements AnyChatBaseEvent {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            if (action.equals("stop_service")) {
+            if ("stop_service".equals(action)) {
                 stopSelf();
                 Log.e("MyBroadReceiver", "收到stop service广播");
             }

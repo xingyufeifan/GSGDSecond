@@ -72,10 +72,10 @@ public class LocationService extends Service {
         @Override
         public void onReceiveLocation(BDLocation bdLocation) {
             int locType = bdLocation.getLocType();
-            if (locType == BDLocation.TypeOffLineLocation || locType == BDLocation.TypeGpsLocation || locType == BDLocation.TypeNetWorkLocation) {
+            if ( locType == BDLocation.TypeGpsLocation || locType == BDLocation.TypeNetWorkLocation) {
                 double lon = bdLocation.getLongitude();
                 double lat = bdLocation.getLatitude();
-                ToastUtils.showLong(context, lon+"--"+lat);
+                Log.d("CP","locType"+locType);
                 setPost(lon, lat);
             }
         }

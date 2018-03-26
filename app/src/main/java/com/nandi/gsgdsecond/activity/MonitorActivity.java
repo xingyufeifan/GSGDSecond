@@ -263,6 +263,7 @@ public class MonitorActivity extends AppCompatActivity {
             case R.id.btnLocation:
                 initLocation();
                 break;
+            default:
         }
     }
     private void getNumber() {

@@ -111,6 +111,7 @@ public class ReceiveVideoActivity extends Activity implements OnClickListener {
             case R.id.btn_reject:
                 finish();
                 break;
+            default:
         }
     }
 

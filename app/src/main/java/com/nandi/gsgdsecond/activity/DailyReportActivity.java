@@ -49,7 +49,7 @@ public class DailyReportActivity extends AppCompatActivity {
     @BindView(R.id.tv_recordtime)
     TextView recordtime;  //记录时间
     @BindView(R.id.et_recorder)
-    EditText etName; //记录人员
+    TextView etName; //记录人员
     @BindView(R.id.et_worktype)
     EditText etWorkType; //工作类型
     @BindView(R.id.et_situation)
@@ -158,6 +158,7 @@ public class DailyReportActivity extends AppCompatActivity {
                 }
 
                 break;
+            default:
         }
     }
 

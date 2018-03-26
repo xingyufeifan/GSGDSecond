@@ -163,6 +163,7 @@ public class MacoYesActivity extends AppCompatActivity {
             case R.id.iv_call:
                 getNumber();
                 break;
+            default:
         }
     }
 
