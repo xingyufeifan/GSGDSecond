@@ -1,5 +1,6 @@
 package com.nandi.gsgdsecond.activity;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -294,4 +295,9 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        progressBar.dismiss();
+    }
 }

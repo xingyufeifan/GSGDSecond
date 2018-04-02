@@ -92,8 +92,7 @@ public class BaseActivity extends AppCompatActivity
                 .getSystemService(Context.LOCATION_SERVICE);
         // 判断GPS模块是否开启，如果没有则开启
         if (!locationManager.isProviderEnabled(android.location.LocationManager.GPS_PROVIDER)) {
-            Toast.makeText(context, "请打开GPS",
-                    Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "请打开GPS", Toast.LENGTH_SHORT).show();
             // 转到手机设置界面，用户设置GPS
             Intent intent = new Intent(
                     Settings.ACTION_LOCATION_SOURCE_SETTINGS);

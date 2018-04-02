@@ -30,7 +30,6 @@ public class LocationService extends Service {
     private String uploadUrl;
     private String mobile;
     private LocationClient locationClient;
-    int cont = 1;
 
     @Nullable
     @Override
@@ -72,10 +71,9 @@ public class LocationService extends Service {
         @Override
         public void onReceiveLocation(BDLocation bdLocation) {
             int locType = bdLocation.getLocType();
-            if ( locType == BDLocation.TypeGpsLocation || locType == BDLocation.TypeNetWorkLocation) {
+            if (locType == BDLocation.TypeGpsLocation || locType == BDLocation.TypeNetWorkLocation) {
                 double lon = bdLocation.getLongitude();
                 double lat = bdLocation.getLatitude();
-                Log.d("CP","locType"+locType);
                 setPost(lon, lat);
             }
         }
@@ -90,9 +88,6 @@ public class LocationService extends Service {
         }
 
         private void setPost(double lon, double lat) {
-
-            Log.e("bhy", cont+++"");
-
             OkHttpUtils.get().url(getResources().getString(R.string.base_url) + uploadUrl)
                     .addParams("phone", mobile)
                     .addParams("lon", String.valueOf(lon))
@@ -118,4 +113,5 @@ public class LocationService extends Service {
         super.onDestroy();
         locationClient.stop();
     }
+
 }
